@@ -87,16 +87,26 @@ NBclassifyW = _orngCRS.NBclassifyW
 
 NBupdate = _orngCRS.NBupdate
 
+Ksetmodel = _orngCRS.Ksetmodel
+
+Kaddmodel = _orngCRS.Kaddmodel
+
+Ktestaddition = _orngCRS.Ktestaddition
+
 Kdie = _orngCRS.Kdie
 
 Kuse = _orngCRS.Kuse
+
+Kvalidate = _orngCRS.Kvalidate
 
 Kremember = _orngCRS.Kremember
 
 Klearn = _orngCRS.Klearn
 
-Ktestmodels = _orngCRS.Ktestmodels
+KgetDOF = _orngCRS.KgetDOF
 
-Kprepare = _orngCRS.Kprepare
+Kcheckreversal = _orngCRS.Kcheckreversal
+
+Ktestmodels = _orngCRS.Ktestmodels
 
 

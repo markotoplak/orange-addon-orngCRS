@@ -87,7 +87,7 @@ struct DInput {
 extern "C" {
 #endif
 
-void LogReg(struct LRInput *in, struct LRInfo *OutValue);
+void LogReg(struct LRInput *in, double regularization, struct LRInfo *OutValue);
 void MCluster(struct CInput *in, long k,  int metric,  struct CMInfo *OutValue);
 void HCluster(struct CInput *in,  int metric,  int method, struct CHInfo *OutValue);
 void FCluster(struct CInput *in, long k,  int metric,  struct CFInfo *OutValue);

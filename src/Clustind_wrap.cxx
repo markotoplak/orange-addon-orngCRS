@@ -1537,16 +1537,17 @@ static PyObject *_wrap_DFCluster(PyObject *self, PyObject *args) {
 static PyObject *_wrap_LogReg(PyObject *self, PyObject *args) {
     PyObject *resultobj;
     struct LRInput *arg1 ;
-    struct LRInfo *arg2 ;
+    double arg2 ;
+    struct LRInfo *arg3 ;
     PyObject * obj0  = 0 ;
     
     {
         arg1 = NULL;
     }
     {
-        arg2 = (struct LRInfo *)malloc(sizeof(struct LRInfo));
+        arg3 = (struct LRInfo *)malloc(sizeof(struct LRInfo));
     }
-    if(!PyArg_ParseTuple(args,(char *)"O:LogReg",&obj0)) goto fail;
+    if(!PyArg_ParseTuple(args,(char *)"Od:LogReg",&obj0,&arg2)) goto fail;
     {
         /* Check if is a list */
         // printf("A-");
@@ -1644,7 +1645,7 @@ static PyObject *_wrap_LogReg(PyObject *self, PyObject *args) {
         //  printf("-A");
         //printf("lr:-2\n");
     }
-    LogReg(arg1,arg2);
+    LogReg(arg1,arg2,arg3);
     
     Py_INCREF(Py_None); resultobj = Py_None;
     {
@@ -1654,42 +1655,42 @@ static PyObject *_wrap_LogReg(PyObject *self, PyObject *args) {
         //		printf("X+");
         //		printf("lr:+1\n");
         o = PyTuple_New(10);
-        chisq = PyFloat_FromDouble(arg2->chisq);
-        devnce= PyFloat_FromDouble(arg2->devnce);
-        ndf = PyInt_FromLong(arg2->ndf);
-        error = PyInt_FromLong(arg2->error);
-        beta = PyList_New(arg2->k+1);
-        for (i = 0; i <= arg2->k; ++i) {
-            ll = PyFloat_FromDouble(arg2->beta[i]);
+        chisq = PyFloat_FromDouble(arg3->chisq);
+        devnce= PyFloat_FromDouble(arg3->devnce);
+        ndf = PyInt_FromLong(arg3->ndf);
+        error = PyInt_FromLong(arg3->error);
+        beta = PyList_New(arg3->k+1);
+        for (i = 0; i <= arg3->k; ++i) {
+            ll = PyFloat_FromDouble(arg3->beta[i]);
             PyList_SetItem(beta, i, ll);
         }
-        se_beta = PyList_New(arg2->k+1);
-        for (i = 0; i <= arg2->k; ++i) {
-            ll = PyFloat_FromDouble(arg2->se_beta[i]);
+        se_beta = PyList_New(arg3->k+1);
+        for (i = 0; i <= arg3->k; ++i) {
+            ll = PyFloat_FromDouble(arg3->se_beta[i]);
             PyList_SetItem(se_beta, i, ll);
         }
-        fit = PyList_New(arg2->nn);
-        for (i = 1; i <= arg2->nn; ++i) {
-            ll = PyFloat_FromDouble(arg2->fit[i]);
+        fit = PyList_New(arg3->nn);
+        for (i = 1; i <= arg3->nn; ++i) {
+            ll = PyFloat_FromDouble(arg3->fit[i]);
             PyList_SetItem(fit, i-1, ll);
         }
-        stdres = PyList_New(arg2->nn);
-        for (i = 1; i <= arg2->nn; ++i) {
-            ll = PyFloat_FromDouble(arg2->stdres[i]);
+        stdres = PyList_New(arg3->nn);
+        for (i = 1; i <= arg3->nn; ++i) {
+            ll = PyFloat_FromDouble(arg3->stdres[i]);
             PyList_SetItem(stdres, i-1, ll);
         }
-        covbeta = PyList_New(arg2->k+1);
-        for (i = 0; i <= arg2->k; ++i) {
-            kk =  PyList_New(arg2->k+1);
-            for(j = 0; j <= arg2->k; ++j) {
-                ll = PyFloat_FromDouble(arg2->cov_beta[i][j]);
+        covbeta = PyList_New(arg3->k+1);
+        for (i = 0; i <= arg3->k; ++i) {
+            kk =  PyList_New(arg3->k+1);
+            for(j = 0; j <= arg3->k; ++j) {
+                ll = PyFloat_FromDouble(arg3->cov_beta[i][j]);
                 PyList_SetItem(kk, j, ll);
             }
             PyList_SetItem(covbeta, i, kk);
         }
-        deps = PyList_New(arg2->k);
-        for (i = 1; i <= arg2->k; ++i) {
-            ll = PyInt_FromLong(arg2->dependent[i]);
+        deps = PyList_New(arg3->k);
+        for (i = 1; i <= arg3->k; ++i) {
+            ll = PyInt_FromLong(arg3->dependent[i]);
             PyList_SetItem(deps, i-1, ll);
         }
         
@@ -1704,7 +1705,7 @@ static PyObject *_wrap_LogReg(PyObject *self, PyObject *args) {
         PyTuple_SetItem(o, 8, error);
         PyTuple_SetItem(o, 9, deps);
         
-        LRInfoCleanup(arg2);
+        LRInfoCleanup(arg3);
         
         if ((!resultobj) || (resultobj == Py_None)) {
             resultobj = o;
@@ -4260,6 +4261,246 @@ static PyObject *_wrap_NBupdate(PyObject *self, PyObject *args) {
 }
 
 
+static PyObject *_wrap_Ksetmodel(PyObject *self, PyObject *args) {
+    PyObject *resultobj;
+    struct KInfo *arg1 ;
+    struct KModel *arg2 ;
+    PyObject * obj0  = 0 ;
+    PyObject * obj1  = 0 ;
+    
+    {
+        arg2 = NULL;
+    }
+    if(!PyArg_ParseTuple(args,(char *)"OO:Ksetmodel",&obj0,&obj1)) goto fail;
+    if ((SWIG_ConvertPtr(obj0,(void **) &arg1, SWIGTYPE_p_KInfo,SWIG_POINTER_EXCEPTION | 0 )) == -1) SWIG_fail;
+    {
+        PyObject *p;
+        
+        arg2 = (struct KModel *) malloc(sizeof(struct KModel));
+        arg2->nogroups = 0;
+        arg2->groups = NULL;
+        
+        if (PyList_Check(obj1)) {
+            int i, j, msize;
+            
+            arg2->nogroups = PyList_Size(obj1);
+            if(arg2->nogroups > 0) {
+                arg2->groups = (struct KGroup *)malloc(sizeof(struct KGroup)*arg2->nogroups);
+                for (i = 0; i < arg2->nogroups; i++) {
+                    PyObject *o = PyList_GetItem(obj1,i);
+                    PyObject *list = PyTuple_GetItem(o,1);
+                    msize = PyList_Size(list);
+                    arg2->groups[i].n = msize;
+                    arg2->groups[i].l = (int *)malloc(sizeof(int)*msize);
+                    for (j = 0; j < msize; ++j)
+                    arg2->groups[i].l[j] = PyInt_AsLong(PyList_GetItem(list,j));
+                    arg2->groups[i].times = PyInt_AsLong(PyTuple_GetItem(o,0));
+                }
+            }
+        }else {
+            PyErr_SetString(PyExc_TypeError,"tuple element #1 not a list of groups");
+            return NULL;
+        }
+    }
+    Ksetmodel(arg1,arg2);
+    
+    Py_INCREF(Py_None); resultobj = Py_None;
+    {
+        int i;
+        if(arg2->groups != NULL) {
+            for (i = 0; i < arg2->nogroups; ++i) {
+                free(arg2->groups[i].l);
+            }
+            free(arg2->groups);
+        }
+        free(arg2);
+    }
+    return resultobj;
+    fail:
+    {
+        int i;
+        if(arg2->groups != NULL) {
+            for (i = 0; i < arg2->nogroups; ++i) {
+                free(arg2->groups[i].l);
+            }
+            free(arg2->groups);
+        }
+        free(arg2);
+    }
+    return NULL;
+}
+
+
+static PyObject *_wrap_Kaddmodel(PyObject *self, PyObject *args) {
+    PyObject *resultobj;
+    struct KInfo *arg1 ;
+    struct KModel *arg2 ;
+    PyObject * obj0  = 0 ;
+    PyObject * obj1  = 0 ;
+    
+    {
+        arg2 = NULL;
+    }
+    if(!PyArg_ParseTuple(args,(char *)"OO:Kaddmodel",&obj0,&obj1)) goto fail;
+    if ((SWIG_ConvertPtr(obj0,(void **) &arg1, SWIGTYPE_p_KInfo,SWIG_POINTER_EXCEPTION | 0 )) == -1) SWIG_fail;
+    {
+        PyObject *p;
+        
+        arg2 = (struct KModel *) malloc(sizeof(struct KModel));
+        arg2->nogroups = 0;
+        arg2->groups = NULL;
+        
+        if (PyList_Check(obj1)) {
+            int i, j, msize;
+            
+            arg2->nogroups = PyList_Size(obj1);
+            if(arg2->nogroups > 0) {
+                arg2->groups = (struct KGroup *)malloc(sizeof(struct KGroup)*arg2->nogroups);
+                for (i = 0; i < arg2->nogroups; i++) {
+                    PyObject *o = PyList_GetItem(obj1,i);
+                    PyObject *list = PyTuple_GetItem(o,1);
+                    msize = PyList_Size(list);
+                    arg2->groups[i].n = msize;
+                    arg2->groups[i].l = (int *)malloc(sizeof(int)*msize);
+                    for (j = 0; j < msize; ++j)
+                    arg2->groups[i].l[j] = PyInt_AsLong(PyList_GetItem(list,j));
+                    arg2->groups[i].times = PyInt_AsLong(PyTuple_GetItem(o,0));
+                }
+            }
+        }else {
+            PyErr_SetString(PyExc_TypeError,"tuple element #1 not a list of groups");
+            return NULL;
+        }
+    }
+    Kaddmodel(arg1,arg2);
+    
+    Py_INCREF(Py_None); resultobj = Py_None;
+    {
+        int i;
+        if(arg2->groups != NULL) {
+            for (i = 0; i < arg2->nogroups; ++i) {
+                free(arg2->groups[i].l);
+            }
+            free(arg2->groups);
+        }
+        free(arg2);
+    }
+    return resultobj;
+    fail:
+    {
+        int i;
+        if(arg2->groups != NULL) {
+            for (i = 0; i < arg2->nogroups; ++i) {
+                free(arg2->groups[i].l);
+            }
+            free(arg2->groups);
+        }
+        free(arg2);
+    }
+    return NULL;
+}
+
+
+static PyObject *_wrap_Ktestaddition(PyObject *self, PyObject *args) {
+    PyObject *resultobj;
+    struct KInfo *arg1 ;
+    struct KModel *arg2 ;
+    struct KList *arg3 ;
+    PyObject * obj0  = 0 ;
+    PyObject * obj1  = 0 ;
+    
+    {
+        arg2 = NULL;
+    }
+    {
+        arg3 = (struct KList *)malloc(sizeof(struct KList));
+    }
+    if(!PyArg_ParseTuple(args,(char *)"OO:Ktestaddition",&obj0,&obj1)) goto fail;
+    if ((SWIG_ConvertPtr(obj0,(void **) &arg1, SWIGTYPE_p_KInfo,SWIG_POINTER_EXCEPTION | 0 )) == -1) SWIG_fail;
+    {
+        PyObject *p;
+        
+        arg2 = (struct KModel *) malloc(sizeof(struct KModel));
+        arg2->nogroups = 0;
+        arg2->groups = NULL;
+        
+        if (PyList_Check(obj1)) {
+            int i, j, msize;
+            
+            arg2->nogroups = PyList_Size(obj1);
+            if(arg2->nogroups > 0) {
+                arg2->groups = (struct KGroup *)malloc(sizeof(struct KGroup)*arg2->nogroups);
+                for (i = 0; i < arg2->nogroups; i++) {
+                    PyObject *o = PyList_GetItem(obj1,i);
+                    PyObject *list = PyTuple_GetItem(o,1);
+                    msize = PyList_Size(list);
+                    arg2->groups[i].n = msize;
+                    arg2->groups[i].l = (int *)malloc(sizeof(int)*msize);
+                    for (j = 0; j < msize; ++j)
+                    arg2->groups[i].l[j] = PyInt_AsLong(PyList_GetItem(list,j));
+                    arg2->groups[i].times = PyInt_AsLong(PyTuple_GetItem(o,0));
+                }
+            }
+        }else {
+            PyErr_SetString(PyExc_TypeError,"tuple element #1 not a list of groups");
+            return NULL;
+        }
+    }
+    Ktestaddition(arg1,arg2,arg3);
+    
+    Py_INCREF(Py_None); resultobj = Py_None;
+    {
+        int i;
+        PyObject *o, *q;
+        
+        o = PyList_New(arg3->n);
+        
+        for(i = 0; i < arg3->n; ++i) {
+            q = PyFloat_FromDouble(arg3->l[i]);
+            PyList_SetItem(o, i, q);
+        }
+        free(arg3->l);
+        free(arg3);
+        
+        if ((!resultobj) || (resultobj == Py_None)) {
+            resultobj = o;
+        }else {
+            if (!PyList_Check(resultobj)) {
+                PyObject *o2 = resultobj;
+                resultobj = PyList_New(0);
+                PyList_Append(resultobj,o2);
+                Py_XDECREF(o2);
+            }
+            PyList_Append(resultobj,o);
+            Py_XDECREF(o);
+        }
+    }
+    {
+        int i;
+        if(arg2->groups != NULL) {
+            for (i = 0; i < arg2->nogroups; ++i) {
+                free(arg2->groups[i].l);
+            }
+            free(arg2->groups);
+        }
+        free(arg2);
+    }
+    return resultobj;
+    fail:
+    {
+        int i;
+        if(arg2->groups != NULL) {
+            for (i = 0; i < arg2->nogroups; ++i) {
+                free(arg2->groups[i].l);
+            }
+            free(arg2->groups);
+        }
+        free(arg2);
+    }
+    return NULL;
+}
+
+
 static PyObject *_wrap_Kdie(PyObject *self, PyObject *args) {
     PyObject *resultobj;
     struct KInfo *arg1 ;
@@ -4357,13 +4598,66 @@ static PyObject *_wrap_Kuse(PyObject *self, PyObject *args) {
 }
 
 
+static PyObject *_wrap_Kvalidate(PyObject *self, PyObject *args) {
+    PyObject *resultobj;
+    struct KInfo *arg1 ;
+    int *arg2 ;
+    double result;
+    PyObject * obj0  = 0 ;
+    PyObject * obj1  = 0 ;
+    
+    {
+        arg2 = NULL;
+    }
+    if(!PyArg_ParseTuple(args,(char *)"OO:Kvalidate",&obj0,&obj1)) goto fail;
+    if ((SWIG_ConvertPtr(obj0,(void **) &arg1, SWIGTYPE_p_KInfo,SWIG_POINTER_EXCEPTION | 0 )) == -1) SWIG_fail;
+    {
+        /* Check if is a list */
+        if (PyList_Check(obj1)) {
+            int size = PyList_Size(obj1);
+            int i = 0;
+            arg2 = (int *) malloc((1+size)*sizeof(int));
+            for (i = 0; i < size; i++) {
+                PyObject *o = PyList_GetItem(obj1,i);
+                if (PyInt_Check(o)) {
+                    arg2[i] = PyInt_AsLong(PyList_GetItem(obj1,i));
+                }else {
+                    PyErr_SetString(PyExc_TypeError,"list must contain floats");
+                    free(arg2);
+                    return NULL;
+                }
+            }
+            arg2[i] = -1;
+        }else {
+            PyErr_SetString(PyExc_TypeError,"not a list");
+            return NULL;
+        }
+    }
+    result = (double)Kvalidate(arg1,arg2);
+    
+    resultobj = PyFloat_FromDouble(result);
+    {
+        if (arg2 != NULL)
+        free((int *) arg2);
+    }
+    return resultobj;
+    fail:
+    {
+        if (arg2 != NULL)
+        free((int *) arg2);
+    }
+    return NULL;
+}
+
+
 static PyObject *_wrap_Kremember(PyObject *self, PyObject *args) {
     PyObject *resultobj;
     struct KInput *arg1 ;
+    double arg2 ;
     struct KInfo *result;
     PyObject * obj0  = 0 ;
     
-    if(!PyArg_ParseTuple(args,(char *)"O:Kremember",&obj0)) goto fail;
+    if(!PyArg_ParseTuple(args,(char *)"Od:Kremember",&obj0,&arg2)) goto fail;
     {
         int i, j, size, msize;
         PyObject *arr,*cards;
@@ -4442,7 +4736,7 @@ static PyObject *_wrap_Kremember(PyObject *self, PyObject *args) {
             }
         }
     }
-    result = (struct KInfo *)Kremember(arg1);
+    result = (struct KInfo *)Kremember(arg1,arg2);
     
     resultobj = SWIG_NewPointerObj((void *) result, SWIGTYPE_p_KInfo, 0);
     return resultobj;
@@ -4483,6 +4777,98 @@ static PyObject *_wrap_Klearn(PyObject *self, PyObject *args) {
         }
         free(arg4->l);
         free(arg4);
+        
+        if ((!resultobj) || (resultobj == Py_None)) {
+            resultobj = o;
+        }else {
+            if (!PyList_Check(resultobj)) {
+                PyObject *o2 = resultobj;
+                resultobj = PyList_New(0);
+                PyList_Append(resultobj,o2);
+                Py_XDECREF(o2);
+            }
+            PyList_Append(resultobj,o);
+            Py_XDECREF(o);
+        }
+    }
+    return resultobj;
+    fail:
+    return NULL;
+}
+
+
+static PyObject *_wrap_KgetDOF(PyObject *self, PyObject *args) {
+    PyObject *resultobj;
+    struct KInfo *arg1 ;
+    struct KList *arg2 ;
+    PyObject * obj0  = 0 ;
+    
+    {
+        arg2 = (struct KList *)malloc(sizeof(struct KList));
+    }
+    if(!PyArg_ParseTuple(args,(char *)"O:KgetDOF",&obj0)) goto fail;
+    if ((SWIG_ConvertPtr(obj0,(void **) &arg1, SWIGTYPE_p_KInfo,SWIG_POINTER_EXCEPTION | 0 )) == -1) SWIG_fail;
+    KgetDOF(arg1,arg2);
+    
+    Py_INCREF(Py_None); resultobj = Py_None;
+    {
+        int i;
+        PyObject *o, *q;
+        
+        o = PyList_New(arg2->n);
+        
+        for(i = 0; i < arg2->n; ++i) {
+            q = PyFloat_FromDouble(arg2->l[i]);
+            PyList_SetItem(o, i, q);
+        }
+        free(arg2->l);
+        free(arg2);
+        
+        if ((!resultobj) || (resultobj == Py_None)) {
+            resultobj = o;
+        }else {
+            if (!PyList_Check(resultobj)) {
+                PyObject *o2 = resultobj;
+                resultobj = PyList_New(0);
+                PyList_Append(resultobj,o2);
+                Py_XDECREF(o2);
+            }
+            PyList_Append(resultobj,o);
+            Py_XDECREF(o);
+        }
+    }
+    return resultobj;
+    fail:
+    return NULL;
+}
+
+
+static PyObject *_wrap_Kcheckreversal(PyObject *self, PyObject *args) {
+    PyObject *resultobj;
+    struct KInfo *arg1 ;
+    struct KList *arg2 ;
+    PyObject * obj0  = 0 ;
+    
+    {
+        arg2 = (struct KList *)malloc(sizeof(struct KList));
+    }
+    if(!PyArg_ParseTuple(args,(char *)"O:Kcheckreversal",&obj0)) goto fail;
+    if ((SWIG_ConvertPtr(obj0,(void **) &arg1, SWIGTYPE_p_KInfo,SWIG_POINTER_EXCEPTION | 0 )) == -1) SWIG_fail;
+    Kcheckreversal(arg1,arg2);
+    
+    Py_INCREF(Py_None); resultobj = Py_None;
+    {
+        int i;
+        PyObject *o, *q;
+        
+        o = PyList_New(arg2->n);
+        
+        for(i = 0; i < arg2->n; ++i) {
+            q = PyFloat_FromDouble(arg2->l[i]);
+            PyList_SetItem(o, i, q);
+        }
+        free(arg2->l);
+        free(arg2);
         
         if ((!resultobj) || (resultobj == Py_None)) {
             resultobj = o;
@@ -4632,77 +5018,6 @@ static PyObject *_wrap_Ktestmodels(PyObject *self, PyObject *args) {
 }
 
 
-static PyObject *_wrap_Kprepare(PyObject *self, PyObject *args) {
-    PyObject *resultobj;
-    struct KInfo *arg1 ;
-    double arg2 ;
-    struct KModel *arg3 ;
-    PyObject * obj0  = 0 ;
-    PyObject * obj2  = 0 ;
-    
-    {
-        arg3 = NULL;
-    }
-    if(!PyArg_ParseTuple(args,(char *)"OdO:Kprepare",&obj0,&arg2,&obj2)) goto fail;
-    if ((SWIG_ConvertPtr(obj0,(void **) &arg1, SWIGTYPE_p_KInfo,SWIG_POINTER_EXCEPTION | 0 )) == -1) SWIG_fail;
-    {
-        PyObject *p;
-        
-        arg3 = (struct KModel *) malloc(sizeof(struct KModel));
-        arg3->nogroups = 0;
-        arg3->groups = NULL;
-        
-        if (PyList_Check(obj2)) {
-            int i, j, msize;
-            
-            arg3->nogroups = PyList_Size(obj2);
-            if(arg3->nogroups > 0) {
-                arg3->groups = (struct KGroup *)malloc(sizeof(struct KGroup)*arg3->nogroups);
-                for (i = 0; i < arg3->nogroups; i++) {
-                    PyObject *o = PyList_GetItem(obj2,i);
-                    PyObject *list = PyTuple_GetItem(o,1);
-                    msize = PyList_Size(list);
-                    arg3->groups[i].n = msize;
-                    arg3->groups[i].l = (int *)malloc(sizeof(int)*msize);
-                    for (j = 0; j < msize; ++j)
-                    arg3->groups[i].l[j] = PyInt_AsLong(PyList_GetItem(list,j));
-                    arg3->groups[i].times = PyInt_AsLong(PyTuple_GetItem(o,0));
-                }
-            }
-        }else {
-            PyErr_SetString(PyExc_TypeError,"tuple element #1 not a list of groups");
-            return NULL;
-        }
-    }
-    Kprepare(arg1,arg2,arg3);
-    
-    Py_INCREF(Py_None); resultobj = Py_None;
-    {
-        int i;
-        if(arg3->groups != NULL) {
-            for (i = 0; i < arg3->nogroups; ++i) {
-                free(arg3->groups[i].l);
-            }
-            free(arg3->groups);
-        }
-        free(arg3);
-    }
-    return resultobj;
-    fail:
-    {
-        int i;
-        if(arg3->groups != NULL) {
-            for (i = 0; i < arg3->nogroups; ++i) {
-                free(arg3->groups[i].l);
-            }
-            free(arg3->groups);
-        }
-        free(arg3);
-    }
-    return NULL;
-}
-
-
 static PyMethodDef SwigMethods[] = {
 	 { (char *)"MCluster", _wrap_MCluster, METH_VARARGS },
 	 { (char *)"HCluster", _wrap_HCluster, METH_VARARGS },
@@ -4734,12 +5049,17 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"NBclassify", _wrap_NBclassify, METH_VARARGS },
 	 { (char *)"NBclassifyW", _wrap_NBclassifyW, METH_VARARGS },
 	 { (char *)"NBupdate", _wrap_NBupdate, METH_VARARGS },
+	 { (char *)"Ksetmodel", _wrap_Ksetmodel, METH_VARARGS },
+	 { (char *)"Kaddmodel", _wrap_Kaddmodel, METH_VARARGS },
+	 { (char *)"Ktestaddition", _wrap_Ktestaddition, METH_VARARGS },
 	 { (char *)"Kdie", _wrap_Kdie, METH_VARARGS },
 	 { (char *)"Kuse", _wrap_Kuse, METH_VARARGS },
+	 { (char *)"Kvalidate", _wrap_Kvalidate, METH_VARARGS },
 	 { (char *)"Kremember", _wrap_Kremember, METH_VARARGS },
 	 { (char *)"Klearn", _wrap_Klearn, METH_VARARGS },
+	 { (char *)"KgetDOF", _wrap_KgetDOF, METH_VARARGS },
+	 { (char *)"Kcheckreversal", _wrap_Kcheckreversal, METH_VARARGS },
 	 { (char *)"Ktestmodels", _wrap_Ktestmodels, METH_VARARGS },
-	 { (char *)"Kprepare", _wrap_Kprepare, METH_VARARGS },
 	 { NULL, NULL }
 };
 

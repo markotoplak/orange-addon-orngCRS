@@ -98,11 +98,12 @@
 				EnableIntrinsicFunctions="TRUE"
 				ImproveFloatingPointConsistency="TRUE"
 				FavorSizeOrSpeed="1"
+				OmitFramePointers="TRUE"
 				EnableFiberSafeOptimizations="TRUE"
 				OptimizeForProcessor="3"
 				OptimizeForWindowsApplication="TRUE"
 				AdditionalIncludeDirectories="C:\dev\Python\include"
-				PreprocessorDefinitions="WIN32;_WINDOWS"
+				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG"
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
 				EnableFunctionLevelLinking="TRUE"
@@ -530,6 +531,12 @@
 					AdditionalIncludeDirectories=""
 					PreprocessorDefinitions="WIN32;_WINDOWS;$(NoInherit)"/>
 			</FileConfiguration>
+		</File>
+		<File
+			RelativePath=".\src\pr_statistics.cpp">
+		</File>
+		<File
+			RelativePath=".\src\pr_statistics.h">
 		</File>
 		<File
 			RelativePath="src\svm.cpp">

@@ -1297,7 +1297,7 @@ void DHCluster(struct DInput *in, int method, struct CHInfo *OutValue);
 void FCluster(struct CInput *in, long k, int metric, struct CFInfo *OutValue);
 void DFCluster(struct DInput *in, long k, struct CFInfo *OutValue);
 
-void LogReg(struct LRInput *input, struct LRInfo *OutValue);
+void LogReg(struct LRInput *input, double regularization, struct LRInfo *OutValue);
 
 
 
@@ -1725,10 +1725,15 @@ void NBupdate(struct NBInfo *in, int attribute, int card, int *values);
 	free($1);
 }
 
+void Ksetmodel(struct KInfo *in, struct KModel *m);
+void Kaddmodel(struct KInfo *in, struct KModel *m);
+void Ktestaddition(struct KInfo *in, struct KModel *m, struct KList *OutValue);
 
 void Kdie(struct KInfo *p);
 void Kuse(struct KInfo *in, int *ex, struct KList *OutValue);
-struct KInfo *Kremember(struct KInput *input);
+double Kvalidate(struct KInfo *in, int *ex);
+struct KInfo *Kremember(struct KInput *input, double prior);
 void Klearn(struct KInfo *in, int samples, int depth, struct KMatrix *OutValue);
+void KgetDOF(struct KInfo *in, struct KList *OutValue);
+void Kcheckreversal(struct KInfo *in, struct KList *OutValue);
 void Ktestmodels(struct KInfo *in, struct KModels *ms, int samples, struct KMatrix *OutValue);
-void Kprepare(struct KInfo *in, double prior, struct KModel *m);

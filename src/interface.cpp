@@ -21,7 +21,8 @@ void logistic(// input
 			   double *fit,				// fitted probabilities for groups
 			   double **cov_beta,		// approx covariance matrix
 			   double *stdres,			// residuals
-			   int *dependent
+			   int *dependent,
+			   double regularization
 			  );
 
 
@@ -164,7 +165,7 @@ double SVMClassifyM(psvm_model model, struct SVMExample *input) {
 	return r;
 }
 
-void LogReg(struct LRInput *input, struct LRInfo *O) {
+void LogReg(struct LRInput *input, double regularization, struct LRInfo *O) {
 	int i;
 	
 	O->nn = input->nn;
@@ -193,7 +194,7 @@ void LogReg(struct LRInput *input, struct LRInfo *O) {
 //	printf("+lr:2\n");
 	logistic(O->error, input->nn,input->data,input->k,input->success,input->trials,
 		O->chisq, O->devnce, O->ndf, O->beta, O->se_beta,
-		O->fit, O->cov_beta, O->stdres, O->dependent
+		O->fit, O->cov_beta, O->stdres, O->dependent, regularization
 	);
 //	printf("-lr:2\n");
 	//printf("lr:3\n");
