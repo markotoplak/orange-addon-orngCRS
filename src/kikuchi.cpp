@@ -250,7 +250,7 @@ public:
 				best[i] = 0.0;
 			}
 			results[i] = exp(results[i]-norm);
-			mino = min(mino,results[i]);
+			mino = mino < results[i] ? mino : results[i];
 			sum += results[i];
 		}
 		sum += mino*d->card[d->na]; // correct for negative minimum
