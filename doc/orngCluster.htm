@@ -1,0 +1,470 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="./orngCluster_files/filelist.xml">
+<title>orngCluster</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Aleks Jakulin</o:Author>
+  <o:Template>Normal</o:Template>
+  <o:LastAuthor>Aleks Jakulin</o:LastAuthor>
+  <o:Revision>2</o:Revision>
+  <o:TotalTime>217</o:TotalTime>
+  <o:Created>2001-11-08T12:52:00Z</o:Created>
+  <o:LastSaved>2001-11-08T12:52:00Z</o:LastSaved>
+  <o:Pages>4</o:Pages>
+  <o:Words>1142</o:Words>
+  <o:Characters>5705</o:Characters>
+  <o:Company>Laboratorij za umetno inteligenco</o:Company>
+  <o:Lines>163</o:Lines>
+  <o:Paragraphs>75</o:Paragraphs>
+  <o:CharactersWithSpaces>6793</o:CharactersWithSpaces>
+  <o:Version>9.2720</o:Version>
+ </o:DocumentProperties>
+ <o:OfficeDocumentSettings>
+  <o:AllowPNG/>
+  <o:TargetScreenSize>1024x768</o:TargetScreenSize>
+ </o:OfficeDocumentSettings>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:2;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:0 268435456 0 0 -2147483648 0;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+@list l0
+	{mso-list-id:264386766;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-913531962 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l0:level1
+	{mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1
+	{mso-list-id:1528057699;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1875372626 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l1:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+</head>
+
+<body lang=EN-US style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<p class=MsoNormal><b>orngCluster<o:p></o:p></b></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>Clustering is a statistical method that obtains a set of
+elements and tries to clump similar elements together into “clusters”.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>orngCluster supports the following kinds of clustering:</p>
+
+<ul style='margin-top:0in' type=disc>
+ <li class=MsoNormal style='mso-list:l1 level1 lfo1;tab-stops:list .5in'><u>agglomerative
+     hierarchical</u>: we greedily and recursively perform clustering (n-1)
+     times and end up with a tree</li>
+ <li class=MsoNormal style='mso-list:l1 level1 lfo1;tab-stops:list .5in'><u>k-means</u>:
+     we know the number of clusters in advance</li>
+ <li class=MsoNormal style='mso-list:l1 level1 lfo1;tab-stops:list .5in'><u>fuzzy</u>:
+     we get a probability distribution of membership of an element to a given
+     number of clusters</li>
+</ul>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>We can present the data to a clustering routine in two ways,
+either as a set of vectors in some n-dimensional space, or as a dissimilarity
+matrix. Each of the above algorithms works with both representations. </p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>You can imagine the set of vectors as a set of points in
+space. We represent this in python as <span style='font-family:"Courier New";
+mso-bidi-font-family:"Times New Roman"'>[[1,2],[2,1],[1,1],[3,4],[5,5],[6,5],[7,6]].</span>
+You can notice that there are two distinct clusters, one centered around <span
+style='font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>[1,1],</span>
+and the other around <span style='font-family:"Courier New";mso-bidi-font-family:
+"Times New Roman"'>[6,6].</span> The <span style='font-family:"Courier New";
+mso-bidi-font-family:"Times New Roman"'>[3,4]</span> is somewhere in between.
+Let’s see how we can use orngCluster with k-means clustering:</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; from orngCluster import *<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; p =
+[[1,2],[2,1],[1,1],[3,4],[5,5],[6,5],[7,6]]<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; c = MClustering(p,2)</span><span
+style='font-size:10.0pt;mso-bidi-font-size:12.0pt'><o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>MClustering is the class which performs k-means clustering
+on sets of vectors, <span style='font-family:"Courier New";mso-bidi-font-family:
+"Times New Roman"'>c</span> is the object, which contains all the results. The
+most important field of c is mapping. For all the elements, it contains the
+cluster to which the element has been assigned. Let’s look at it:</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+c.mapping<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>[1, 1, 1, 2,
+2, 2, 2]</span><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt'><o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>This means that the first 3 elements have been assigned to
+the first cluster, and the remaining 4 to the second cluster. We might wonder
+which are the most characteristic elements for both clusters:</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+c.medoids<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>[3, 5]</span><span
+style='font-size:10.0pt;mso-bidi-font-size:12.0pt'><o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>So, the characteristic elements are the third <span
+style='font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>([1,1])</span>
+for the first cluster and the fifth <span style='font-family:"Courier New";
+mso-bidi-font-family:"Times New Roman"'>([5,5])</span> for the second. Note
+that <span style='font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>[1,2]</span>
+is the first element, not the zero-th!</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>We might also wonder, how tight the clusters are:</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+c.cdisp<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>[0.82166492511320099,
+0.51174486803519059]</span><span style='font-size:10.0pt;mso-bidi-font-size:
+12.0pt'> <o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>We notice that the first cluster is tighter than the second.
+c.disp is the average cluster tightness. We can use this to check if we have
+the right number of clusters. Usually the greater is the average tightness, the
+better is the clustering.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>There are two ways of calculating distance between points.
+One is Manthattan, which we have been using until now and is the default
+choice, for example d(A,B) = abs(Ax-Bx) + abs(Ay-By). The other is Euclidean,
+d(A,B) = sqrt(sqr(Ax-Bx) + sqr(Ay-By)). If you want to use Euclidean metric,
+call k-means clustering like this: MClustering(p,2,1).</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>Let’s see how the fuzzy clustering works on this data, but
+we are going to use Euclidean metric:</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+c = FClustering(p,2,1)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+c.mapping<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>[1, 1, 1, 2,
+2, 2, 2]</span><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt'><o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>It’s the same. However, we can look at the cluster
+membership probabilities:</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+for i in c.membership:<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>... <span
+style='mso-tab-count:1'>  </span>for j in i:<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>... <span
+style='mso-tab-count:1'>  </span><span style='mso-tab-count:1'>      </span>print
+&quot;%2.2f&quot;%j ,<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>... <span
+style='mso-tab-count:1'>  </span>print<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>... <span
+style='mso-tab-count:1'>  </span><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>0.92 0.92
+0.94 0.49 0.10 0.06 0.12<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>0.08 0.08
+0.06 0.51 0.90 0.94 0.88</span><span style='font-size:10.0pt;mso-bidi-font-size:
+12.0pt'><o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>The first row corresponds to the first cluster, and the
+second row to the second cluster. We notice that the 4<sup>th</sup> element is
+somewhere in between both clusters, with the probability only slightly greater
+for the second cluster.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>A dissimilarity matrix is a slightly different
+representation. We explicitly list how different each pair of elements is. We
+can represent this with a matrix, but because distances are symmetric (A is
+just as different from B, as B is from A), and because an element is identical
+to itself, we need only write the bottom half of the dissimilarity matrix:</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+m = [[1.0], [2.0, 4.0], [3.0, 5.0, 6.0]]<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+for i in m:<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>... <span
+style='mso-tab-count:1'>  </span>for j in i:<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>... <span
+style='mso-tab-count:1'>  </span><span style='mso-tab-count:1'>      </span>print
+&quot;%2.2f&quot;%j ,<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>... <span
+style='mso-tab-count:1'>  </span>print<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>... <span
+style='mso-tab-count:1'>  </span><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>1.00<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>2.00 4.00<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>3.00 5.00
+6.00<o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>This means that the elements 1 and 2 are 1.00 points apart,
+while 3 and 4 are 6.00 points apart.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>All three clustering methods MClustering, FClustering,
+and<span style="mso-spacerun: yes">  </span>HClustering support dissimilarities
+if you put the D prefix in front:<span style="mso-spacerun: yes"> 
+</span>DMClustering, DFClustering, and<span style="mso-spacerun: yes"> 
+</span>DHClustering. Then simply pass the dissimilarity matrix instead of the
+vector set. Because we have not looked at hierarchical clustering, we’ll study
+this one now.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>Hierarchical clustering has several algorithms for
+estimating the distance between clusters. They are:</p>
+
+<ol style='margin-top:0in' start=1 type=1>
+ <li class=MsoNormal style='mso-list:l0 level1 lfo2;tab-stops:list .5in'><u>Average
+     linkage</u>: how different on average are all pairs of elements, the first
+     element is from the first, and the second from the second cluster.</li>
+ <li class=MsoNormal style='mso-list:l0 level1 lfo2;tab-stops:list .5in'><u>Single
+     linkage</u>: how different is the closest pair of neighboring elements</li>
+ <li class=MsoNormal style='mso-list:l0 level1 lfo2;tab-stops:list .5in'><u>Complete
+     linkage</u>: how different are the elements from the most different pair
+     of two clusters</li>
+ <li class=MsoNormal style='mso-list:l0 level1 lfo2;tab-stops:list .5in'><u>Ward’s
+     method</u>: Ward's minimum variance linkage method attempts to minimize
+     the increase in the total sum of squared deviations from the mean of a
+     cluster. Uff.</li>
+ <li class=MsoNormal style='mso-list:l0 level1 lfo2;tab-stops:list .5in'><u>Weighted
+     linkage method</u>: it is a derivative of average linkage method, but
+     where both clusters are weighted equally in order to remove the influence
+     of different cluster size. Ugh.</li>
+</ol>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>At each step, the hierarchical clustering method merges the
+closest pair of clusters. Anyways, Ward’s method is the default choice. If you
+wanted to use the fifth, weighted linkage, call like this c = DHCluster(m, 5). </p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>So, let’s look at what we can find out from the hierarchical
+clustering object:</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; c = DHClustering(m)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; c.ac<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>0.50030890075261991<o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>AC tells us how well the data clusters. The greater the
+number, the better it is. The hierarchical clustering object contains all
+possible cluster numbers. So we need to tell, how many clusters we would like
+to have. If we want to get the mapping for 2 clusters, do like this:</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; c.domapping(2)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; c.mapping<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>[1, 2, 2, 2]<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-family:"Courier New"'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+<p class=MsoNormal>We might want to know what number of clusters is best. In
+k-means clustering, we have to start the clustering algorithms for all possible
+numbers, and then find one with the biggest c.disp (although this is just a
+heuristic). With hierarchical clustering it’s far simpler. We will work with
+the earlier vector set data, and use Euclidean metric: </p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; p = [[1,2],[2,1],[1,1],[3,4],[5,5],[6,5],[7,6]]<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; c = HClustering(p,1)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; c.height<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>[1.29, 1.00, 3.85, 10.00, 1.00, 2.08]<o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>The order of the array is not obvious, but it’s not
+important. We are interested in the sorted array. We obtain it like this, by
+copying the array first not to corrupt the clustering object:</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; th = [i for i in c.height]<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; th.sort()<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; th<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>[1.0, 1.0, 1.29, 2.08, 3.85, 10.00]</span><span
+style='font-size:10.0pt;mso-bidi-font-size:12.0pt'><o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>The numbers indicate how far the clusters were when we
+merged them. The first three acts of merging (up to four clusters) didn’t
+create any real distortion (1.29). The inter-cluster distance in two succeeding
+clusterings was quadratic, but that’s acceptable.<span style="mso-spacerun:
+yes">  </span>However, merging into a single cluster is very bad, because it
+involves a big jump (10.00). So there are approximately 2-4 clusters. A
+well-known heuristic is the knee-point of the graph of distance relative to
+height. </p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>There is more detail to the hierarchical clustering object,
+and consult the reference documentation if you are interested.</p>
+
+</div>
+
+</body>
+
+</html>

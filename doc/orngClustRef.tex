@@ -1,0 +1,296 @@
+%% LyX 1.1 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass{article}
+\usepackage[english]{babel}
+%\usepackage{times}
+\usepackage{amsfonts}
+%\usepackage[pdftex]{graphicx}
+%\usepackage[cp1250]{inputenc}
+%\usepackage{hyperref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\providecommand{\LyX}{L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\@}
+
+\makeatother
+
+\begin{document}
+
+\author{Aleks Jakulin}
+\date{\today}
+\title{{\sc PyClust}: Medoid and Hierarchical Cluster Analysis in Python\\
+{\large \em Version 1.3 (July 2001)}}
+\maketitle
+
+\section{Introduction}
+
+Cluster analysis divides a data set into groups (clusters) of
+observations that are similar to each other. Partitioning methods
+like {\tt pam} require that the number of clusters be given by the
+user. Hierarchical methods like {\tt agnes} construct a hierarchy
+of clusterings, with the number of clusters ranging from one to
+the number of observations.
+
+The {\sc PyClust} toolkit is a simple wrapper around the {\tt pam,
+fanny} and {\tt agnes} algorithms described in [1], which were
+originally implemented in Fortran for the S-PLUS and R software. The
+toolkit is composed of two modules, the binary {\tt pyclustc.pyd} and
+Python-based {\tt pyclust.py}. It is sufficient to import {\tt
+pyclust.py}.
+
+The {\tt pam} algorithm is based on the search for $k$
+representative objects or medoids among the observations of the
+dataset. These observations should represent the structure of the
+data. After finding a set of $k$ medoids, $k$ clusters are
+constructed by assigning each observation to the nearest medoid.
+The goal is to find $k$ representative objects which minimize the
+sum of the dissimilarities of the observations to their closest
+representative object. The algorithm first looks for a good
+initial set of medoids (this is called the BUILD phase). Then it
+finds a local minimum for the objective function, that is, a
+solution such that there is no single switch of an observation
+with a medoid that will decrease the objective (this is called
+the SWAP phase).
+
+The agglomerative nesting {\tt agnes} algorithm constructs a
+hierarchy of clusterings. At first, each observation is a small
+cluster by itself. Clusters are merged until only one large
+cluster remains which contains all the observations. At each
+stage the two nearest clusters are combined to form one larger
+cluster.
+
+In a fuzzy {\tt fanny} clustering, each observation is ``spread out''
+over the various clusters. Denote by $u_{i,v}$ the membership of
+observation $i$ to cluster $v$. The memberships are nonnegative, and for
+a fixed observation $i$ they sum to 1. Compared to other fuzzy
+clustering methods, fanny has the following features: (a) it also
+accepts a dissimilarity matrix; (b) it is more robust to the spherical
+cluster assumption.
+
+Fanny aims to minimize the objective function:
+
+$$\sum^{k}_{v}{\frac{\sum^{n}_{i}{\sum^{n}_{j}{u_{i,v}^2 u_{j,v}^2 d_{i,j}}}}
+{2\sum^{n}_{j}{u_{j,v}^2}}}$$
+
+where $n$ is the number of observations, $k$ is the number of clusters
+and $d_{i,j}$ is the dissimilarity between observations $i$ and $j$.
+The number of clusters $k$ must comply with $1 \leq k \leq
+\frac{n}{2}-1$.
+
+\section{Interface}
+
+All the cluster analysis tools provided in {\sc PyClust} are
+wrapped as classes. In the initialization of the class, the data
+is provided, and consequently the class contains the results of
+the cluster analysis.
+
+\subsection{Input}
+
+The input data can be provided in two ways: as a symmetric
+dissimilarity matrix, or as a set of vectors of equal dimension
+(corresponding to examples with continuous attributes).
+
+For a set of examples represented as vectors, $L_2$ Euclidean or $L_1$
+Manhattan metrics are available. The {\tt MClustering} class can be used
+for medoid cluster analysis, the {\tt HClustering} class is intended
+for hierarchical cluster analysis, and the {\tt FClustering} class is
+meant for fuzzy cluster analysis. The vectors should all be of the same
+dimensionality and stored in a Python list, for example:
+
+$$ \left[ \begin{array}{cc}
+1.0 & 1.0\\
+2.0 & 2.0\\
+6.0 & 7.0\\
+18.8 & 15.4
+\end{array} \right] =
+\texttt{[[1.0, 1.0], [2.0, 2.0], [6.0, 7.0], [18.8, 15.4]]} $$
+
+Attribute values can be standardized for each attribute, by subtracting
+the attribute's mean value and dividing by the attribute's mean absolute
+deviation.
+
+For the dissimilarity matrix representation, the {\tt DMClustering}
+class can be used for medoid cluster analysis, the {\tt DHClustering}
+class for hierarchical cluster analysis, and the {\tt DFClustering} for
+fuzzy clustering . Due to the symmetry assumption, the dissimilarity
+matrix can be expressed in the bottom-triangular form:
+
+$$ \left[ \begin{array}{cccc}
+0.0 & 1.0 & 2.0 & 3.0 \\
+1.0 & 0.0 & 4.0 & 5.0 \\
+2.0 & 4.0 & 0.0 & 6.0 \\
+3.0 & 5.0 & 6.0 & 0.0
+\end{array} \right] =
+\texttt{[[1.0], [2.0, 4.0], [3.0, 5.0, 6.0]]}$$
+
+\subsection{Calling}
+
+The classes are initialized in the following way:\\
+
+\noindent
+{\tt MClustering(vectors, k, [metric])}\\
+{\tt HClustering(vectors, [metric], [method])}\\
+{\tt DMClustering(dissimilarity, k)}\\
+{\tt DHClustering(dissimilarity, [method])}\\
+{\tt FClustering(vectors, k, [metric])}\\
+{\tt DFClustering(dissimilarity, k)}\\
+
+The brackets indicate that the parameter is optional. Metric is
+specified with number 1 for Euclidean, and 2 for Manhattan. The
+default metric is Manhattan. Method is specified with number 1
+for ``average'', 2 for ``single'', 3 for ``complete'', 4 for
+``Ward'' (default), and 5 for ``weighted''.
+
+Different linkage methods are applicable to hierarchical
+clustering. In particular, hierarchical clustering is based on
+$n-1$ fusion steps for $n$ elements. In each fusion step, an
+object or cluster is merged with another, so that the quality of
+the merger is best, as determined by the linkage method.
+
+Average linkage method attempts to minimize the average distance
+between all pairs of members of two clusters. If $P$ and $Q$ are
+the clusters, the distance between two clusters is defined as
+
+$$ d(P,Q) = \frac{1}{|P||Q|}\sum_{i\in{}R, j\in{} Q}{d(i,j)} $$
+
+Single linkage method is based on minimizing the distance between
+the closest neighbors in the two clusters. In this case, the
+generated clustering tree can be derived from the minimum spanning
+tree:
+
+$$ d(P,Q) = \min_{i\in{}R, j\in{} Q}{d(i,j)} $$
+
+Complete linkage method is based on minimizing the distance
+between the furthest neighbors:
+
+$$ d(P,Q) = \max_{i\in{}R, j\in{} Q}{d(i,j)} $$
+
+Ward's minimum variance linkage method attempts to minimize the
+increase in the total sum of squared deviations from the mean of
+a cluster.
+
+Weighted linkage method is a derivative of average linkage
+method, but where both clusters are weighted equally in order to
+remove the influence of different cluster size.
+
+
+\subsection{Output}
+
+The medoid clustering classes contains the following data:
+
+\begin{itemize}
+\item{\tt n}: (integer) number of input data items
+
+\item{\tt k}: (integer) number of clusters
+
+\item{\tt mapping}: (array of integers) class mapping for
+each input data item. Clusters are numbered from 1 to $k$.
+
+\item{\tt medoids}: (array of integers) medoids of each of
+the $k$ clusters. The medoids are represented as indices to the
+input data item set, ranging from 1 to $n$.
+\item{\tt cdisp}: (array of floats) silhouette width of each cluster.
+\item{\tt disp}: (float) average cluster silhouette width.
+\end{itemize}
+
+
+\noindent The hierarchical clustering classes contains the
+following data:
+
+\begin{itemize}
+\item{\tt n}: (integer) number of input data items
+
+\item{\tt merging}: ($(n-1)\times 2$ matrix of integers), where $n$
+is the number of data items. Row $i$ of merging describes the
+merging of clusters at step $i$ of the clustering. If a number $j$
+in the row is negative, then the single data item $j$ is merged at
+this stage. If $j$ is positive, then the merger is with the
+cluster formed at stage $j$ of the algorithm.
+
+\item{\tt order}: (array of $n$ integers) a vector giving a permutation
+of the original observations, in the sense that the branches of a
+clustering tree will not cross.
+
+\item{\tt height}: (array of $n-1$ floats) the distances between merging
+clusters at the successive stages.
+
+\item{\tt ac}: (float) agglomerative coefficient.
+\end{itemize}
+
+Silhouettes are one of the heuristic measures of cluster quality.
+Averaged over all the clusters, the average silhouette width is a
+measure of quality of the whole clustering. Similarly, the
+agglomerative coefficient is a measure of how successful has been
+the clustering of a certain data set.
+
+The silhouette width is computed as follows: Put $a(i)$ = average
+dissimilarity between $i$ and all other points of the cluster to
+which $i$ belongs. For all clusters $C$, put $d(i,C)$ = average
+dissimilarity of $i$ to all points of $C$. The smallest of these
+$d(i,C)$ is denoted as $b(i)$, and can be seen as the
+dissimilarity between $i$ and its neighbor cluster. Finally, put
+$s(i) = \frac{( b(i) - a(i) )}{max( a(i), b(i) )}$. The overall
+average silhouette width is then simply the average of $s(i)$
+over all points $i$.
+
+The agglomerative coefficient measures the clustering structure
+of the data set. For each data item $i$, denote by $m(i)$ its
+dissimilarity to the first cluster it is merged with, divided by
+the dissimilarity of the merger in the final step of the
+algorithm. The $ac$ is the average of all $1 - m(i)$. Because
+$ac$ grows with the number of observations, this measure should
+not be used to compare data sets of very different sizes.
+
+Hierarchical clustering classes also contain a method {\tt
+domapping(k)}, which initializes the variable {\tt mapping},
+analogously to one in medoid clustering classes, for the given
+number of clusters $k$.
+
+Fuzzy clustering classes contain the following fields:
+
+\begin{itemize}
+\item{\tt objective}: (float) value of the objective function
+
+\item{\tt iterations}: (int) number of iterations the {\tt fanny}
+algorithm needed to reach this minimal value.
+
+\item{\tt membership}: (matrix of floats) matrix containing the
+memberships for each pair consisting of an observation and a cluster.
+Dunn's partition coefficient $F(k)$ of the clustering, where $k$ is the
+number of clusters. $F(k)$ is the sum of all squared membership
+coefficients, divided by the number of observations. Its value is
+always between $\frac{1}{k}$ and $1$. The normalized form of the
+coefficient is also given. It is defined as $\frac{F(k) -
+\frac{1}{k}}{1 - \frac{1}{k}}$, and ranges between $0$ and $1$. A low
+value of Dunn's coefficient indicates a very fuzzy clustering, whereas
+a value close to $1$ indicates a near-crisp clustering.
+
+\item{\tt mapping}: (array of floats) the clustering vector of the
+nearest crisp clustering. A vector with length equal to the number of
+observations, giving for each observation the number of the cluster to
+which it has the largest membership.
+
+%\item{\tt silinfo}: (matrix of floats) a matrix, with for each observation
+%$i$ the cluster to which $i$ belongs, as well as the neighbor cluster
+%of $i$ (the cluster, not containing $i$, for which the average
+%dissimilarity between its observations and $i$ is minimal), and the
+%silhouette width of $i$.
+
+\item{\tt cdisp}: (array of floats) average silhouette width per cluster.
+
+\item{\tt disp}: (float) average silhouette width for the dataset.
+\end{itemize}
+
+\section*{Bibliography}
+
+\begin{enumerate}
+\item Kaufman, L. and Rousseeuw, P.J. (1990).  {\em Finding Groups in
+Data: An Introduction to Cluster Analysis.} Wiley, New York.
+
+\item Struyf, A., Hubert, M. and Rousseeuw, P.J. (1997). Integrating
+Robust Clustering Techniques in S-PLUS, {\em Computational
+Statistics and Data Analysis,} 26, 17-37.
+
+\item MathSoft, Inc., {\em S-PLUS 2000}, product documentation.
+\end{enumerate}
+
+\end{document}
