@@ -50,6 +50,7 @@ struct svm_model
 	int nr_class;		// number of classes, = 2 in regression/one class svm
 	int l;			// total #SV
 	struct svm_node **SV;		// SVs (SV[l])
+	int *SVidx;
 	double **sv_coef;	// coefficients for SVs in decision functions (sv_coef[n-1][l])
 	double *rho;		// constants in decision functions (rho[n*(n-1)/2])
 

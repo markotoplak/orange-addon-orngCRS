@@ -916,7 +916,7 @@
 	struct svm_node **SV;
 	struct svm_model *model = $1;
     int i, j, nr_class, l, elements;
-    PyObject *o, *t, *p;
+    PyObject *o, *t, *p, *ip;
 
 //    printf("svmo:1\n");
 	o = PyDict_New();
@@ -979,6 +979,7 @@
 	SV = model->SV;
 	
 	p = PyList_New(l);
+	ip = PyList_New(l);
 	elements = l; // terminals
 	for(i=0;i<l;i++)
 	{
@@ -992,6 +993,7 @@
 
 		// count attributes
 		pp = SV[i];
+		PyList_SetItem(ip, i, PyInt_FromLong(model->SVidx[i])); // save the SV index
 		j = 1;
 		while(pp->index != -1)
 		{
@@ -1016,6 +1018,7 @@
 		PyList_SetItem(p,i,zz);
 	}
 	PyDict_SetItemString(o, "SV", p); Py_XDECREF(p);
+	PyDict_SetItemString(o, "SVi", ip); Py_XDECREF(ip);
 
 //  printf("svmo:2\n");
     t = PyInt_FromLong(elements);
