@@ -26,6 +26,12 @@ struct KList {
 	double *l;
 };
 
+struct KArray {
+	int n;
+	double *l;
+};
+
+
 struct KMatrix {
 	int rows;
 	int columns;
@@ -165,6 +171,7 @@ public:
 
 struct KStat {
 	int n;
+	int idx;
 	Stats *s;
 	double *pred;
 };
@@ -181,8 +188,24 @@ struct KCRegion {
 	Stats *train, *test;
 };
 
+struct KModelCompact {
+	int n;
+	int *indices;
+	int *magnitudes;
+};
+
+struct KEnsemble {
+	int n;
+
+	vector<KRegion *> *regions;
+	double **predictions;
+	vector<double> *weights;
+	vector<KModelCompact> *indices;
+};
+
 class KCache {
 	vector<KRegion *> *regions;
+	KEnsemble *ensemble;
 	vector<KStat *> *region_bank;
 	double *predictions, *saved; // for all instances
 	double *temp, *best, *results; // for one instance
@@ -205,6 +228,9 @@ public:
 	void emptyModel();
 	void deLogize(double *outresult);
 	void Classify(int *ex, double *outresult);
+	void ClassifyEnsemble(int *ex, double *outresult);
+	void setEnsemble(struct KModels *m, struct KArray *weights);
+	void emptyEnsemble();
 	~KCache();
 	KCache(struct KInput *input, double prior);
 };
@@ -224,6 +250,7 @@ double Kvalidate(struct KInfo *in, int *ex);
 void KgetDOF(struct KInfo *in, struct KList *OutValue);
 void Kcheckreversal(struct KInfo *in, struct KList *OutValue);
 struct KInfo *Kremember(struct KInput *input, double prior);
-
+void Ksetensemble(struct KInfo *in, struct KModels *ms, struct KArray *weights);
+void Kuseensemble(struct KInfo *in, int *ex, struct KList *OutValue);
 
 #endif

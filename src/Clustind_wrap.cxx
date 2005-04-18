@@ -646,31 +646,32 @@ SWIG_InstallConstants(PyObject *d, swig_const_info constants[]) {
 /* -------- TYPES TABLE (BEGIN) -------- */
 
 #define  SWIGTYPE_p_CFInfo swig_types[0] 
-#define  SWIGTYPE_p_double swig_types[1] 
-#define  SWIGTYPE_p_psvm_model swig_types[2] 
-#define  SWIGTYPE_p_svm_model swig_types[3] 
-#define  SWIGTYPE_p_KInfo swig_types[4] 
-#define  SWIGTYPE_p_KModel swig_types[5] 
-#define  SWIGTYPE_p_LRInfo swig_types[6] 
-#define  SWIGTYPE_p_SVMExample swig_types[7] 
-#define  SWIGTYPE_p_KInput swig_types[8] 
-#define  SWIGTYPE_p_CInput swig_types[9] 
-#define  SWIGTYPE_p_LRInput swig_types[10] 
-#define  SWIGTYPE_p_NBModel swig_types[11] 
-#define  SWIGTYPE_p_KList swig_types[12] 
-#define  SWIGTYPE_p_KMatrix swig_types[13] 
-#define  SWIGTYPE_p_KModels swig_types[14] 
-#define  SWIGTYPE_p_NBInput swig_types[15] 
-#define  SWIGTYPE_p_DInput swig_types[16] 
-#define  SWIGTYPE_p_NBInfo swig_types[17] 
-#define  SWIGTYPE_p_CMInfo swig_types[18] 
-#define  SWIGTYPE_p_NBResult swig_types[19] 
-#define  SWIGTYPE_p_NBList swig_types[20] 
-#define  SWIGTYPE_p_SVMInput swig_types[21] 
-#define  SWIGTYPE_p_XX swig_types[22] 
-#define  SWIGTYPE_p_CHInfo swig_types[23] 
-#define  SWIGTYPE_p_int swig_types[24] 
-static swig_type_info *swig_types[26];
+#define  SWIGTYPE_p_KArray swig_types[1] 
+#define  SWIGTYPE_p_double swig_types[2] 
+#define  SWIGTYPE_p_psvm_model swig_types[3] 
+#define  SWIGTYPE_p_svm_model swig_types[4] 
+#define  SWIGTYPE_p_KInfo swig_types[5] 
+#define  SWIGTYPE_p_KModel swig_types[6] 
+#define  SWIGTYPE_p_LRInfo swig_types[7] 
+#define  SWIGTYPE_p_SVMExample swig_types[8] 
+#define  SWIGTYPE_p_KInput swig_types[9] 
+#define  SWIGTYPE_p_CInput swig_types[10] 
+#define  SWIGTYPE_p_LRInput swig_types[11] 
+#define  SWIGTYPE_p_NBModel swig_types[12] 
+#define  SWIGTYPE_p_KList swig_types[13] 
+#define  SWIGTYPE_p_KMatrix swig_types[14] 
+#define  SWIGTYPE_p_KModels swig_types[15] 
+#define  SWIGTYPE_p_NBInput swig_types[16] 
+#define  SWIGTYPE_p_DInput swig_types[17] 
+#define  SWIGTYPE_p_NBInfo swig_types[18] 
+#define  SWIGTYPE_p_CMInfo swig_types[19] 
+#define  SWIGTYPE_p_NBResult swig_types[20] 
+#define  SWIGTYPE_p_NBList swig_types[21] 
+#define  SWIGTYPE_p_SVMInput swig_types[22] 
+#define  SWIGTYPE_p_XX swig_types[23] 
+#define  SWIGTYPE_p_CHInfo swig_types[24] 
+#define  SWIGTYPE_p_int swig_types[25] 
+static swig_type_info *swig_types[27];
 
 /* -------- TYPES TABLE (END) -------- */
 
@@ -4889,6 +4890,222 @@ static PyObject *_wrap_Kcheckreversal(PyObject *self, PyObject *args) {
 }
 
 
+static PyObject *_wrap_Ksetensemble(PyObject *self, PyObject *args) {
+    PyObject *resultobj;
+    struct KInfo *arg1 ;
+    struct KModels *arg2 ;
+    struct KArray *arg3 ;
+    PyObject * obj0  = 0 ;
+    PyObject * obj1  = 0 ;
+    PyObject * obj2  = 0 ;
+    
+    {
+        arg2 = NULL;
+    }
+    {
+        arg3 = NULL;
+    }
+    if(!PyArg_ParseTuple(args,(char *)"OOO:Ksetensemble",&obj0,&obj1,&obj2)) goto fail;
+    if ((SWIG_ConvertPtr(obj0,(void **) &arg1, SWIGTYPE_p_KInfo,SWIG_POINTER_EXCEPTION | 0 )) == -1) SWIG_fail;
+    {
+        PyObject *p;
+        
+        arg2 = (struct KModels *) malloc(sizeof(struct KModels));
+        arg2->nomodels = 0;
+        arg2->models = NULL;
+        
+        if (PyList_Check(obj1)) {
+            int i, j, k,msize;
+            KModel *mod;
+            
+            arg2->nomodels = PyList_Size(obj1);
+            if(arg2->nomodels > 0) {
+                arg2->models = (struct KModel *)malloc(sizeof(struct KModel)*arg2->nomodels);
+                for (k = 0; k < arg2->nomodels; k++) {
+                    p = PyList_GetItem(obj1,k);
+                    mod = arg2->models + k;
+                    mod->groups = NULL;
+                    mod->nogroups = PyList_Size(p);
+                    if(mod->nogroups > 0) {
+                        mod->groups = (struct KGroup *)malloc(sizeof(struct KGroup)*mod->nogroups);
+                        for (i = 0; i < mod->nogroups; i++) {
+                            PyObject *o = PyList_GetItem(p,i);
+                            PyObject *list = PyTuple_GetItem(o,1);
+                            msize = PyList_Size(list);
+                            mod->groups[i].n = msize;
+                            mod->groups[i].l = (int *)malloc(sizeof(int)*msize);
+                            for (j = 0; j < msize; ++j)
+                            mod->groups[i].l[j] = PyInt_AsLong(PyList_GetItem(list,j));
+                            mod->groups[i].times = PyInt_AsLong(PyTuple_GetItem(o,0));
+                        }
+                    }
+                }
+            }
+        }else {
+            PyErr_SetString(PyExc_TypeError,"tuple element #1 not a list of groups");
+            return NULL;
+        }
+    }
+    {
+        PyObject *p;
+        
+        arg3 = (struct KArray *) malloc(sizeof(struct KArray));
+        arg3->n = 0;
+        arg3->l = NULL;
+        
+        if (PyList_Check(obj2)) {
+            int i, j, msize;
+            
+            arg3->n = PyList_Size(obj2);
+            if(arg3->n > 0) {
+                arg3->l = (double *)malloc(sizeof(double)*arg3->n);
+                for (i = 0; i < arg3->n; i++) {
+                    arg3->l[i] = PyFloat_AsDouble(PyList_GetItem(obj2,i));
+                }
+            }
+        }else {
+            PyErr_SetString(PyExc_TypeError,"this is not a list of doubles");
+            return NULL;
+        }
+    }
+    Ksetensemble(arg1,arg2,arg3);
+    
+    Py_INCREF(Py_None); resultobj = Py_None;
+    {
+        int i,j,k;
+        KModel *mod;
+        if(arg2->models != NULL) {
+            for (k = 0; k < arg2->nomodels; ++k) {
+                mod = arg2->models+k;
+                if(mod->groups != NULL) {
+                    for (i = 0; i < mod->nogroups; ++i) {
+                        free(mod->groups[i].l);
+                    }
+                    free(mod->groups);
+                }
+            }
+            free(arg2->models);
+        }
+        free(arg2);
+    }
+    {
+        int i;
+        if(arg3->l != NULL) {
+            free(arg3->l);
+        }
+        free(arg3);
+    }
+    return resultobj;
+    fail:
+    {
+        int i,j,k;
+        KModel *mod;
+        if(arg2->models != NULL) {
+            for (k = 0; k < arg2->nomodels; ++k) {
+                mod = arg2->models+k;
+                if(mod->groups != NULL) {
+                    for (i = 0; i < mod->nogroups; ++i) {
+                        free(mod->groups[i].l);
+                    }
+                    free(mod->groups);
+                }
+            }
+            free(arg2->models);
+        }
+        free(arg2);
+    }
+    {
+        int i;
+        if(arg3->l != NULL) {
+            free(arg3->l);
+        }
+        free(arg3);
+    }
+    return NULL;
+}
+
+
+static PyObject *_wrap_Kuseensemble(PyObject *self, PyObject *args) {
+    PyObject *resultobj;
+    struct KInfo *arg1 ;
+    int *arg2 ;
+    struct KList *arg3 ;
+    PyObject * obj0  = 0 ;
+    PyObject * obj1  = 0 ;
+    
+    {
+        arg2 = NULL;
+    }
+    {
+        arg3 = (struct KList *)malloc(sizeof(struct KList));
+    }
+    if(!PyArg_ParseTuple(args,(char *)"OO:Kuseensemble",&obj0,&obj1)) goto fail;
+    if ((SWIG_ConvertPtr(obj0,(void **) &arg1, SWIGTYPE_p_KInfo,SWIG_POINTER_EXCEPTION | 0 )) == -1) SWIG_fail;
+    {
+        /* Check if is a list */
+        if (PyList_Check(obj1)) {
+            int size = PyList_Size(obj1);
+            int i = 0;
+            arg2 = (int *) malloc((1+size)*sizeof(int));
+            for (i = 0; i < size; i++) {
+                PyObject *o = PyList_GetItem(obj1,i);
+                if (PyInt_Check(o)) {
+                    arg2[i] = PyInt_AsLong(PyList_GetItem(obj1,i));
+                }else {
+                    PyErr_SetString(PyExc_TypeError,"list must contain floats");
+                    free(arg2);
+                    return NULL;
+                }
+            }
+            arg2[i] = -1;
+        }else {
+            PyErr_SetString(PyExc_TypeError,"not a list");
+            return NULL;
+        }
+    }
+    Kuseensemble(arg1,arg2,arg3);
+    
+    Py_INCREF(Py_None); resultobj = Py_None;
+    {
+        int i;
+        PyObject *o, *q;
+        
+        o = PyList_New(arg3->n);
+        
+        for(i = 0; i < arg3->n; ++i) {
+            q = PyFloat_FromDouble(arg3->l[i]);
+            PyList_SetItem(o, i, q);
+        }
+        free(arg3->l);
+        free(arg3);
+        
+        if ((!resultobj) || (resultobj == Py_None)) {
+            resultobj = o;
+        }else {
+            if (!PyList_Check(resultobj)) {
+                PyObject *o2 = resultobj;
+                resultobj = PyList_New(0);
+                PyList_Append(resultobj,o2);
+                Py_XDECREF(o2);
+            }
+            PyList_Append(resultobj,o);
+            Py_XDECREF(o);
+        }
+    }
+    {
+        if (arg2 != NULL)
+        free((int *) arg2);
+    }
+    return resultobj;
+    fail:
+    {
+        if (arg2 != NULL)
+        free((int *) arg2);
+    }
+    return NULL;
+}
+
+
 static PyObject *_wrap_Ktestmodels(PyObject *self, PyObject *args) {
     PyObject *resultobj;
     struct KInfo *arg1 ;
@@ -5059,6 +5276,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"Klearn", _wrap_Klearn, METH_VARARGS },
 	 { (char *)"KgetDOF", _wrap_KgetDOF, METH_VARARGS },
 	 { (char *)"Kcheckreversal", _wrap_Kcheckreversal, METH_VARARGS },
+	 { (char *)"Ksetensemble", _wrap_Ksetensemble, METH_VARARGS },
+	 { (char *)"Kuseensemble", _wrap_Kuseensemble, METH_VARARGS },
 	 { (char *)"Ktestmodels", _wrap_Ktestmodels, METH_VARARGS },
 	 { NULL, NULL }
 };
@@ -5067,6 +5286,7 @@ static PyMethodDef SwigMethods[] = {
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
 static swig_type_info _swigt__p_CFInfo[] = {{"_p_CFInfo", 0, "struct CFInfo *", 0},{"_p_CFInfo"},{0}};
+static swig_type_info _swigt__p_KArray[] = {{"_p_KArray", 0, "struct KArray *", 0},{"_p_KArray"},{0}};
 static swig_type_info _swigt__p_double[] = {{"_p_double", 0, "double *", 0},{"_p_double"},{0}};
 static swig_type_info _swigt__p_psvm_model[] = {{"_p_psvm_model", 0, "psvm_model *", 0},{"_p_psvm_model"},{0}};
 static swig_type_info _swigt__p_svm_model[] = {{"_p_svm_model", 0, "struct svm_model *", 0},{"_p_svm_model"},{0}};
@@ -5094,6 +5314,7 @@ static swig_type_info _swigt__p_int[] = {{"_p_int", 0, "int *", 0},{"_p_int"},{0
 
 static swig_type_info *swig_types_initial[] = {
 _swigt__p_CFInfo, 
+_swigt__p_KArray, 
 _swigt__p_double, 
 _swigt__p_psvm_model, 
 _swigt__p_svm_model, 

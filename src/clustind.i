@@ -1725,6 +1725,42 @@ void NBupdate(struct NBInfo *in, int attribute, int card, int *values);
 	free($1);
 }
 
+
+%typemap(python,in) struct KArray * {
+	PyObject *p;
+
+	$1 = (struct KArray *) malloc(sizeof(struct KArray));
+	$1->n = 0;
+	$1->l = NULL;
+
+	if (PyList_Check($input)) {
+		int i, j, msize;
+
+		$1->n = PyList_Size($input);
+		if($1->n > 0) {
+			$1->l = (double *)malloc(sizeof(double)*$1->n);
+			for (i = 0; i < $1->n; i++) {
+				$1->l[i] = PyFloat_AsDouble(PyList_GetItem($input,i));
+			}
+		}
+	} else {
+		PyErr_SetString(PyExc_TypeError,"this is not a list of doubles");
+		return NULL;
+	}
+}
+
+%typemap(python,arginit) struct KArray * {
+	$1 = NULL;
+}
+
+%typemap(python,freearg) struct KArray * {
+	int i;
+	if($1->l != NULL) {
+	  free($1->l);
+	}
+	free($1);
+}
+
 void Ksetmodel(struct KInfo *in, struct KModel *m);
 void Kaddmodel(struct KInfo *in, struct KModel *m);
 void Ktestaddition(struct KInfo *in, struct KModel *m, struct KList *OutValue);
@@ -1736,4 +1772,6 @@ struct KInfo *Kremember(struct KInput *input, double prior);
 void Klearn(struct KInfo *in, int samples, int depth, struct KMatrix *OutValue);
 void KgetDOF(struct KInfo *in, struct KList *OutValue);
 void Kcheckreversal(struct KInfo *in, struct KList *OutValue);
+void Ksetensemble(struct KInfo *in, struct KModels *ms, struct KArray *weights);
+void Kuseensemble(struct KInfo *in, int *ex, struct KList *OutValue);
 void Ktestmodels(struct KInfo *in, struct KModels *ms, int samples, struct KMatrix *OutValue);

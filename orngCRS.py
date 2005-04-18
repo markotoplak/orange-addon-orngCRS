@@ -107,6 +107,10 @@ KgetDOF = _orngCRS.KgetDOF
 
 Kcheckreversal = _orngCRS.Kcheckreversal
 
+Ksetensemble = _orngCRS.Ksetensemble
+
+Kuseensemble = _orngCRS.Kuseensemble
+
 Ktestmodels = _orngCRS.Ktestmodels
 
 

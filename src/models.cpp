@@ -23,7 +23,7 @@ void Stats::set_prior(double _p) {
 
 void Stats::model() {
 	if(total+prior > 0) {
-		divisor = 1.0/(total+prior);
+		divisor = 1.0/(total+allcomb*prior);
 		//xdivisor = (total+allcomb*prior)/(total);
 		//depriorify  = log(double(total+allcomb*prior))-log(double(total));
 	} else {
