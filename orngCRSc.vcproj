@@ -281,9 +281,9 @@
 				Name="Debug|Win32">
 				<Tool
 					Name="VCCustomBuildTool"
-					CommandLine="c:\dev\swig\swig -python -IC:\dev\swig\swig1.1\swig_lib -IC:\dev\swig\swig1.1\swig_lib\python &quot;$(InputDir)&quot;&quot;$(InputName)&quot;.i
+					CommandLine="c:\dev\swig\swig -c++ -python -IC:\dev\swig\swig1.1\swig_lib -IC:\dev\swig\swig1.1\swig_lib\python .\src\$(InputName).i
 "
-					Outputs="Clustind_wrap.c"/>
+					Outputs="Clustind_wrap.cxx"/>
 			</FileConfiguration>
 			<FileConfiguration
 				Name="FINAL|Win32">
