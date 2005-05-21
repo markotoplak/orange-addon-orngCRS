@@ -652,26 +652,29 @@ SWIG_InstallConstants(PyObject *d, swig_const_info constants[]) {
 #define  SWIGTYPE_p_svm_model swig_types[4] 
 #define  SWIGTYPE_p_KInfo swig_types[5] 
 #define  SWIGTYPE_p_KModel swig_types[6] 
-#define  SWIGTYPE_p_LRInfo swig_types[7] 
-#define  SWIGTYPE_p_SVMExample swig_types[8] 
-#define  SWIGTYPE_p_KInput swig_types[9] 
-#define  SWIGTYPE_p_CInput swig_types[10] 
-#define  SWIGTYPE_p_LRInput swig_types[11] 
-#define  SWIGTYPE_p_NBModel swig_types[12] 
-#define  SWIGTYPE_p_KList swig_types[13] 
-#define  SWIGTYPE_p_KMatrix swig_types[14] 
-#define  SWIGTYPE_p_KModels swig_types[15] 
-#define  SWIGTYPE_p_NBInput swig_types[16] 
-#define  SWIGTYPE_p_DInput swig_types[17] 
-#define  SWIGTYPE_p_NBInfo swig_types[18] 
-#define  SWIGTYPE_p_CMInfo swig_types[19] 
-#define  SWIGTYPE_p_NBResult swig_types[20] 
-#define  SWIGTYPE_p_NBList swig_types[21] 
-#define  SWIGTYPE_p_SVMInput swig_types[22] 
-#define  SWIGTYPE_p_XX swig_types[23] 
-#define  SWIGTYPE_p_CHInfo swig_types[24] 
-#define  SWIGTYPE_p_int swig_types[25] 
-static swig_type_info *swig_types[27];
+#define  SWIGTYPE_p_SVMOut swig_types[7] 
+#define  SWIGTYPE_p_SVMSparseExample swig_types[8] 
+#define  SWIGTYPE_p_SVMExample swig_types[9] 
+#define  SWIGTYPE_p_LRInfo swig_types[10] 
+#define  SWIGTYPE_p_KInput swig_types[11] 
+#define  SWIGTYPE_p_CInput swig_types[12] 
+#define  SWIGTYPE_p_LRInput swig_types[13] 
+#define  SWIGTYPE_p_NBModel swig_types[14] 
+#define  SWIGTYPE_p_KList swig_types[15] 
+#define  SWIGTYPE_p_KMatrix swig_types[16] 
+#define  SWIGTYPE_p_KModels swig_types[17] 
+#define  SWIGTYPE_p_DInput swig_types[18] 
+#define  SWIGTYPE_p_NBInput swig_types[19] 
+#define  SWIGTYPE_p_NBInfo swig_types[20] 
+#define  SWIGTYPE_p_CMInfo swig_types[21] 
+#define  SWIGTYPE_p_NBResult swig_types[22] 
+#define  SWIGTYPE_p_NBList swig_types[23] 
+#define  SWIGTYPE_p_SVMInput swig_types[24] 
+#define  SWIGTYPE_p_XX swig_types[25] 
+#define  SWIGTYPE_p_int swig_types[26] 
+#define  SWIGTYPE_p_SVMSparseInput swig_types[27] 
+#define  SWIGTYPE_p_CHInfo swig_types[28] 
+static swig_type_info *swig_types[30];
 
 /* -------- TYPES TABLE (END) -------- */
 
@@ -691,6 +694,1721 @@ static swig_type_info *swig_types[27];
 #ifdef __cplusplus
 extern "C" {
 #endif
+static PyObject *_wrap_svm_destroy_model(PyObject *self, PyObject *args) {
+    PyObject *resultobj;
+    struct svm_model *arg1 ;
+    PyObject * obj0  = 0 ;
+    
+    if(!PyArg_ParseTuple(args,(char *)"O:svm_destroy_model",&obj0)) goto fail;
+    {
+        PyObject *o, *t, *p, *zz, *uu;
+        int m,l,i,j, elements, pairs;
+        struct svm_node *x_space;
+        struct svm_model *model;
+        struct svm_parameter *param;
+        
+        
+        o = obj0;
+        model = (struct svm_model *)malloc(sizeof(struct svm_model));
+        param = &(model->param);
+        model->label = NULL;
+        model->nSV = NULL;
+        model->probA = NULL;
+        model->probB = NULL;
+        
+        if (!PyDict_Check(o)) {
+            PyErr_SetString(PyExc_TypeError,"must be a dictionary");
+            free(model);
+            return NULL;
+        }
+        t = PyDict_GetItemString(o, "svm_type");
+        if (!PyInt_Check(t)) {
+            PyErr_SetString(PyExc_TypeError,"svm_type missing");
+            free(model);
+            return NULL;
+        }
+        param->svm_type = PyInt_AsLong(t);
+        t = PyDict_GetItemString(o, "kernel_type");
+        if (!PyInt_Check(t)) {
+            PyErr_SetString(PyExc_TypeError,"kernel_type missing");
+            free(model);
+            return NULL;
+        }
+        param->kernel_type = PyInt_AsLong(t);
+        
+        if(param->kernel_type == POLY) {
+            t = PyDict_GetItemString(o, "degree");
+            if (!PyFloat_Check(t)) {
+                PyErr_SetString(PyExc_TypeError,"degree missing");
+                free(model);
+                return NULL;
+            }
+            param->degree = PyFloat_AsDouble(t);
+        }
+        
+        if(param->kernel_type == POLY || param->kernel_type == RBF || param->kernel_type == SIGMOID) {
+            t = PyDict_GetItemString(o, "gamma");
+            if (!PyFloat_Check(t)) {
+                PyErr_SetString(PyExc_TypeError,"gamma missing");
+                free(model);
+                return NULL;
+            }
+            param->gamma = PyFloat_AsDouble(t);
+        }
+        
+        if(param->kernel_type == POLY || param->kernel_type == SIGMOID) {
+            t = PyDict_GetItemString(o, "coef0");
+            if (!PyFloat_Check(t)) {
+                PyErr_SetString(PyExc_TypeError,"coef0 missing");
+                free(model);
+                return NULL;
+            }
+            param->coef0 = PyFloat_AsDouble(t);
+        }
+        
+        t = PyDict_GetItemString(o, "nr_class");
+        if (!PyInt_Check(t)) {
+            PyErr_SetString(PyExc_TypeError,"nr_class missing");
+            free(model);
+            return NULL;
+        }
+        m = model->nr_class = PyInt_AsLong(t);
+        t = PyDict_GetItemString(o, "total_sv");
+        if (!PyInt_Check(t)) {
+            PyErr_SetString(PyExc_TypeError,"total_sv missing");
+            free(model);
+            return NULL;
+        }
+        l = model->l = PyInt_AsLong(t);
+        
+        
+        t = PyDict_GetItemString(o, "rho");
+        if (!PyList_Check(t)) {
+            PyErr_SetString(PyExc_TypeError,"rho missing");
+            free(model);
+            return NULL;
+        }
+        pairs = m*(m-1)/2;
+        model->rho = (double *)malloc(sizeof(double)*pairs);
+        for(i=0;i<pairs;i++) {
+            p = PyList_GetItem(t, i);
+            model->rho[i] = PyFloat_AsDouble(p);
+        }
+        
+        t = PyDict_GetItemString(o, "ProbA");
+        if (t != NULL) {
+            model->probA = (double *)malloc(sizeof(double)*pairs);
+            for(i=0;i<pairs;i++) {
+                p = PyList_GetItem(t, i);
+                model->probA[i] = PyFloat_AsDouble(p);
+            }
+        }
+        
+        t = PyDict_GetItemString(o, "ProbB");
+        if (t != NULL) {
+            model->probB = (double *)malloc(sizeof(double)*pairs);
+            for(i=0;i<pairs;i++) {
+                p = PyList_GetItem(t, i);
+                model->probB[i] = PyFloat_AsDouble(p);
+            }
+        }
+        
+        t = PyDict_GetItemString(o, "label");
+        if (t != NULL) {
+            model->label = (int *)malloc(sizeof(int)*m);
+            for(i=0;i<m;i++) {
+                p = PyList_GetItem(t, i);
+                model->label[i] = PyInt_AsLong(p);
+            }
+        }
+        
+        t = PyDict_GetItemString(o, "nr_sv");
+        if (t != NULL) {
+            model->nSV = (int *)malloc(sizeof(int)*m);
+            for(i=0;i<m;i++) {
+                p = PyList_GetItem(t, i);
+                model->nSV[i] = PyInt_AsLong(p);
+            }
+        }
+        
+        t = PyDict_GetItemString(o, "elements");
+        elements = PyInt_AsLong(t);
+        
+        model->sv_coef = (double **)malloc(sizeof(double *)*m);
+        model->SV = (struct svm_node **)malloc(sizeof(struct svm_node **)*l);
+        for(i=0;i<m;i++)
+        model->sv_coef[i] = (double *)malloc(sizeof(double)*l);
+        
+        x_space = (struct svm_node *)malloc(sizeof(struct svm_node)*elements);
+        
+        p = PyDict_GetItemString(o, "SV");
+        if (!PyList_Check(p) || PyList_Size(p)!=l) {
+            PyErr_SetString(PyExc_TypeError,"SV list missing");
+            free(model);
+            return NULL;
+        }
+        j = 0;
+        for(i=0;i<l;i++)
+        {
+            int jj, kk;
+            
+            zz = PyList_GetItem(p,i);
+            if (!PyList_Check(zz)) {
+                PyErr_SetString(PyExc_TypeError,"wrong SV vector (leak)"); return NULL;
+            }
+            
+            t = PyList_GetItem(zz, 0); // sv_coef is first
+            if (!PyList_Check(t) || PyList_Size(t)!= m-1 ) {
+                PyErr_SetString(PyExc_TypeError,"SV coef wrong (leak)"); return NULL;
+            }
+            
+            for(jj=0;jj<m-1;jj++) {
+                uu = PyList_GetItem(t, jj);
+                if (!PyFloat_Check(uu)) {
+                    PyErr_SetString(PyExc_TypeError,"SV coef entry wrong (leak)"); return NULL;
+                }
+                model->sv_coef[jj][i] = PyFloat_AsDouble(uu);
+            }
+            
+            model->SV[i] = &(x_space[j]);
+            
+            kk = PyList_Size(zz);
+            
+            for (jj = 1; jj < kk; ++jj) {
+                t =PyList_GetItem(zz, jj);
+                if (!PyTuple_Check(t)) {
+                    PyErr_SetString(PyExc_TypeError,"SV entry wrong (leak)"); return NULL;
+                }
+                
+                uu = PyTuple_GetItem(t,0);
+                x_space[j].index = PyInt_AsLong(uu);
+                uu = PyTuple_GetItem(t,1);
+                x_space[j].value = PyFloat_AsDouble(uu);
+                
+                ++j;
+            }
+            x_space[j++].index = -1;
+        }
+        assert(j == elements);
+        model->free_sv = 1;	// XXX
+        arg1 = model;
+    }
+    svm_destroy_model(arg1);
+    
+    Py_INCREF(Py_None); resultobj = Py_None;
+    return resultobj;
+    fail:
+    return NULL;
+}
+
+
+static PyObject *_wrap_SVMClassifier(PyObject *self, PyObject *args) {
+    PyObject *resultobj;
+    struct svm_model *arg1 ;
+    psvm_model result;
+    PyObject * obj0  = 0 ;
+    
+    if(!PyArg_ParseTuple(args,(char *)"O:SVMClassifier",&obj0)) goto fail;
+    {
+        PyObject *o, *t, *p, *zz, *uu;
+        int m,l,i,j, elements, pairs;
+        struct svm_node *x_space;
+        struct svm_model *model;
+        struct svm_parameter *param;
+        
+        
+        o = obj0;
+        model = (struct svm_model *)malloc(sizeof(struct svm_model));
+        param = &(model->param);
+        model->label = NULL;
+        model->nSV = NULL;
+        model->probA = NULL;
+        model->probB = NULL;
+        
+        if (!PyDict_Check(o)) {
+            PyErr_SetString(PyExc_TypeError,"must be a dictionary");
+            free(model);
+            return NULL;
+        }
+        t = PyDict_GetItemString(o, "svm_type");
+        if (!PyInt_Check(t)) {
+            PyErr_SetString(PyExc_TypeError,"svm_type missing");
+            free(model);
+            return NULL;
+        }
+        param->svm_type = PyInt_AsLong(t);
+        t = PyDict_GetItemString(o, "kernel_type");
+        if (!PyInt_Check(t)) {
+            PyErr_SetString(PyExc_TypeError,"kernel_type missing");
+            free(model);
+            return NULL;
+        }
+        param->kernel_type = PyInt_AsLong(t);
+        
+        if(param->kernel_type == POLY) {
+            t = PyDict_GetItemString(o, "degree");
+            if (!PyFloat_Check(t)) {
+                PyErr_SetString(PyExc_TypeError,"degree missing");
+                free(model);
+                return NULL;
+            }
+            param->degree = PyFloat_AsDouble(t);
+        }
+        
+        if(param->kernel_type == POLY || param->kernel_type == RBF || param->kernel_type == SIGMOID) {
+            t = PyDict_GetItemString(o, "gamma");
+            if (!PyFloat_Check(t)) {
+                PyErr_SetString(PyExc_TypeError,"gamma missing");
+                free(model);
+                return NULL;
+            }
+            param->gamma = PyFloat_AsDouble(t);
+        }
+        
+        if(param->kernel_type == POLY || param->kernel_type == SIGMOID) {
+            t = PyDict_GetItemString(o, "coef0");
+            if (!PyFloat_Check(t)) {
+                PyErr_SetString(PyExc_TypeError,"coef0 missing");
+                free(model);
+                return NULL;
+            }
+            param->coef0 = PyFloat_AsDouble(t);
+        }
+        
+        t = PyDict_GetItemString(o, "nr_class");
+        if (!PyInt_Check(t)) {
+            PyErr_SetString(PyExc_TypeError,"nr_class missing");
+            free(model);
+            return NULL;
+        }
+        m = model->nr_class = PyInt_AsLong(t);
+        t = PyDict_GetItemString(o, "total_sv");
+        if (!PyInt_Check(t)) {
+            PyErr_SetString(PyExc_TypeError,"total_sv missing");
+            free(model);
+            return NULL;
+        }
+        l = model->l = PyInt_AsLong(t);
+        
+        
+        t = PyDict_GetItemString(o, "rho");
+        if (!PyList_Check(t)) {
+            PyErr_SetString(PyExc_TypeError,"rho missing");
+            free(model);
+            return NULL;
+        }
+        pairs = m*(m-1)/2;
+        model->rho = (double *)malloc(sizeof(double)*pairs);
+        for(i=0;i<pairs;i++) {
+            p = PyList_GetItem(t, i);
+            model->rho[i] = PyFloat_AsDouble(p);
+        }
+        
+        t = PyDict_GetItemString(o, "ProbA");
+        if (t != NULL) {
+            model->probA = (double *)malloc(sizeof(double)*pairs);
+            for(i=0;i<pairs;i++) {
+                p = PyList_GetItem(t, i);
+                model->probA[i] = PyFloat_AsDouble(p);
+            }
+        }
+        
+        t = PyDict_GetItemString(o, "ProbB");
+        if (t != NULL) {
+            model->probB = (double *)malloc(sizeof(double)*pairs);
+            for(i=0;i<pairs;i++) {
+                p = PyList_GetItem(t, i);
+                model->probB[i] = PyFloat_AsDouble(p);
+            }
+        }
+        
+        t = PyDict_GetItemString(o, "label");
+        if (t != NULL) {
+            model->label = (int *)malloc(sizeof(int)*m);
+            for(i=0;i<m;i++) {
+                p = PyList_GetItem(t, i);
+                model->label[i] = PyInt_AsLong(p);
+            }
+        }
+        
+        t = PyDict_GetItemString(o, "nr_sv");
+        if (t != NULL) {
+            model->nSV = (int *)malloc(sizeof(int)*m);
+            for(i=0;i<m;i++) {
+                p = PyList_GetItem(t, i);
+                model->nSV[i] = PyInt_AsLong(p);
+            }
+        }
+        
+        t = PyDict_GetItemString(o, "elements");
+        elements = PyInt_AsLong(t);
+        
+        model->sv_coef = (double **)malloc(sizeof(double *)*m);
+        model->SV = (struct svm_node **)malloc(sizeof(struct svm_node **)*l);
+        for(i=0;i<m;i++)
+        model->sv_coef[i] = (double *)malloc(sizeof(double)*l);
+        
+        x_space = (struct svm_node *)malloc(sizeof(struct svm_node)*elements);
+        
+        p = PyDict_GetItemString(o, "SV");
+        if (!PyList_Check(p) || PyList_Size(p)!=l) {
+            PyErr_SetString(PyExc_TypeError,"SV list missing");
+            free(model);
+            return NULL;
+        }
+        j = 0;
+        for(i=0;i<l;i++)
+        {
+            int jj, kk;
+            
+            zz = PyList_GetItem(p,i);
+            if (!PyList_Check(zz)) {
+                PyErr_SetString(PyExc_TypeError,"wrong SV vector (leak)"); return NULL;
+            }
+            
+            t = PyList_GetItem(zz, 0); // sv_coef is first
+            if (!PyList_Check(t) || PyList_Size(t)!= m-1 ) {
+                PyErr_SetString(PyExc_TypeError,"SV coef wrong (leak)"); return NULL;
+            }
+            
+            for(jj=0;jj<m-1;jj++) {
+                uu = PyList_GetItem(t, jj);
+                if (!PyFloat_Check(uu)) {
+                    PyErr_SetString(PyExc_TypeError,"SV coef entry wrong (leak)"); return NULL;
+                }
+                model->sv_coef[jj][i] = PyFloat_AsDouble(uu);
+            }
+            
+            model->SV[i] = &(x_space[j]);
+            
+            kk = PyList_Size(zz);
+            
+            for (jj = 1; jj < kk; ++jj) {
+                t =PyList_GetItem(zz, jj);
+                if (!PyTuple_Check(t)) {
+                    PyErr_SetString(PyExc_TypeError,"SV entry wrong (leak)"); return NULL;
+                }
+                
+                uu = PyTuple_GetItem(t,0);
+                x_space[j].index = PyInt_AsLong(uu);
+                uu = PyTuple_GetItem(t,1);
+                x_space[j].value = PyFloat_AsDouble(uu);
+                
+                ++j;
+            }
+            x_space[j++].index = -1;
+        }
+        assert(j == elements);
+        model->free_sv = 1;	// XXX
+        arg1 = model;
+    }
+    result = SVMClassifier(arg1);
+    
+    {
+        psvm_model * resultptr;
+        resultptr = new psvm_model((psvm_model &) result);
+        resultobj = SWIG_NewPointerObj((void *) resultptr, SWIGTYPE_p_psvm_model, 1);
+    }
+    return resultobj;
+    fail:
+    return NULL;
+}
+
+
+static PyObject *_wrap_SVMLearnS(PyObject *self, PyObject *args) {
+    PyObject *resultobj;
+    struct SVMSparseInput *arg1 ;
+    int arg2 ;
+    int arg3 ;
+    double arg4 ;
+    double arg5 ;
+    double arg6 ;
+    double arg7 ;
+    double arg8 ;
+    double arg9 ;
+    double arg10 ;
+    double arg11 ;
+    int arg12 ;
+    int arg13 ;
+    int arg14 ;
+    double *arg15 ;
+    int *arg16 ;
+    struct svm_model *result;
+    PyObject * obj0  = 0 ;
+    PyObject * obj14  = 0 ;
+    PyObject * obj15  = 0 ;
+    
+    {
+        arg1 = NULL;
+    }
+    {
+        arg15 = NULL;
+    }
+    {
+        arg16 = NULL;
+    }
+    if(!PyArg_ParseTuple(args,(char *)"OiiddddddddiiiOO:SVMLearnS",&obj0,&arg2,&arg3,&arg4,&arg5,&arg6,&arg7,&arg8,&arg9,&arg10,&arg11,&arg12,&arg13,&arg14,&obj14,&obj15)) goto fail;
+    {
+        /* Check if is a list */
+        if (PyList_Check(obj0)) {
+            int i, j, k, nex, nvals;
+            
+            nex = PyList_Size(obj0);
+            nvals = 0;
+            
+            arg1 = (struct SVMSparseInput *) malloc(sizeof(struct SVMSparseInput));
+            arg1->elements = 0;
+            arg1->index = NULL;
+            arg1->value = NULL;
+            arg1->label = NULL;
+            for (i = 0; i < nex; i++) {
+                PyObject *ex = PyList_GetItem(obj0,i);
+                // example
+                if (PyList_Check(ex)) {
+                    nvals = PyList_Size(ex)-1;
+                    if (arg1->index == NULL) {
+                        arg1->nn = nex;
+                        arg1->lengths = (int *)malloc(arg1->nn*sizeof(int));
+                        arg1->value = (double **)malloc(arg1->nn*sizeof(double *));
+                        arg1->index = (int **)malloc(arg1->nn*sizeof(int *));
+                        arg1->label = (double *)malloc(arg1->nn*sizeof(double));
+                        for(j = 0; j < nex; ++j)
+                        arg1->lengths[j] = -1;
+                    }
+                    // fetch the class (must be binary)
+                    PyObject *p = PyList_GetItem(ex,0);
+                    if (p == NULL) {
+                        PyErr_SetString(PyExc_TypeError,"cannot fetch label");
+                        SVMscleanup(arg1);
+                        return NULL;
+                    }
+                    if (PyInt_Check(p) || PyLong_Check(p)) {
+                        arg1->label[i] = (double)PyInt_AsLong(p);
+                    }else if(PyFloat_Check(p)) {
+                        arg1->label[i] = PyFloat_AsDouble(p);
+                    }else {
+                        PyErr_SetString(PyExc_TypeError,"class not float or int");
+                        SVMscleanup(arg1);
+                        return NULL;
+                    }
+                    arg1->lengths[i] = nvals-1;
+                    arg1->elements += nvals-1;
+                    if(nvals > 0) {
+                        arg1->value[i] = (double *)malloc((nvals-1)*sizeof(double));
+                        arg1->index[i] = (int *)malloc((nvals-1)*sizeof(int));
+                    }
+                    // fetch the attribute values
+                    for (j = 1; j < nvals; ++j) {
+                        PyObject *p = PyList_GetItem(ex,j);
+                        if(PyTuple_Check(p)) {
+                            PyObject *idx = PyTuple_GetItem(p,0); 
+                            PyObject *val = PyTuple_GetItem(p,1); 
+                            if ((PyInt_Check(idx) || PyLong_Check(idx)) && (PyInt_AsLong(idx) >= 1) ) {
+                                arg1->index[i][j-1] = PyInt_AsLong(idx);
+                            }else {
+                                PyErr_SetString(PyExc_TypeError,"index not a positive integer");
+                                SVMscleanup(arg1);
+                                return NULL;
+                            }
+                            if (PyInt_Check(idx) || PyLong_Check(idx)) {
+                                arg1->value[i][j-1] = (double)PyInt_AsLong(idx);
+                            }else if(PyFloat_Check(p)) {
+                                arg1->value[i][j-1] = PyFloat_AsDouble(val);
+                            }else {
+                                PyErr_SetString(PyExc_TypeError,"value not an integer or a float");
+                                SVMscleanup(arg1);
+                                return NULL;
+                            }
+                        }else {
+                            PyErr_SetString(PyExc_TypeError,"attribute values within an example must be tuples (index,value)");
+                            SVMscleanup(arg1);
+                            return NULL;
+                        }
+                    }
+                }else {
+                    PyErr_SetString(PyExc_TypeError,"example table must contain examples as lists of tuples");
+                    SVMscleanup(arg1);
+                    return NULL;
+                }
+            }
+        }else {
+            PyErr_SetString(PyExc_TypeError,"not a list");
+            return NULL;
+        }
+    }
+    {
+        /* Check if is a list */
+        if (PyList_Check(obj14)) {
+            int size = PyList_Size(obj14);
+            int i = 0;
+            arg15 = (double *) malloc((1+size)*sizeof(double));
+            for (i = 0; i < size; i++) {
+                PyObject *o = PyList_GetItem(obj14,i);
+                if (PyFloat_Check(o))
+                arg15[i] = PyFloat_AsDouble(PyList_GetItem(obj14,i));
+                else if (PyInt_Check(o)) {
+                    arg15[i] = PyInt_AsLong(PyList_GetItem(obj14,i));
+                }else {
+                    PyErr_SetString(PyExc_TypeError,"list must contain floats");
+                    free(arg15);
+                    return NULL;
+                }
+            }
+            arg15[i] = 3.1459001;
+        }else {
+            PyErr_SetString(PyExc_TypeError,"not a list");
+            return NULL;
+        }
+    }
+    {
+        /* Check if is a list */
+        if (PyList_Check(obj15)) {
+            int size = PyList_Size(obj15);
+            int i = 0;
+            arg16 = (int *) malloc((1+size)*sizeof(int));
+            for (i = 0; i < size; i++) {
+                PyObject *o = PyList_GetItem(obj15,i);
+                if (PyInt_Check(o)) {
+                    arg16[i] = PyInt_AsLong(PyList_GetItem(obj15,i));
+                }else {
+                    PyErr_SetString(PyExc_TypeError,"list must contain floats");
+                    free(arg16);
+                    return NULL;
+                }
+            }
+            arg16[i] = -1;
+        }else {
+            PyErr_SetString(PyExc_TypeError,"not a list");
+            return NULL;
+        }
+    }
+    result = (struct svm_model *)SVMLearnS(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,arg11,arg12,arg13,arg14,arg15,arg16);
+    
+    {
+        struct svm_parameter *param = &(result->param);
+        double **sv_coef;
+        struct svm_node **SV;
+        struct svm_model *model = result;
+        int i, j, nr_class, l, elements;
+        PyObject *o, *t, *p, *ip;
+        
+        o = PyDict_New();
+        t = PyInt_FromLong(param->svm_type);
+        PyDict_SetItemString(o, "svm_type", t); Py_XDECREF(t);
+        t = PyInt_FromLong(param->kernel_type);
+        PyDict_SetItemString(o, "kernel_type", t); Py_XDECREF(t);
+        
+        if(param->kernel_type == POLY) {
+            t =	PyFloat_FromDouble(param->degree);
+            PyDict_SetItemString(o, "degree", t); Py_XDECREF(t);
+        }
+        
+        if(param->kernel_type == POLY || param->kernel_type == RBF || param->kernel_type == SIGMOID) {
+            t = PyFloat_FromDouble(param->gamma);
+            PyDict_SetItemString(o, "gamma", t); Py_XDECREF(t);
+        }
+        
+        if(param->kernel_type == POLY || param->kernel_type == SIGMOID) {
+            t = PyFloat_FromDouble(param->coef0);
+            PyDict_SetItemString(o, "coef0", t); Py_XDECREF(t);
+        }
+        
+        nr_class = model->nr_class;
+        l = model->l;
+        
+        t = PyInt_FromLong(nr_class);
+        PyDict_SetItemString(o, "nr_class", t); Py_XDECREF(t);
+        t = PyInt_FromLong(l);
+        PyDict_SetItemString(o, "total_sv", t); Py_XDECREF(t);
+        
+        {
+            t = PyList_New(nr_class*(nr_class-1)/2);
+            for(i=0;i<nr_class*(nr_class-1)/2;i++) {
+                PyList_SetItem(t, i, PyFloat_FromDouble(result->rho[i]));
+            }
+            PyDict_SetItemString(o, "rho", t); Py_XDECREF(t);
+        }
+        
+        if(result->probA) {
+            t = PyList_New(nr_class*(nr_class-1)/2);
+            for(i=0;i<nr_class*(nr_class-1)/2;i++) {
+                PyList_SetItem(t, i, PyFloat_FromDouble(result->probA[i]));
+            }
+            PyDict_SetItemString(o, "ProbA", t); Py_XDECREF(t);
+        }
+        
+        if(result->probB) {
+            t = PyList_New(nr_class*(nr_class-1)/2);
+            for(i=0;i<nr_class*(nr_class-1)/2;i++) {
+                PyList_SetItem(t, i, PyFloat_FromDouble(result->probB[i]));
+            }
+            PyDict_SetItemString(o, "ProbB", t); Py_XDECREF(t);
+        }
+        
+        if(result->label) {
+            t = PyList_New(nr_class);
+            for(i=0;i<nr_class;i++) {
+                PyList_SetItem(t, i, PyInt_FromLong(result->label[i]));
+            }
+            PyDict_SetItemString(o, "label", t); Py_XDECREF(t);
+        }
+        
+        
+        if(result->nSV) {
+            t = PyList_New(nr_class);
+            for(i=0;i<nr_class;i++) {
+                PyList_SetItem(t, i, PyInt_FromLong(result->nSV[i]));
+            }
+            PyDict_SetItemString(o, "nr_sv", t); Py_XDECREF(t);
+        }
+        
+        
+        sv_coef = model->sv_coef;
+        SV = model->SV;
+        
+        p = PyList_New(l);
+        ip = PyList_New(l);
+        elements = l; // terminals
+        for(i=0;i<l;i++)
+        {
+            const struct svm_node *pp;
+            PyObject *zz;
+            
+            t = PyList_New(nr_class-1);
+            for(j=0;j<nr_class-1;j++) {
+                PyList_SetItem(t, j, PyFloat_FromDouble(result->sv_coef[j][i]));
+            }
+            
+            // count attributes
+            pp = SV[i];
+            PyList_SetItem(ip, i, PyInt_FromLong(model->SVidx[i])); // save the SV index
+            j = 1;
+            while(pp->index != -1)
+            {
+                pp++; ++j;
+            }
+            
+            // allocate
+            zz = PyList_New(j);
+            PyList_SetItem(zz, 0, t); // sv_coef is first
+            
+            pp = SV[i];
+            j = 0;
+            while(pp->index != -1)
+            {
+                t = PyTuple_New(2);
+                PyTuple_SetItem(t,0,PyInt_FromLong(pp->index));
+                PyTuple_SetItem(t,1,PyFloat_FromDouble(pp->value));
+                pp++; ++j; ++elements;
+                PyList_SetItem(zz,j,t);
+            }
+            
+            PyList_SetItem(p,i,zz);
+        }
+        PyDict_SetItemString(o, "SV", p); Py_XDECREF(p);
+        PyDict_SetItemString(o, "SVi", ip); Py_XDECREF(ip);
+        
+        //  printf("svmo:2\n");
+        t = PyInt_FromLong(elements);
+        PyDict_SetItemString(o, "elements", t); Py_XDECREF(t);
+        svm_destroy_model(result);
+        resultobj = o;
+    }
+    {
+        if(arg1 != NULL) {
+            int i;
+            for (i = 0; i < arg1->nn; ++i) {
+                if(arg1->lengths[i] > 0) {
+                    free((double*)arg1->value[i]);
+                    free((int*)arg1->index[i]);
+                }
+            }
+            free((double**) arg1->value);
+            free((int**) arg1->index);
+            free((double*) arg1->label);
+            free((int*) arg1->lengths);
+            free((struct SVMSparseInput*) arg1);
+        }
+    }
+    {
+        if (arg15 != NULL)
+        free((double *) arg15);
+    }
+    {
+        if (arg16 != NULL)
+        free((int *) arg16);
+    }
+    return resultobj;
+    fail:
+    {
+        if(arg1 != NULL) {
+            int i;
+            for (i = 0; i < arg1->nn; ++i) {
+                if(arg1->lengths[i] > 0) {
+                    free((double*)arg1->value[i]);
+                    free((int*)arg1->index[i]);
+                }
+            }
+            free((double**) arg1->value);
+            free((int**) arg1->index);
+            free((double*) arg1->label);
+            free((int*) arg1->lengths);
+            free((struct SVMSparseInput*) arg1);
+        }
+    }
+    {
+        if (arg15 != NULL)
+        free((double *) arg15);
+    }
+    {
+        if (arg16 != NULL)
+        free((int *) arg16);
+    }
+    return NULL;
+}
+
+
+static PyObject *_wrap_SVMLearn(PyObject *self, PyObject *args) {
+    PyObject *resultobj;
+    struct SVMInput *arg1 ;
+    int arg2 ;
+    int arg3 ;
+    double arg4 ;
+    double arg5 ;
+    double arg6 ;
+    double arg7 ;
+    double arg8 ;
+    double arg9 ;
+    double arg10 ;
+    double arg11 ;
+    int arg12 ;
+    int arg13 ;
+    int arg14 ;
+    double *arg15 ;
+    int *arg16 ;
+    struct svm_model *result;
+    PyObject * obj0  = 0 ;
+    PyObject * obj14  = 0 ;
+    PyObject * obj15  = 0 ;
+    
+    {
+        arg1 = NULL;
+    }
+    {
+        arg15 = NULL;
+    }
+    {
+        arg16 = NULL;
+    }
+    if(!PyArg_ParseTuple(args,(char *)"OiiddddddddiiiOO:SVMLearn",&obj0,&arg2,&arg3,&arg4,&arg5,&arg6,&arg7,&arg8,&arg9,&arg10,&arg11,&arg12,&arg13,&arg14,&obj14,&obj15)) goto fail;
+    {
+        /* Check if is a list */
+        if (PyList_Check(obj0)) {
+            int i, j, k, size, msize;
+            
+            size = PyList_Size(obj0);
+            msize = 0;
+            
+            arg1 = (struct SVMInput *) malloc(sizeof(struct SVMInput));
+            arg1->data = NULL;
+            arg1->masking = NULL;
+            arg1->label = NULL;
+            for (i = 0; i < size; i++) {
+                PyObject *o = PyList_GetItem(obj0,i);
+                if (PyList_Check(o)) {
+                    int zsize = PyList_Size(o);
+                    if (arg1->data == NULL) {
+                        msize = zsize;
+                        arg1->nn = size;
+                        arg1->k = msize-1;
+                        arg1->total = (arg1->nn)*(msize-1+1); // size correction, last is class
+                        arg1->masking = (char **)malloc(sizeof(char *)*(size+1));
+                        for (j = 0; j <= size; ++j) {
+                            arg1->masking[j] = (char *)malloc(sizeof(char)*(arg1->k+1));
+                            for (k = 0; k <= arg1->k; ++k) {
+                                arg1->masking[j][k] = 0;
+                            }
+                        }
+                        arg1->data = (double **)malloc(sizeof(double *)*(size+1));
+                        for (j = 0; j <= size; ++j) {
+                            arg1->data[j] = (double *)malloc(sizeof(double)*(arg1->k+1));
+                        }
+                        arg1->label = (double *)malloc(sizeof(double)*(arg1->nn+1));
+                    }
+                    if (zsize == msize) {
+                        // fetch the class (must be binary)
+                        PyObject *p = PyList_GetItem(o,zsize-1);
+                        if (p == NULL) {
+                            PyErr_SetString(PyExc_TypeError,"cannot fetch example");
+                            SVMcleanup(arg1);
+                            return NULL;
+                        }
+                        
+                        if (PyInt_Check(p) || PyLong_Check(p)) {
+                            arg1->label[i] = (double)PyInt_AsLong(p);
+                        }else if(PyFloat_Check(p)) {
+                            arg1->label[i] = PyFloat_AsDouble(p);
+                        }else {
+                            PyErr_SetString(PyExc_TypeError,"class not float or int");
+                            SVMcleanup(arg1);
+                            return NULL;
+                        }
+                        
+                        // fetch the attribute values
+                        for (j = 0; j < zsize-1; ++j) {
+                            PyObject *p = PyList_GetItem(o,j);
+                            
+                            if(PyTuple_Check(p)) {
+                                PyObject *ps = PyTuple_GetItem(p,1); // masking
+                                if (PyInt_Check(ps) || PyLong_Check(ps)) {
+                                    arg1->masking[i][j] = (char)PyInt_AsLong(ps);
+                                }else if(PyFloat_Check(ps)) {
+                                    arg1->masking[i][j] = (char)PyFloat_AsDouble(ps);
+                                }else {
+                                    PyErr_SetString(PyExc_TypeError,"masking not 1 or 0");
+                                    SVMcleanup(arg1);
+                                    return NULL;
+                                }
+                                p = PyTuple_GetItem(p,0); // foist value
+                            }
+                            if (PyFloat_Check(p)) {
+                                // correct +1 because that array starts at 1
+                                arg1->data[i][j] = PyFloat_AsDouble(p);
+                            }else if (PyInt_Check(p)) {
+                                arg1->data[i][j] = (double)PyInt_AsLong(p);
+                            }else {
+                                PyErr_SetString(PyExc_TypeError,"examples must contain doubles or ints. if masking, use tuples");
+                                SVMcleanup(arg1);
+                                return NULL;
+                            }
+                        }
+                    }else {
+                        PyErr_SetString(PyExc_TypeError,"examples must be of equal size");
+                        SVMcleanup(arg1);
+                        return NULL;
+                    }
+                }else {
+                    PyErr_SetString(PyExc_TypeError,"example table must contain examples as lists");
+                    SVMcleanup(arg1);
+                    return NULL;
+                }
+            }
+        }else {
+            PyErr_SetString(PyExc_TypeError,"not a list");
+            return NULL;
+        }
+        //("svmi:done\n");
+    }
+    {
+        /* Check if is a list */
+        if (PyList_Check(obj14)) {
+            int size = PyList_Size(obj14);
+            int i = 0;
+            arg15 = (double *) malloc((1+size)*sizeof(double));
+            for (i = 0; i < size; i++) {
+                PyObject *o = PyList_GetItem(obj14,i);
+                if (PyFloat_Check(o))
+                arg15[i] = PyFloat_AsDouble(PyList_GetItem(obj14,i));
+                else if (PyInt_Check(o)) {
+                    arg15[i] = PyInt_AsLong(PyList_GetItem(obj14,i));
+                }else {
+                    PyErr_SetString(PyExc_TypeError,"list must contain floats");
+                    free(arg15);
+                    return NULL;
+                }
+            }
+            arg15[i] = 3.1459001;
+        }else {
+            PyErr_SetString(PyExc_TypeError,"not a list");
+            return NULL;
+        }
+    }
+    {
+        /* Check if is a list */
+        if (PyList_Check(obj15)) {
+            int size = PyList_Size(obj15);
+            int i = 0;
+            arg16 = (int *) malloc((1+size)*sizeof(int));
+            for (i = 0; i < size; i++) {
+                PyObject *o = PyList_GetItem(obj15,i);
+                if (PyInt_Check(o)) {
+                    arg16[i] = PyInt_AsLong(PyList_GetItem(obj15,i));
+                }else {
+                    PyErr_SetString(PyExc_TypeError,"list must contain floats");
+                    free(arg16);
+                    return NULL;
+                }
+            }
+            arg16[i] = -1;
+        }else {
+            PyErr_SetString(PyExc_TypeError,"not a list");
+            return NULL;
+        }
+    }
+    result = (struct svm_model *)SVMLearn(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,arg11,arg12,arg13,arg14,arg15,arg16);
+    
+    {
+        struct svm_parameter *param = &(result->param);
+        double **sv_coef;
+        struct svm_node **SV;
+        struct svm_model *model = result;
+        int i, j, nr_class, l, elements;
+        PyObject *o, *t, *p, *ip;
+        
+        o = PyDict_New();
+        t = PyInt_FromLong(param->svm_type);
+        PyDict_SetItemString(o, "svm_type", t); Py_XDECREF(t);
+        t = PyInt_FromLong(param->kernel_type);
+        PyDict_SetItemString(o, "kernel_type", t); Py_XDECREF(t);
+        
+        if(param->kernel_type == POLY) {
+            t =	PyFloat_FromDouble(param->degree);
+            PyDict_SetItemString(o, "degree", t); Py_XDECREF(t);
+        }
+        
+        if(param->kernel_type == POLY || param->kernel_type == RBF || param->kernel_type == SIGMOID) {
+            t = PyFloat_FromDouble(param->gamma);
+            PyDict_SetItemString(o, "gamma", t); Py_XDECREF(t);
+        }
+        
+        if(param->kernel_type == POLY || param->kernel_type == SIGMOID) {
+            t = PyFloat_FromDouble(param->coef0);
+            PyDict_SetItemString(o, "coef0", t); Py_XDECREF(t);
+        }
+        
+        nr_class = model->nr_class;
+        l = model->l;
+        
+        t = PyInt_FromLong(nr_class);
+        PyDict_SetItemString(o, "nr_class", t); Py_XDECREF(t);
+        t = PyInt_FromLong(l);
+        PyDict_SetItemString(o, "total_sv", t); Py_XDECREF(t);
+        
+        {
+            t = PyList_New(nr_class*(nr_class-1)/2);
+            for(i=0;i<nr_class*(nr_class-1)/2;i++) {
+                PyList_SetItem(t, i, PyFloat_FromDouble(result->rho[i]));
+            }
+            PyDict_SetItemString(o, "rho", t); Py_XDECREF(t);
+        }
+        
+        if(result->probA) {
+            t = PyList_New(nr_class*(nr_class-1)/2);
+            for(i=0;i<nr_class*(nr_class-1)/2;i++) {
+                PyList_SetItem(t, i, PyFloat_FromDouble(result->probA[i]));
+            }
+            PyDict_SetItemString(o, "ProbA", t); Py_XDECREF(t);
+        }
+        
+        if(result->probB) {
+            t = PyList_New(nr_class*(nr_class-1)/2);
+            for(i=0;i<nr_class*(nr_class-1)/2;i++) {
+                PyList_SetItem(t, i, PyFloat_FromDouble(result->probB[i]));
+            }
+            PyDict_SetItemString(o, "ProbB", t); Py_XDECREF(t);
+        }
+        
+        if(result->label) {
+            t = PyList_New(nr_class);
+            for(i=0;i<nr_class;i++) {
+                PyList_SetItem(t, i, PyInt_FromLong(result->label[i]));
+            }
+            PyDict_SetItemString(o, "label", t); Py_XDECREF(t);
+        }
+        
+        
+        if(result->nSV) {
+            t = PyList_New(nr_class);
+            for(i=0;i<nr_class;i++) {
+                PyList_SetItem(t, i, PyInt_FromLong(result->nSV[i]));
+            }
+            PyDict_SetItemString(o, "nr_sv", t); Py_XDECREF(t);
+        }
+        
+        
+        sv_coef = model->sv_coef;
+        SV = model->SV;
+        
+        p = PyList_New(l);
+        ip = PyList_New(l);
+        elements = l; // terminals
+        for(i=0;i<l;i++)
+        {
+            const struct svm_node *pp;
+            PyObject *zz;
+            
+            t = PyList_New(nr_class-1);
+            for(j=0;j<nr_class-1;j++) {
+                PyList_SetItem(t, j, PyFloat_FromDouble(result->sv_coef[j][i]));
+            }
+            
+            // count attributes
+            pp = SV[i];
+            PyList_SetItem(ip, i, PyInt_FromLong(model->SVidx[i])); // save the SV index
+            j = 1;
+            while(pp->index != -1)
+            {
+                pp++; ++j;
+            }
+            
+            // allocate
+            zz = PyList_New(j);
+            PyList_SetItem(zz, 0, t); // sv_coef is first
+            
+            pp = SV[i];
+            j = 0;
+            while(pp->index != -1)
+            {
+                t = PyTuple_New(2);
+                PyTuple_SetItem(t,0,PyInt_FromLong(pp->index));
+                PyTuple_SetItem(t,1,PyFloat_FromDouble(pp->value));
+                pp++; ++j; ++elements;
+                PyList_SetItem(zz,j,t);
+            }
+            
+            PyList_SetItem(p,i,zz);
+        }
+        PyDict_SetItemString(o, "SV", p); Py_XDECREF(p);
+        PyDict_SetItemString(o, "SVi", ip); Py_XDECREF(ip);
+        
+        //  printf("svmo:2\n");
+        t = PyInt_FromLong(elements);
+        PyDict_SetItemString(o, "elements", t); Py_XDECREF(t);
+        svm_destroy_model(result);
+        resultobj = o;
+    }
+    {
+        if(arg1 != NULL) {
+            int i;
+            //printf("svmc:1\n");
+            for (i = 0; i <= arg1->nn; ++i) {
+                free((double*)arg1->data[i]);
+                free((char*)arg1->masking[i]);
+            }
+            free((double**) arg1->data);
+            free((char**) arg1->masking);
+            free((double*) arg1->label);
+            free((struct SVMInput*) arg1);
+            //("svmc:2\n");
+        }
+    }
+    {
+        if (arg15 != NULL)
+        free((double *) arg15);
+    }
+    {
+        if (arg16 != NULL)
+        free((int *) arg16);
+    }
+    return resultobj;
+    fail:
+    {
+        if(arg1 != NULL) {
+            int i;
+            //printf("svmc:1\n");
+            for (i = 0; i <= arg1->nn; ++i) {
+                free((double*)arg1->data[i]);
+                free((char*)arg1->masking[i]);
+            }
+            free((double**) arg1->data);
+            free((char**) arg1->masking);
+            free((double*) arg1->label);
+            free((struct SVMInput*) arg1);
+            //("svmc:2\n");
+        }
+    }
+    {
+        if (arg15 != NULL)
+        free((double *) arg15);
+    }
+    {
+        if (arg16 != NULL)
+        free((int *) arg16);
+    }
+    return NULL;
+}
+
+
+static PyObject *_wrap_SVMClassify(PyObject *self, PyObject *args) {
+    PyObject *resultobj;
+    psvm_model arg1 ;
+    struct SVMExample *arg2 ;
+    double result;
+    psvm_model *argp1 ;
+    PyObject * obj0  = 0 ;
+    PyObject * obj1  = 0 ;
+    
+    {
+        arg2 = NULL;
+    }
+    if(!PyArg_ParseTuple(args,(char *)"OO:SVMClassify",&obj0,&obj1)) goto fail;
+    if ((SWIG_ConvertPtr(obj0,(void **) &argp1, SWIGTYPE_p_psvm_model,SWIG_POINTER_EXCEPTION) == -1)) SWIG_fail;
+    arg1 = *argp1; 
+    {
+        /* Check if is a list */
+        if (PyList_Check(obj1)) {
+            int j, msize;
+            
+            msize = PyList_Size(obj1);
+            
+            arg2 = (struct SVMExample *)malloc(sizeof(struct SVMExample));
+            arg2->k = msize;
+            arg2->data    = (double *)malloc(sizeof(double)*msize);
+            arg2->masking = (char *)malloc(sizeof(char)*msize);
+            
+            // fetch the attribute values
+            for (j = 0; j < msize; ++j) {
+                PyObject *p = PyList_GetItem(obj1,j);
+                
+                arg2->masking[j] = 0;
+                if(PyTuple_Check(p)) {
+                    arg2->masking[j] = 1;
+                    p = PyTuple_GetItem(p,0); // foist value
+                }
+                if (PyFloat_Check(p)) {
+                    arg2->data[j] = PyFloat_AsDouble(p);
+                }else if (PyInt_Check(p)) {
+                    arg2->data[j] = (double)PyInt_AsLong(p);
+                }else {
+                    PyErr_SetString(PyExc_TypeError,"examples must contain doubles or ints. if masking, use tuples");
+                    SVMexcleanup(arg2);
+                    return NULL;
+                }
+            }
+        }else {
+            PyErr_SetString(PyExc_TypeError,"not a list");
+            return NULL;
+        }
+    }
+    result = (double)SVMClassify(arg1,arg2);
+    
+    resultobj = PyFloat_FromDouble(result);
+    {
+        if (arg2 != NULL) {
+            free((double*) arg2->data);
+            free((char*) arg2->masking);
+            free((struct SVMExample*) arg2);
+        }
+    }
+    return resultobj;
+    fail:
+    {
+        if (arg2 != NULL) {
+            free((double*) arg2->data);
+            free((char*) arg2->masking);
+            free((struct SVMExample*) arg2);
+        }
+    }
+    return NULL;
+}
+
+
+static PyObject *_wrap_SVMClassifyP(PyObject *self, PyObject *args) {
+    PyObject *resultobj;
+    psvm_model arg1 ;
+    struct SVMExample *arg2 ;
+    struct SVMOut *arg3 ;
+    psvm_model *argp1 ;
+    PyObject * obj0  = 0 ;
+    PyObject * obj1  = 0 ;
+    
+    {
+        arg2 = NULL;
+    }
+    {
+        arg3 = (struct SVMOut *)malloc(sizeof(struct SVMOut));
+    }
+    if(!PyArg_ParseTuple(args,(char *)"OO:SVMClassifyP",&obj0,&obj1)) goto fail;
+    if ((SWIG_ConvertPtr(obj0,(void **) &argp1, SWIGTYPE_p_psvm_model,SWIG_POINTER_EXCEPTION) == -1)) SWIG_fail;
+    arg1 = *argp1; 
+    {
+        /* Check if is a list */
+        if (PyList_Check(obj1)) {
+            int j, msize;
+            
+            msize = PyList_Size(obj1);
+            
+            arg2 = (struct SVMExample *)malloc(sizeof(struct SVMExample));
+            arg2->k = msize;
+            arg2->data    = (double *)malloc(sizeof(double)*msize);
+            arg2->masking = (char *)malloc(sizeof(char)*msize);
+            
+            // fetch the attribute values
+            for (j = 0; j < msize; ++j) {
+                PyObject *p = PyList_GetItem(obj1,j);
+                
+                arg2->masking[j] = 0;
+                if(PyTuple_Check(p)) {
+                    arg2->masking[j] = 1;
+                    p = PyTuple_GetItem(p,0); // foist value
+                }
+                if (PyFloat_Check(p)) {
+                    arg2->data[j] = PyFloat_AsDouble(p);
+                }else if (PyInt_Check(p)) {
+                    arg2->data[j] = (double)PyInt_AsLong(p);
+                }else {
+                    PyErr_SetString(PyExc_TypeError,"examples must contain doubles or ints. if masking, use tuples");
+                    SVMexcleanup(arg2);
+                    return NULL;
+                }
+            }
+        }else {
+            PyErr_SetString(PyExc_TypeError,"not a list");
+            return NULL;
+        }
+    }
+    SVMClassifyP(arg1,arg2,arg3);
+    
+    Py_INCREF(Py_None); resultobj = Py_None;
+    {
+        int i;
+        PyObject *o, *q;
+        
+        o = PyList_New(arg3->nn);
+        
+        for(i = 0; i < arg3->nn; ++i) {
+            q = PyFloat_FromDouble(arg3->v[i]);
+            PyList_SetItem(o, i, q);
+        }
+        free(arg3->v);
+        free(arg3);
+        if ((!resultobj) || (resultobj == Py_None)) {
+            resultobj = o;
+        }else {
+            if (!PyList_Check(resultobj)) {
+                PyObject *o2 = resultobj;
+                resultobj = PyList_New(0);
+                PyList_Append(resultobj,o2);
+                Py_XDECREF(o2);
+            }
+            PyList_Append(resultobj,o);
+            Py_XDECREF(o);
+        }
+    }
+    {
+        if (arg2 != NULL) {
+            free((double*) arg2->data);
+            free((char*) arg2->masking);
+            free((struct SVMExample*) arg2);
+        }
+    }
+    return resultobj;
+    fail:
+    {
+        if (arg2 != NULL) {
+            free((double*) arg2->data);
+            free((char*) arg2->masking);
+            free((struct SVMExample*) arg2);
+        }
+    }
+    return NULL;
+}
+
+
+static PyObject *_wrap_SVMClassifyM(PyObject *self, PyObject *args) {
+    PyObject *resultobj;
+    psvm_model arg1 ;
+    struct SVMExample *arg2 ;
+    struct SVMOut *arg3 ;
+    psvm_model *argp1 ;
+    PyObject * obj0  = 0 ;
+    PyObject * obj1  = 0 ;
+    
+    {
+        arg2 = NULL;
+    }
+    {
+        arg3 = (struct SVMOut *)malloc(sizeof(struct SVMOut));
+    }
+    if(!PyArg_ParseTuple(args,(char *)"OO:SVMClassifyM",&obj0,&obj1)) goto fail;
+    if ((SWIG_ConvertPtr(obj0,(void **) &argp1, SWIGTYPE_p_psvm_model,SWIG_POINTER_EXCEPTION) == -1)) SWIG_fail;
+    arg1 = *argp1; 
+    {
+        /* Check if is a list */
+        if (PyList_Check(obj1)) {
+            int j, msize;
+            
+            msize = PyList_Size(obj1);
+            
+            arg2 = (struct SVMExample *)malloc(sizeof(struct SVMExample));
+            arg2->k = msize;
+            arg2->data    = (double *)malloc(sizeof(double)*msize);
+            arg2->masking = (char *)malloc(sizeof(char)*msize);
+            
+            // fetch the attribute values
+            for (j = 0; j < msize; ++j) {
+                PyObject *p = PyList_GetItem(obj1,j);
+                
+                arg2->masking[j] = 0;
+                if(PyTuple_Check(p)) {
+                    arg2->masking[j] = 1;
+                    p = PyTuple_GetItem(p,0); // foist value
+                }
+                if (PyFloat_Check(p)) {
+                    arg2->data[j] = PyFloat_AsDouble(p);
+                }else if (PyInt_Check(p)) {
+                    arg2->data[j] = (double)PyInt_AsLong(p);
+                }else {
+                    PyErr_SetString(PyExc_TypeError,"examples must contain doubles or ints. if masking, use tuples");
+                    SVMexcleanup(arg2);
+                    return NULL;
+                }
+            }
+        }else {
+            PyErr_SetString(PyExc_TypeError,"not a list");
+            return NULL;
+        }
+    }
+    SVMClassifyM(arg1,arg2,arg3);
+    
+    Py_INCREF(Py_None); resultobj = Py_None;
+    {
+        int i;
+        PyObject *o, *q;
+        
+        o = PyList_New(arg3->nn);
+        
+        for(i = 0; i < arg3->nn; ++i) {
+            q = PyFloat_FromDouble(arg3->v[i]);
+            PyList_SetItem(o, i, q);
+        }
+        free(arg3->v);
+        free(arg3);
+        if ((!resultobj) || (resultobj == Py_None)) {
+            resultobj = o;
+        }else {
+            if (!PyList_Check(resultobj)) {
+                PyObject *o2 = resultobj;
+                resultobj = PyList_New(0);
+                PyList_Append(resultobj,o2);
+                Py_XDECREF(o2);
+            }
+            PyList_Append(resultobj,o);
+            Py_XDECREF(o);
+        }
+    }
+    {
+        if (arg2 != NULL) {
+            free((double*) arg2->data);
+            free((char*) arg2->masking);
+            free((struct SVMExample*) arg2);
+        }
+    }
+    return resultobj;
+    fail:
+    {
+        if (arg2 != NULL) {
+            free((double*) arg2->data);
+            free((char*) arg2->masking);
+            free((struct SVMExample*) arg2);
+        }
+    }
+    return NULL;
+}
+
+
+static PyObject *_wrap_SVMClassifyS(PyObject *self, PyObject *args) {
+    PyObject *resultobj;
+    psvm_model arg1 ;
+    struct SVMSparseExample *arg2 ;
+    double result;
+    psvm_model *argp1 ;
+    PyObject * obj0  = 0 ;
+    PyObject * obj1  = 0 ;
+    
+    {
+        arg2 = NULL;
+    }
+    if(!PyArg_ParseTuple(args,(char *)"OO:SVMClassifyS",&obj0,&obj1)) goto fail;
+    if ((SWIG_ConvertPtr(obj0,(void **) &argp1, SWIGTYPE_p_psvm_model,SWIG_POINTER_EXCEPTION) == -1)) SWIG_fail;
+    arg1 = *argp1; 
+    {
+        int nvals, i,j; 
+        /* Check if is a list */
+        if (PyList_Check(obj1)) {
+            if (PyList_Check(obj1)) {
+                nvals = PyList_Size(obj1);
+                arg2->nn = nvals;
+                arg2->value = (double *)malloc((nvals)*sizeof(double));
+                arg2->index = (int *)malloc((nvals)*sizeof(int));
+                // fetch the attribute values
+                for (j = 0; j < nvals; ++j) {
+                    PyObject *p = PyList_GetItem(obj1,j);
+                    if(PyTuple_Check(p)) {
+                        PyObject *idx = PyTuple_GetItem(p,0); 
+                        PyObject *val = PyTuple_GetItem(p,1); 
+                        if (PyInt_Check(idx) || PyLong_Check(idx)) {
+                            arg2->index[j-1] = PyInt_AsLong(idx);
+                        }else {
+                            PyErr_SetString(PyExc_TypeError,"index not 1 or 0");
+                            SVMsecleanup(arg2);
+                            return NULL;
+                        }
+                        if (PyInt_Check(idx) || PyLong_Check(idx)) {
+                            arg2->value[j-1] = (double)PyInt_AsLong(idx);
+                        }else if(PyFloat_Check(p)) {
+                            arg2->value[j-1] = PyFloat_AsDouble(val);
+                        }else {
+                            PyErr_SetString(PyExc_TypeError,"value not an integer or a float");
+                            SVMsecleanup(arg2);
+                            return NULL;
+                        }
+                    }else {
+                        PyErr_SetString(PyExc_TypeError,"attribute values within an example must be tuples (index,value)");
+                        SVMsecleanup(arg2);
+                        return NULL;
+                    }
+                }
+            }else {
+                PyErr_SetString(PyExc_TypeError,"example must be a list of tuples");
+                SVMsecleanup(arg2);
+                return NULL;
+            }
+        }
+    }
+    result = (double)SVMClassifyS(arg1,arg2);
+    
+    resultobj = PyFloat_FromDouble(result);
+    {
+        if (arg2 != NULL) {
+            free((double*) arg2->value);
+            free((int *) arg2->index);
+            free((struct SVMSparseExample*) arg2);
+        }
+    }
+    return resultobj;
+    fail:
+    {
+        if (arg2 != NULL) {
+            free((double*) arg2->value);
+            free((int *) arg2->index);
+            free((struct SVMSparseExample*) arg2);
+        }
+    }
+    return NULL;
+}
+
+
+static PyObject *_wrap_SVMClassifyPS(PyObject *self, PyObject *args) {
+    PyObject *resultobj;
+    psvm_model arg1 ;
+    struct SVMSparseExample *arg2 ;
+    struct SVMOut *arg3 ;
+    psvm_model *argp1 ;
+    PyObject * obj0  = 0 ;
+    PyObject * obj1  = 0 ;
+    
+    {
+        arg2 = NULL;
+    }
+    {
+        arg3 = (struct SVMOut *)malloc(sizeof(struct SVMOut));
+    }
+    if(!PyArg_ParseTuple(args,(char *)"OO:SVMClassifyPS",&obj0,&obj1)) goto fail;
+    if ((SWIG_ConvertPtr(obj0,(void **) &argp1, SWIGTYPE_p_psvm_model,SWIG_POINTER_EXCEPTION) == -1)) SWIG_fail;
+    arg1 = *argp1; 
+    {
+        int nvals, i,j; 
+        /* Check if is a list */
+        if (PyList_Check(obj1)) {
+            if (PyList_Check(obj1)) {
+                nvals = PyList_Size(obj1);
+                arg2->nn = nvals;
+                arg2->value = (double *)malloc((nvals)*sizeof(double));
+                arg2->index = (int *)malloc((nvals)*sizeof(int));
+                // fetch the attribute values
+                for (j = 0; j < nvals; ++j) {
+                    PyObject *p = PyList_GetItem(obj1,j);
+                    if(PyTuple_Check(p)) {
+                        PyObject *idx = PyTuple_GetItem(p,0); 
+                        PyObject *val = PyTuple_GetItem(p,1); 
+                        if (PyInt_Check(idx) || PyLong_Check(idx)) {
+                            arg2->index[j-1] = PyInt_AsLong(idx);
+                        }else {
+                            PyErr_SetString(PyExc_TypeError,"index not 1 or 0");
+                            SVMsecleanup(arg2);
+                            return NULL;
+                        }
+                        if (PyInt_Check(idx) || PyLong_Check(idx)) {
+                            arg2->value[j-1] = (double)PyInt_AsLong(idx);
+                        }else if(PyFloat_Check(p)) {
+                            arg2->value[j-1] = PyFloat_AsDouble(val);
+                        }else {
+                            PyErr_SetString(PyExc_TypeError,"value not an integer or a float");
+                            SVMsecleanup(arg2);
+                            return NULL;
+                        }
+                    }else {
+                        PyErr_SetString(PyExc_TypeError,"attribute values within an example must be tuples (index,value)");
+                        SVMsecleanup(arg2);
+                        return NULL;
+                    }
+                }
+            }else {
+                PyErr_SetString(PyExc_TypeError,"example must be a list of tuples");
+                SVMsecleanup(arg2);
+                return NULL;
+            }
+        }
+    }
+    SVMClassifyPS(arg1,arg2,arg3);
+    
+    Py_INCREF(Py_None); resultobj = Py_None;
+    {
+        int i;
+        PyObject *o, *q;
+        
+        o = PyList_New(arg3->nn);
+        
+        for(i = 0; i < arg3->nn; ++i) {
+            q = PyFloat_FromDouble(arg3->v[i]);
+            PyList_SetItem(o, i, q);
+        }
+        free(arg3->v);
+        free(arg3);
+        if ((!resultobj) || (resultobj == Py_None)) {
+            resultobj = o;
+        }else {
+            if (!PyList_Check(resultobj)) {
+                PyObject *o2 = resultobj;
+                resultobj = PyList_New(0);
+                PyList_Append(resultobj,o2);
+                Py_XDECREF(o2);
+            }
+            PyList_Append(resultobj,o);
+            Py_XDECREF(o);
+        }
+    }
+    {
+        if (arg2 != NULL) {
+            free((double*) arg2->value);
+            free((int *) arg2->index);
+            free((struct SVMSparseExample*) arg2);
+        }
+    }
+    return resultobj;
+    fail:
+    {
+        if (arg2 != NULL) {
+            free((double*) arg2->value);
+            free((int *) arg2->index);
+            free((struct SVMSparseExample*) arg2);
+        }
+    }
+    return NULL;
+}
+
+
+static PyObject *_wrap_SVMClassifyMS(PyObject *self, PyObject *args) {
+    PyObject *resultobj;
+    psvm_model arg1 ;
+    struct SVMSparseExample *arg2 ;
+    struct SVMOut *arg3 ;
+    psvm_model *argp1 ;
+    PyObject * obj0  = 0 ;
+    PyObject * obj1  = 0 ;
+    
+    {
+        arg2 = NULL;
+    }
+    {
+        arg3 = (struct SVMOut *)malloc(sizeof(struct SVMOut));
+    }
+    if(!PyArg_ParseTuple(args,(char *)"OO:SVMClassifyMS",&obj0,&obj1)) goto fail;
+    if ((SWIG_ConvertPtr(obj0,(void **) &argp1, SWIGTYPE_p_psvm_model,SWIG_POINTER_EXCEPTION) == -1)) SWIG_fail;
+    arg1 = *argp1; 
+    {
+        int nvals, i,j; 
+        /* Check if is a list */
+        if (PyList_Check(obj1)) {
+            if (PyList_Check(obj1)) {
+                nvals = PyList_Size(obj1);
+                arg2->nn = nvals;
+                arg2->value = (double *)malloc((nvals)*sizeof(double));
+                arg2->index = (int *)malloc((nvals)*sizeof(int));
+                // fetch the attribute values
+                for (j = 0; j < nvals; ++j) {
+                    PyObject *p = PyList_GetItem(obj1,j);
+                    if(PyTuple_Check(p)) {
+                        PyObject *idx = PyTuple_GetItem(p,0); 
+                        PyObject *val = PyTuple_GetItem(p,1); 
+                        if (PyInt_Check(idx) || PyLong_Check(idx)) {
+                            arg2->index[j-1] = PyInt_AsLong(idx);
+                        }else {
+                            PyErr_SetString(PyExc_TypeError,"index not 1 or 0");
+                            SVMsecleanup(arg2);
+                            return NULL;
+                        }
+                        if (PyInt_Check(idx) || PyLong_Check(idx)) {
+                            arg2->value[j-1] = (double)PyInt_AsLong(idx);
+                        }else if(PyFloat_Check(p)) {
+                            arg2->value[j-1] = PyFloat_AsDouble(val);
+                        }else {
+                            PyErr_SetString(PyExc_TypeError,"value not an integer or a float");
+                            SVMsecleanup(arg2);
+                            return NULL;
+                        }
+                    }else {
+                        PyErr_SetString(PyExc_TypeError,"attribute values within an example must be tuples (index,value)");
+                        SVMsecleanup(arg2);
+                        return NULL;
+                    }
+                }
+            }else {
+                PyErr_SetString(PyExc_TypeError,"example must be a list of tuples");
+                SVMsecleanup(arg2);
+                return NULL;
+            }
+        }
+    }
+    SVMClassifyMS(arg1,arg2,arg3);
+    
+    Py_INCREF(Py_None); resultobj = Py_None;
+    {
+        int i;
+        PyObject *o, *q;
+        
+        o = PyList_New(arg3->nn);
+        
+        for(i = 0; i < arg3->nn; ++i) {
+            q = PyFloat_FromDouble(arg3->v[i]);
+            PyList_SetItem(o, i, q);
+        }
+        free(arg3->v);
+        free(arg3);
+        if ((!resultobj) || (resultobj == Py_None)) {
+            resultobj = o;
+        }else {
+            if (!PyList_Check(resultobj)) {
+                PyObject *o2 = resultobj;
+                resultobj = PyList_New(0);
+                PyList_Append(resultobj,o2);
+                Py_XDECREF(o2);
+            }
+            PyList_Append(resultobj,o);
+            Py_XDECREF(o);
+        }
+    }
+    {
+        if (arg2 != NULL) {
+            free((double*) arg2->value);
+            free((int *) arg2->index);
+            free((struct SVMSparseExample*) arg2);
+        }
+    }
+    return resultobj;
+    fail:
+    {
+        if (arg2 != NULL) {
+            free((double*) arg2->value);
+            free((int *) arg2->index);
+            free((struct SVMSparseExample*) arg2);
+        }
+    }
+    return NULL;
+}
+
+
 static PyObject *_wrap_MCluster(PyObject *self, PyObject *args) {
     PyObject *resultobj;
     struct CInput *arg1 ;
@@ -1910,885 +3628,6 @@ static PyObject *_wrap_Computer(PyObject *self, PyObject *args) {
             free(arg2->data);
         }
         free(arg2);
-    }
-    return NULL;
-}
-
-
-static PyObject *_wrap_svm_destroy_model(PyObject *self, PyObject *args) {
-    PyObject *resultobj;
-    struct svm_model *arg1 ;
-    PyObject * obj0  = 0 ;
-    
-    if(!PyArg_ParseTuple(args,(char *)"O:svm_destroy_model",&obj0)) goto fail;
-    {
-        PyObject *o, *t, *p, *zz, *uu;
-        int m,l,i,j, elements;
-        struct svm_node *x_space;
-        struct svm_model *model;
-        struct svm_parameter *param;
-        
-        
-        o = obj0;
-        model = (struct svm_model *)malloc(sizeof(struct svm_model));
-        param = &(model->param);
-        model->label = NULL;
-        model->nSV = NULL;
-        
-        if (!PyDict_Check(o)) {
-            PyErr_SetString(PyExc_TypeError,"must be a dictionary");
-            free(model);
-            return NULL;
-        }
-        t = PyDict_GetItemString(o, "svm_type");
-        if (!PyInt_Check(t)) {
-            PyErr_SetString(PyExc_TypeError,"svm_type missing");
-            free(model);
-            return NULL;
-        }
-        param->svm_type = PyInt_AsLong(t);
-        t = PyDict_GetItemString(o, "kernel_type");
-        if (!PyInt_Check(t)) {
-            PyErr_SetString(PyExc_TypeError,"kernel_type missing");
-            free(model);
-            return NULL;
-        }
-        param->kernel_type = PyInt_AsLong(t);
-        
-        if(param->kernel_type == POLY) {
-            t = PyDict_GetItemString(o, "degree");
-            if (!PyFloat_Check(t)) {
-                PyErr_SetString(PyExc_TypeError,"degree missing");
-                free(model);
-                return NULL;
-            }
-            param->degree = PyFloat_AsDouble(t);
-        }
-        
-        if(param->kernel_type == POLY || param->kernel_type == RBF || param->kernel_type == SIGMOID) {
-            t = PyDict_GetItemString(o, "gamma");
-            if (!PyFloat_Check(t)) {
-                PyErr_SetString(PyExc_TypeError,"gamma missing");
-                free(model);
-                return NULL;
-            }
-            param->gamma = PyFloat_AsDouble(t);
-        }
-        
-        if(param->kernel_type == POLY || param->kernel_type == SIGMOID) {
-            t = PyDict_GetItemString(o, "coef0");
-            if (!PyFloat_Check(t)) {
-                PyErr_SetString(PyExc_TypeError,"coef0 missing");
-                free(model);
-                return NULL;
-            }
-            param->coef0 = PyFloat_AsDouble(t);
-        }
-        
-        t = PyDict_GetItemString(o, "nr_class");
-        if (!PyInt_Check(t)) {
-            PyErr_SetString(PyExc_TypeError,"nr_class missing");
-            free(model);
-            return NULL;
-        }
-        m = model->nr_class = PyInt_AsLong(t);
-        t = PyDict_GetItemString(o, "total_sv");
-        if (!PyInt_Check(t)) {
-            PyErr_SetString(PyExc_TypeError,"total_sv missing");
-            free(model);
-            return NULL;
-        }
-        l = model->l = PyInt_AsLong(t);
-        
-        
-        t = PyDict_GetItemString(o, "rho");
-        if (!PyList_Check(t)) {
-            PyErr_SetString(PyExc_TypeError,"rho missing");
-            free(model);
-            return NULL;
-        }
-        model->rho = (double *)malloc(sizeof(double)*m*(m-1)/2);
-        for(i=0;i<m*(m-1)/2;i++) {
-            p = PyList_GetItem(t, i);
-            model->rho[i] = PyFloat_AsDouble(p);
-        }
-        
-        t = PyDict_GetItemString(o, "label");
-        if (t != NULL) {
-            model->label = (int *)malloc(sizeof(int)*m);
-            for(i=0;i<m;i++) {
-                p = PyList_GetItem(t, i);
-                model->label[i] = PyInt_AsLong(p);
-            }
-        }
-        
-        t = PyDict_GetItemString(o, "nr_sv");
-        if (t != NULL) {
-            model->nSV = (int *)malloc(sizeof(int)*m);
-            for(i=0;i<m;i++) {
-                p = PyList_GetItem(t, i);
-                model->nSV[i] = PyInt_AsLong(p);
-            }
-        }
-        
-        t = PyDict_GetItemString(o, "elements");
-        elements = PyInt_AsLong(t);
-        
-        model->sv_coef = (double **)malloc(sizeof(double *)*m);
-        model->SV = (struct svm_node **)malloc(sizeof(struct svm_node **)*l);
-        for(i=0;i<m;i++)
-        model->sv_coef[i] = (double *)malloc(sizeof(double)*l);
-        
-        x_space = (struct svm_node *)malloc(sizeof(struct svm_node)*elements);
-        
-        p = PyDict_GetItemString(o, "SV");
-        if (!PyList_Check(p) || PyList_Size(p)!=l) {
-            PyErr_SetString(PyExc_TypeError,"SV list missing");
-            free(model);
-            return NULL;
-        }
-        j = 0;
-        for(i=0;i<l;i++)
-        {
-            int jj, kk;
-            
-            zz = PyList_GetItem(p,i);
-            if (!PyList_Check(zz)) {
-                PyErr_SetString(PyExc_TypeError,"wrong SV vector (leak)"); return NULL;
-            }
-            
-            t = PyList_GetItem(zz, 0); // sv_coef is first
-            if (!PyList_Check(t) || PyList_Size(t)!= m-1 ) {
-                PyErr_SetString(PyExc_TypeError,"SV coef wrong (leak)"); return NULL;
-            }
-            
-            for(jj=0;jj<m-1;jj++) {
-                uu = PyList_GetItem(t, jj);
-                if (!PyFloat_Check(uu)) {
-                    PyErr_SetString(PyExc_TypeError,"SV coef entry wrong (leak)"); return NULL;
-                }
-                model->sv_coef[jj][i] = PyFloat_AsDouble(uu);
-            }
-            
-            model->SV[i] = &(x_space[j]);
-            
-            kk = PyList_Size(zz);
-            
-            for (jj = 1; jj < kk; ++jj) {
-                t =PyList_GetItem(zz, jj);
-                if (!PyTuple_Check(t)) {
-                    PyErr_SetString(PyExc_TypeError,"SV entry wrong (leak)"); return NULL;
-                }
-                
-                uu = PyTuple_GetItem(t,0);
-                x_space[j].index = PyInt_AsLong(uu);
-                uu = PyTuple_GetItem(t,1);
-                x_space[j].value = PyFloat_AsDouble(uu);
-                
-                ++j;
-            }
-            x_space[j++].index = -1;
-        }
-        assert(j == elements);
-        model->free_sv = 1;	// XXX
-        arg1 = model;
-    }
-    svm_destroy_model(arg1);
-    
-    Py_INCREF(Py_None); resultobj = Py_None;
-    return resultobj;
-    fail:
-    return NULL;
-}
-
-
-static PyObject *_wrap_SVMClassifier(PyObject *self, PyObject *args) {
-    PyObject *resultobj;
-    struct svm_model *arg1 ;
-    psvm_model result;
-    PyObject * obj0  = 0 ;
-    
-    if(!PyArg_ParseTuple(args,(char *)"O:SVMClassifier",&obj0)) goto fail;
-    {
-        PyObject *o, *t, *p, *zz, *uu;
-        int m,l,i,j, elements;
-        struct svm_node *x_space;
-        struct svm_model *model;
-        struct svm_parameter *param;
-        
-        
-        o = obj0;
-        model = (struct svm_model *)malloc(sizeof(struct svm_model));
-        param = &(model->param);
-        model->label = NULL;
-        model->nSV = NULL;
-        
-        if (!PyDict_Check(o)) {
-            PyErr_SetString(PyExc_TypeError,"must be a dictionary");
-            free(model);
-            return NULL;
-        }
-        t = PyDict_GetItemString(o, "svm_type");
-        if (!PyInt_Check(t)) {
-            PyErr_SetString(PyExc_TypeError,"svm_type missing");
-            free(model);
-            return NULL;
-        }
-        param->svm_type = PyInt_AsLong(t);
-        t = PyDict_GetItemString(o, "kernel_type");
-        if (!PyInt_Check(t)) {
-            PyErr_SetString(PyExc_TypeError,"kernel_type missing");
-            free(model);
-            return NULL;
-        }
-        param->kernel_type = PyInt_AsLong(t);
-        
-        if(param->kernel_type == POLY) {
-            t = PyDict_GetItemString(o, "degree");
-            if (!PyFloat_Check(t)) {
-                PyErr_SetString(PyExc_TypeError,"degree missing");
-                free(model);
-                return NULL;
-            }
-            param->degree = PyFloat_AsDouble(t);
-        }
-        
-        if(param->kernel_type == POLY || param->kernel_type == RBF || param->kernel_type == SIGMOID) {
-            t = PyDict_GetItemString(o, "gamma");
-            if (!PyFloat_Check(t)) {
-                PyErr_SetString(PyExc_TypeError,"gamma missing");
-                free(model);
-                return NULL;
-            }
-            param->gamma = PyFloat_AsDouble(t);
-        }
-        
-        if(param->kernel_type == POLY || param->kernel_type == SIGMOID) {
-            t = PyDict_GetItemString(o, "coef0");
-            if (!PyFloat_Check(t)) {
-                PyErr_SetString(PyExc_TypeError,"coef0 missing");
-                free(model);
-                return NULL;
-            }
-            param->coef0 = PyFloat_AsDouble(t);
-        }
-        
-        t = PyDict_GetItemString(o, "nr_class");
-        if (!PyInt_Check(t)) {
-            PyErr_SetString(PyExc_TypeError,"nr_class missing");
-            free(model);
-            return NULL;
-        }
-        m = model->nr_class = PyInt_AsLong(t);
-        t = PyDict_GetItemString(o, "total_sv");
-        if (!PyInt_Check(t)) {
-            PyErr_SetString(PyExc_TypeError,"total_sv missing");
-            free(model);
-            return NULL;
-        }
-        l = model->l = PyInt_AsLong(t);
-        
-        
-        t = PyDict_GetItemString(o, "rho");
-        if (!PyList_Check(t)) {
-            PyErr_SetString(PyExc_TypeError,"rho missing");
-            free(model);
-            return NULL;
-        }
-        model->rho = (double *)malloc(sizeof(double)*m*(m-1)/2);
-        for(i=0;i<m*(m-1)/2;i++) {
-            p = PyList_GetItem(t, i);
-            model->rho[i] = PyFloat_AsDouble(p);
-        }
-        
-        t = PyDict_GetItemString(o, "label");
-        if (t != NULL) {
-            model->label = (int *)malloc(sizeof(int)*m);
-            for(i=0;i<m;i++) {
-                p = PyList_GetItem(t, i);
-                model->label[i] = PyInt_AsLong(p);
-            }
-        }
-        
-        t = PyDict_GetItemString(o, "nr_sv");
-        if (t != NULL) {
-            model->nSV = (int *)malloc(sizeof(int)*m);
-            for(i=0;i<m;i++) {
-                p = PyList_GetItem(t, i);
-                model->nSV[i] = PyInt_AsLong(p);
-            }
-        }
-        
-        t = PyDict_GetItemString(o, "elements");
-        elements = PyInt_AsLong(t);
-        
-        model->sv_coef = (double **)malloc(sizeof(double *)*m);
-        model->SV = (struct svm_node **)malloc(sizeof(struct svm_node **)*l);
-        for(i=0;i<m;i++)
-        model->sv_coef[i] = (double *)malloc(sizeof(double)*l);
-        
-        x_space = (struct svm_node *)malloc(sizeof(struct svm_node)*elements);
-        
-        p = PyDict_GetItemString(o, "SV");
-        if (!PyList_Check(p) || PyList_Size(p)!=l) {
-            PyErr_SetString(PyExc_TypeError,"SV list missing");
-            free(model);
-            return NULL;
-        }
-        j = 0;
-        for(i=0;i<l;i++)
-        {
-            int jj, kk;
-            
-            zz = PyList_GetItem(p,i);
-            if (!PyList_Check(zz)) {
-                PyErr_SetString(PyExc_TypeError,"wrong SV vector (leak)"); return NULL;
-            }
-            
-            t = PyList_GetItem(zz, 0); // sv_coef is first
-            if (!PyList_Check(t) || PyList_Size(t)!= m-1 ) {
-                PyErr_SetString(PyExc_TypeError,"SV coef wrong (leak)"); return NULL;
-            }
-            
-            for(jj=0;jj<m-1;jj++) {
-                uu = PyList_GetItem(t, jj);
-                if (!PyFloat_Check(uu)) {
-                    PyErr_SetString(PyExc_TypeError,"SV coef entry wrong (leak)"); return NULL;
-                }
-                model->sv_coef[jj][i] = PyFloat_AsDouble(uu);
-            }
-            
-            model->SV[i] = &(x_space[j]);
-            
-            kk = PyList_Size(zz);
-            
-            for (jj = 1; jj < kk; ++jj) {
-                t =PyList_GetItem(zz, jj);
-                if (!PyTuple_Check(t)) {
-                    PyErr_SetString(PyExc_TypeError,"SV entry wrong (leak)"); return NULL;
-                }
-                
-                uu = PyTuple_GetItem(t,0);
-                x_space[j].index = PyInt_AsLong(uu);
-                uu = PyTuple_GetItem(t,1);
-                x_space[j].value = PyFloat_AsDouble(uu);
-                
-                ++j;
-            }
-            x_space[j++].index = -1;
-        }
-        assert(j == elements);
-        model->free_sv = 1;	// XXX
-        arg1 = model;
-    }
-    result = SVMClassifier(arg1);
-    
-    {
-        psvm_model * resultptr;
-        resultptr = new psvm_model((psvm_model &) result);
-        resultobj = SWIG_NewPointerObj((void *) resultptr, SWIGTYPE_p_psvm_model, 1);
-    }
-    return resultobj;
-    fail:
-    return NULL;
-}
-
-
-static PyObject *_wrap_SVMLearn(PyObject *self, PyObject *args) {
-    PyObject *resultobj;
-    struct SVMInput *arg1 ;
-    int arg2 ;
-    int arg3 ;
-    int arg4 ;
-    double arg5 ;
-    double arg6 ;
-    double arg7 ;
-    double arg8 ;
-    double arg9 ;
-    double arg10 ;
-    double arg11 ;
-    int arg12 ;
-    int arg13 = 0 ;
-    double *arg14 = NULL ;
-    double *arg15 = NULL ;
-    struct svm_model *result;
-    PyObject * obj0  = 0 ;
-    PyObject * obj13  = 0 ;
-    PyObject * obj14  = 0 ;
-    
-    {
-        arg1 = NULL;
-    }
-    {
-        arg14 = NULL;
-    }
-    {
-        arg15 = NULL;
-    }
-    if(!PyArg_ParseTuple(args,(char *)"Oiiidddddddi|iOO:SVMLearn",&obj0,&arg2,&arg3,&arg4,&arg5,&arg6,&arg7,&arg8,&arg9,&arg10,&arg11,&arg12,&arg13,&obj13,&obj14)) goto fail;
-    {
-        /* Check if is a list */
-        if (PyList_Check(obj0)) {
-            int i, j, k, size, msize;
-            
-            size = PyList_Size(obj0);
-            msize = 0;
-            
-            arg1 = (struct SVMInput *) malloc(sizeof(struct SVMInput));
-            arg1->data = NULL;
-            arg1->masking = NULL;
-            arg1->label = NULL;
-            for (i = 0; i < size; i++) {
-                PyObject *o = PyList_GetItem(obj0,i);
-                if (PyList_Check(o)) {
-                    int zsize = PyList_Size(o);
-                    if (arg1->data == NULL) {
-                        msize = zsize;
-                        arg1->nn = size;
-                        arg1->k = msize-1;
-                        arg1->total = (arg1->nn)*(msize-1+1); // size correction, last is class
-                        arg1->masking = (char **)malloc(sizeof(char *)*(size+1));
-                        for (j = 0; j <= size; ++j) {
-                            arg1->masking[j] = (char *)malloc(sizeof(char)*(arg1->k+1));
-                            for (k = 0; k <= arg1->k; ++k) {
-                                arg1->masking[j][k] = 0;
-                            }
-                        }
-                        arg1->data = (double **)malloc(sizeof(double *)*(size+1));
-                        for (j = 0; j <= size; ++j) {
-                            arg1->data[j] = (double *)malloc(sizeof(double)*(arg1->k+1));
-                        }
-                        arg1->label = (double *)malloc(sizeof(double)*(arg1->nn+1));
-                    }
-                    if (zsize == msize) {
-                        // fetch the class (must be binary)
-                        PyObject *p = PyList_GetItem(o,zsize-1);
-                        if (p == NULL) {
-                            PyErr_SetString(PyExc_TypeError,"cannot fetch example");
-                            SVMcleanup(arg1);
-                            return NULL;
-                        }
-                        
-                        if (PyInt_Check(p) || PyLong_Check(p)) {
-                            arg1->label[i] = (double)PyInt_AsLong(p);
-                        }else if(PyFloat_Check(p)) {
-                            arg1->label[i] = PyFloat_AsDouble(p);
-                        }else {
-                            PyErr_SetString(PyExc_TypeError,"class not float or int");
-                            SVMcleanup(arg1);
-                            return NULL;
-                        }
-                        
-                        // fetch the attribute values
-                        for (j = 0; j < zsize-1; ++j) {
-                            PyObject *p = PyList_GetItem(o,j);
-                            
-                            if(PyTuple_Check(p)) {
-                                PyObject *ps = PyTuple_GetItem(p,1); // masking
-                                if (PyInt_Check(ps) || PyLong_Check(ps)) {
-                                    arg1->masking[i][j] = (char)PyInt_AsLong(ps);
-                                }else if(PyFloat_Check(ps)) {
-                                    arg1->masking[i][j] = (char)PyFloat_AsDouble(ps);
-                                }else {
-                                    PyErr_SetString(PyExc_TypeError,"masking not 1 or 0");
-                                    SVMcleanup(arg1);
-                                    return NULL;
-                                }
-                                p = PyTuple_GetItem(p,0); // foist value
-                            }
-                            if (PyFloat_Check(p)) {
-                                // correct +1 because that array starts at 1
-                                arg1->data[i][j] = PyFloat_AsDouble(p);
-                            }else if (PyInt_Check(p)) {
-                                arg1->data[i][j] = (double)PyInt_AsLong(p);
-                            }else {
-                                PyErr_SetString(PyExc_TypeError,"examples must contain doubles or ints. if masking, use tuples");
-                                SVMcleanup(arg1);
-                                return NULL;
-                            }
-                        }
-                    }else {
-                        PyErr_SetString(PyExc_TypeError,"examples must be of equal size");
-                        SVMcleanup(arg1);
-                        return NULL;
-                    }
-                }else {
-                    PyErr_SetString(PyExc_TypeError,"example table must contain examples as lists");
-                    SVMcleanup(arg1);
-                    return NULL;
-                }
-            }
-        }else {
-            PyErr_SetString(PyExc_TypeError,"not a list");
-            return NULL;
-        }
-        //("svmi:done\n");
-    }
-    if (obj13) {
-        {
-            /* Check if is a list */
-            if (PyList_Check(obj13)) {
-                int size = PyList_Size(obj13);
-                int i = 0;
-                arg14 = (double *) malloc((1+size)*sizeof(double));
-                for (i = 0; i < size; i++) {
-                    PyObject *o = PyList_GetItem(obj13,i);
-                    if (PyFloat_Check(o))
-                    arg14[i] = PyFloat_AsDouble(PyList_GetItem(obj13,i));
-                    else if (PyInt_Check(o)) {
-                        arg14[i] = PyInt_AsLong(PyList_GetItem(obj13,i));
-                    }else {
-                        PyErr_SetString(PyExc_TypeError,"list must contain floats");
-                        free(arg14);
-                        return NULL;
-                    }
-                }
-                arg14[i] = 3.1459001;
-            }else {
-                PyErr_SetString(PyExc_TypeError,"not a list");
-                return NULL;
-            }
-        }
-    }
-    if (obj14) {
-        {
-            /* Check if is a list */
-            if (PyList_Check(obj14)) {
-                int size = PyList_Size(obj14);
-                int i = 0;
-                arg15 = (double *) malloc((1+size)*sizeof(double));
-                for (i = 0; i < size; i++) {
-                    PyObject *o = PyList_GetItem(obj14,i);
-                    if (PyFloat_Check(o))
-                    arg15[i] = PyFloat_AsDouble(PyList_GetItem(obj14,i));
-                    else if (PyInt_Check(o)) {
-                        arg15[i] = PyInt_AsLong(PyList_GetItem(obj14,i));
-                    }else {
-                        PyErr_SetString(PyExc_TypeError,"list must contain floats");
-                        free(arg15);
-                        return NULL;
-                    }
-                }
-                arg15[i] = 3.1459001;
-            }else {
-                PyErr_SetString(PyExc_TypeError,"not a list");
-                return NULL;
-            }
-        }
-    }
-    result = (struct svm_model *)SVMLearn(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,arg11,arg12,arg13,arg14,arg15);
-    
-    {
-        struct svm_parameter *param = &(result->param);
-        double **sv_coef;
-        struct svm_node **SV;
-        struct svm_model *model = result;
-        int i, j, nr_class, l, elements;
-        PyObject *o, *t, *p, *ip;
-        
-        //    printf("svmo:1\n");
-        o = PyDict_New();
-        t = PyInt_FromLong(param->svm_type);
-        PyDict_SetItemString(o, "svm_type", t); Py_XDECREF(t);
-        t = PyInt_FromLong(param->kernel_type);
-        PyDict_SetItemString(o, "kernel_type", t); Py_XDECREF(t);
-        
-        if(param->kernel_type == POLY) {
-            t =	PyFloat_FromDouble(param->degree);
-            PyDict_SetItemString(o, "degree", t); Py_XDECREF(t);
-        }
-        
-        if(param->kernel_type == POLY || param->kernel_type == RBF || param->kernel_type == SIGMOID) {
-            t = PyFloat_FromDouble(param->gamma);
-            PyDict_SetItemString(o, "gamma", t); Py_XDECREF(t);
-        }
-        
-        if(param->kernel_type == POLY || param->kernel_type == SIGMOID) {
-            t = PyFloat_FromDouble(param->coef0);
-            PyDict_SetItemString(o, "coef0", t); Py_XDECREF(t);
-        }
-        
-        nr_class = model->nr_class;
-        l = model->l;
-        
-        t = PyInt_FromLong(nr_class);
-        PyDict_SetItemString(o, "nr_class", t); Py_XDECREF(t);
-        t = PyInt_FromLong(l);
-        PyDict_SetItemString(o, "total_sv", t); Py_XDECREF(t);
-        
-        {
-            t = PyList_New(nr_class*(nr_class-1)/2);
-            for(i=0;i<nr_class*(nr_class-1)/2;i++) {
-                PyList_SetItem(t, i, PyFloat_FromDouble(result->rho[i]));
-            }
-            PyDict_SetItemString(o, "rho", t); Py_XDECREF(t);
-        }
-        
-        
-        if(result->label) {
-            t = PyList_New(nr_class);
-            for(i=0;i<nr_class;i++) {
-                PyList_SetItem(t, i, PyInt_FromLong(result->label[i]));
-            }
-            PyDict_SetItemString(o, "label", t); Py_XDECREF(t);
-        }
-        
-        
-        if(result->nSV) {
-            t = PyList_New(nr_class);
-            for(i=0;i<nr_class;i++) {
-                PyList_SetItem(t, i, PyInt_FromLong(result->nSV[i]));
-            }
-            PyDict_SetItemString(o, "nr_sv", t); Py_XDECREF(t);
-        }
-        
-        
-        sv_coef = model->sv_coef;
-        SV = model->SV;
-        
-        p = PyList_New(l);
-        ip = PyList_New(l);
-        elements = l; // terminals
-        for(i=0;i<l;i++)
-        {
-            const struct svm_node *pp;
-            PyObject *zz;
-            
-            t = PyList_New(nr_class-1);
-            for(j=0;j<nr_class-1;j++) {
-                PyList_SetItem(t, j, PyFloat_FromDouble(result->sv_coef[j][i]));
-            }
-            
-            // count attributes
-            pp = SV[i];
-            PyList_SetItem(ip, i, PyInt_FromLong(model->SVidx[i])); // save the SV index
-            j = 1;
-            while(pp->index != -1)
-            {
-                pp++; ++j;
-            }
-            
-            // allocate
-            zz = PyList_New(j);
-            PyList_SetItem(zz, 0, t); // sv_coef is first
-            
-            pp = SV[i];
-            j = 0;
-            while(pp->index != -1)
-            {
-                t = PyTuple_New(2);
-                PyTuple_SetItem(t,0,PyInt_FromLong(pp->index));
-                PyTuple_SetItem(t,1,PyFloat_FromDouble(pp->value));
-                pp++; ++j; ++elements;
-                PyList_SetItem(zz,j,t);
-            }
-            
-            PyList_SetItem(p,i,zz);
-        }
-        PyDict_SetItemString(o, "SV", p); Py_XDECREF(p);
-        PyDict_SetItemString(o, "SVi", ip); Py_XDECREF(ip);
-        
-        //  printf("svmo:2\n");
-        t = PyInt_FromLong(elements);
-        PyDict_SetItemString(o, "elements", t); Py_XDECREF(t);
-        svm_destroy_model(result);
-        resultobj = o;
-    }
-    {
-        if(arg1 != NULL) {
-            int i;
-            //printf("svmc:1\n");
-            for (i = 0; i <= arg1->nn; ++i) {
-                free((double*)arg1->data[i]);
-                free((char*)arg1->masking[i]);
-            }
-            free((double**) arg1->data);
-            free((char**) arg1->masking);
-            free((double*) arg1->label);
-            free((struct SVMInput*) arg1);
-            //("svmc:2\n");
-        }
-    }
-    {
-        if (arg14 != NULL)
-        free((double *) arg14);
-    }
-    {
-        if (arg15 != NULL)
-        free((double *) arg15);
-    }
-    return resultobj;
-    fail:
-    {
-        if(arg1 != NULL) {
-            int i;
-            //printf("svmc:1\n");
-            for (i = 0; i <= arg1->nn; ++i) {
-                free((double*)arg1->data[i]);
-                free((char*)arg1->masking[i]);
-            }
-            free((double**) arg1->data);
-            free((char**) arg1->masking);
-            free((double*) arg1->label);
-            free((struct SVMInput*) arg1);
-            //("svmc:2\n");
-        }
-    }
-    {
-        if (arg14 != NULL)
-        free((double *) arg14);
-    }
-    {
-        if (arg15 != NULL)
-        free((double *) arg15);
-    }
-    return NULL;
-}
-
-
-static PyObject *_wrap_SVMClassify(PyObject *self, PyObject *args) {
-    PyObject *resultobj;
-    psvm_model arg1 ;
-    struct SVMExample *arg2 ;
-    double result;
-    psvm_model *argp1 ;
-    PyObject * obj0  = 0 ;
-    PyObject * obj1  = 0 ;
-    
-    {
-        arg2 = NULL;
-    }
-    if(!PyArg_ParseTuple(args,(char *)"OO:SVMClassify",&obj0,&obj1)) goto fail;
-    if ((SWIG_ConvertPtr(obj0,(void **) &argp1, SWIGTYPE_p_psvm_model,SWIG_POINTER_EXCEPTION) == -1)) SWIG_fail;
-    arg1 = *argp1; 
-    {
-        /* Check if is a list */
-        if (PyList_Check(obj1)) {
-            int j, msize;
-            
-            msize = PyList_Size(obj1);
-            
-            arg2 = (struct SVMExample *)malloc(sizeof(struct SVMExample));
-            arg2->k = msize;
-            arg2->data    = (double *)malloc(sizeof(double)*msize);
-            arg2->masking = (char *)malloc(sizeof(char)*msize);
-            
-            // fetch the attribute values
-            for (j = 0; j < msize; ++j) {
-                PyObject *p = PyList_GetItem(obj1,j);
-                
-                arg2->masking[j] = 0;
-                if(PyTuple_Check(p)) {
-                    arg2->masking[j] = 1;
-                    p = PyTuple_GetItem(p,0); // foist value
-                }
-                if (PyFloat_Check(p)) {
-                    arg2->data[j] = PyFloat_AsDouble(p);
-                }else if (PyInt_Check(p)) {
-                    arg2->data[j] = (double)PyInt_AsLong(p);
-                }else {
-                    PyErr_SetString(PyExc_TypeError,"examples must contain doubles or ints. if masking, use tuples");
-                    SVMexcleanup(arg2);
-                    return NULL;
-                }
-            }
-        }else {
-            PyErr_SetString(PyExc_TypeError,"not a list");
-            return NULL;
-        }
-    }
-    result = (double)SVMClassify(arg1,arg2);
-    
-    resultobj = PyFloat_FromDouble(result);
-    {
-        if (arg2 != NULL) {
-            free((double*) arg2->data);
-            free((char*) arg2->masking);
-            free((struct SVMExample*) arg2);
-        }
-    }
-    return resultobj;
-    fail:
-    {
-        if (arg2 != NULL) {
-            free((double*) arg2->data);
-            free((char*) arg2->masking);
-            free((struct SVMExample*) arg2);
-        }
-    }
-    return NULL;
-}
-
-
-static PyObject *_wrap_SVMClassifyM(PyObject *self, PyObject *args) {
-    PyObject *resultobj;
-    psvm_model arg1 ;
-    struct SVMExample *arg2 ;
-    double result;
-    psvm_model *argp1 ;
-    PyObject * obj0  = 0 ;
-    PyObject * obj1  = 0 ;
-    
-    {
-        arg2 = NULL;
-    }
-    if(!PyArg_ParseTuple(args,(char *)"OO:SVMClassifyM",&obj0,&obj1)) goto fail;
-    if ((SWIG_ConvertPtr(obj0,(void **) &argp1, SWIGTYPE_p_psvm_model,SWIG_POINTER_EXCEPTION) == -1)) SWIG_fail;
-    arg1 = *argp1; 
-    {
-        /* Check if is a list */
-        if (PyList_Check(obj1)) {
-            int j, msize;
-            
-            msize = PyList_Size(obj1);
-            
-            arg2 = (struct SVMExample *)malloc(sizeof(struct SVMExample));
-            arg2->k = msize;
-            arg2->data    = (double *)malloc(sizeof(double)*msize);
-            arg2->masking = (char *)malloc(sizeof(char)*msize);
-            
-            // fetch the attribute values
-            for (j = 0; j < msize; ++j) {
-                PyObject *p = PyList_GetItem(obj1,j);
-                
-                arg2->masking[j] = 0;
-                if(PyTuple_Check(p)) {
-                    arg2->masking[j] = 1;
-                    p = PyTuple_GetItem(p,0); // foist value
-                }
-                if (PyFloat_Check(p)) {
-                    arg2->data[j] = PyFloat_AsDouble(p);
-                }else if (PyInt_Check(p)) {
-                    arg2->data[j] = (double)PyInt_AsLong(p);
-                }else {
-                    PyErr_SetString(PyExc_TypeError,"examples must contain doubles or ints. if masking, use tuples");
-                    SVMexcleanup(arg2);
-                    return NULL;
-                }
-            }
-        }else {
-            PyErr_SetString(PyExc_TypeError,"not a list");
-            return NULL;
-        }
-    }
-    result = (double)SVMClassifyM(arg1,arg2);
-    
-    resultobj = PyFloat_FromDouble(result);
-    {
-        if (arg2 != NULL) {
-            free((double*) arg2->data);
-            free((char*) arg2->masking);
-            free((struct SVMExample*) arg2);
-        }
-    }
-    return resultobj;
-    fail:
-    {
-        if (arg2 != NULL) {
-            free((double*) arg2->data);
-            free((char*) arg2->masking);
-            free((struct SVMExample*) arg2);
-        }
     }
     return NULL;
 }
@@ -5236,6 +6075,16 @@ static PyObject *_wrap_Ktestmodels(PyObject *self, PyObject *args) {
 
 
 static PyMethodDef SwigMethods[] = {
+	 { (char *)"svm_destroy_model", _wrap_svm_destroy_model, METH_VARARGS },
+	 { (char *)"SVMClassifier", _wrap_SVMClassifier, METH_VARARGS },
+	 { (char *)"SVMLearnS", _wrap_SVMLearnS, METH_VARARGS },
+	 { (char *)"SVMLearn", _wrap_SVMLearn, METH_VARARGS },
+	 { (char *)"SVMClassify", _wrap_SVMClassify, METH_VARARGS },
+	 { (char *)"SVMClassifyP", _wrap_SVMClassifyP, METH_VARARGS },
+	 { (char *)"SVMClassifyM", _wrap_SVMClassifyM, METH_VARARGS },
+	 { (char *)"SVMClassifyS", _wrap_SVMClassifyS, METH_VARARGS },
+	 { (char *)"SVMClassifyPS", _wrap_SVMClassifyPS, METH_VARARGS },
+	 { (char *)"SVMClassifyMS", _wrap_SVMClassifyMS, METH_VARARGS },
 	 { (char *)"MCluster", _wrap_MCluster, METH_VARARGS },
 	 { (char *)"HCluster", _wrap_HCluster, METH_VARARGS },
 	 { (char *)"DMCluster", _wrap_DMCluster, METH_VARARGS },
@@ -5244,11 +6093,6 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"DFCluster", _wrap_DFCluster, METH_VARARGS },
 	 { (char *)"LogReg", _wrap_LogReg, METH_VARARGS },
 	 { (char *)"Computer", _wrap_Computer, METH_VARARGS },
-	 { (char *)"svm_destroy_model", _wrap_svm_destroy_model, METH_VARARGS },
-	 { (char *)"SVMClassifier", _wrap_SVMClassifier, METH_VARARGS },
-	 { (char *)"SVMLearn", _wrap_SVMLearn, METH_VARARGS },
-	 { (char *)"SVMClassify", _wrap_SVMClassify, METH_VARARGS },
-	 { (char *)"SVMClassifyM", _wrap_SVMClassifyM, METH_VARARGS },
 	 { (char *)"NBprepare", _wrap_NBprepare, METH_VARARGS },
 	 { (char *)"NBkill", _wrap_NBkill, METH_VARARGS },
 	 { (char *)"NBcleanup", _wrap_NBcleanup, METH_VARARGS },
@@ -5292,8 +6136,10 @@ static swig_type_info _swigt__p_psvm_model[] = {{"_p_psvm_model", 0, "psvm_model
 static swig_type_info _swigt__p_svm_model[] = {{"_p_svm_model", 0, "struct svm_model *", 0},{"_p_svm_model"},{0}};
 static swig_type_info _swigt__p_KInfo[] = {{"_p_KInfo", 0, "struct KInfo *", 0},{"_p_KInfo"},{0}};
 static swig_type_info _swigt__p_KModel[] = {{"_p_KModel", 0, "struct KModel *", 0},{"_p_KModel"},{0}};
-static swig_type_info _swigt__p_LRInfo[] = {{"_p_LRInfo", 0, "struct LRInfo *", 0},{"_p_LRInfo"},{0}};
+static swig_type_info _swigt__p_SVMOut[] = {{"_p_SVMOut", 0, "struct SVMOut *", 0},{"_p_SVMOut"},{0}};
+static swig_type_info _swigt__p_SVMSparseExample[] = {{"_p_SVMSparseExample", 0, "struct SVMSparseExample *", 0},{"_p_SVMSparseExample"},{0}};
 static swig_type_info _swigt__p_SVMExample[] = {{"_p_SVMExample", 0, "struct SVMExample *", 0},{"_p_SVMExample"},{0}};
+static swig_type_info _swigt__p_LRInfo[] = {{"_p_LRInfo", 0, "struct LRInfo *", 0},{"_p_LRInfo"},{0}};
 static swig_type_info _swigt__p_KInput[] = {{"_p_KInput", 0, "struct KInput *", 0},{"_p_KInput"},{0}};
 static swig_type_info _swigt__p_CInput[] = {{"_p_CInput", 0, "struct CInput *", 0},{"_p_CInput"},{0}};
 static swig_type_info _swigt__p_LRInput[] = {{"_p_LRInput", 0, "struct LRInput *", 0},{"_p_LRInput"},{0}};
@@ -5301,16 +6147,17 @@ static swig_type_info _swigt__p_NBModel[] = {{"_p_NBModel", 0, "struct NBModel *
 static swig_type_info _swigt__p_KList[] = {{"_p_KList", 0, "struct KList *", 0},{"_p_KList"},{0}};
 static swig_type_info _swigt__p_KMatrix[] = {{"_p_KMatrix", 0, "struct KMatrix *", 0},{"_p_KMatrix"},{0}};
 static swig_type_info _swigt__p_KModels[] = {{"_p_KModels", 0, "struct KModels *", 0},{"_p_KModels"},{0}};
-static swig_type_info _swigt__p_NBInput[] = {{"_p_NBInput", 0, "struct NBInput *", 0},{"_p_NBInput"},{0}};
 static swig_type_info _swigt__p_DInput[] = {{"_p_DInput", 0, "struct DInput *", 0},{"_p_DInput"},{0}};
+static swig_type_info _swigt__p_NBInput[] = {{"_p_NBInput", 0, "struct NBInput *", 0},{"_p_NBInput"},{0}};
 static swig_type_info _swigt__p_NBInfo[] = {{"_p_NBInfo", 0, "struct NBInfo *", 0},{"_p_NBInfo"},{0}};
 static swig_type_info _swigt__p_CMInfo[] = {{"_p_CMInfo", 0, "struct CMInfo *", 0},{"_p_CMInfo"},{0}};
 static swig_type_info _swigt__p_NBResult[] = {{"_p_NBResult", 0, "struct NBResult *", 0},{"_p_NBResult"},{0}};
 static swig_type_info _swigt__p_NBList[] = {{"_p_NBList", 0, "struct NBList *", 0},{"_p_NBList"},{0}};
 static swig_type_info _swigt__p_SVMInput[] = {{"_p_SVMInput", 0, "struct SVMInput *", 0},{"_p_SVMInput"},{0}};
 static swig_type_info _swigt__p_XX[] = {{"_p_XX", 0, "struct XX *", 0},{"_p_XX"},{0}};
-static swig_type_info _swigt__p_CHInfo[] = {{"_p_CHInfo", 0, "struct CHInfo *", 0},{"_p_CHInfo"},{0}};
 static swig_type_info _swigt__p_int[] = {{"_p_int", 0, "int *", 0},{"_p_int"},{0}};
+static swig_type_info _swigt__p_SVMSparseInput[] = {{"_p_SVMSparseInput", 0, "struct SVMSparseInput *", 0},{"_p_SVMSparseInput"},{0}};
+static swig_type_info _swigt__p_CHInfo[] = {{"_p_CHInfo", 0, "struct CHInfo *", 0},{"_p_CHInfo"},{0}};
 
 static swig_type_info *swig_types_initial[] = {
 _swigt__p_CFInfo, 
@@ -5320,8 +6167,10 @@ _swigt__p_psvm_model,
 _swigt__p_svm_model, 
 _swigt__p_KInfo, 
 _swigt__p_KModel, 
-_swigt__p_LRInfo, 
+_swigt__p_SVMOut, 
+_swigt__p_SVMSparseExample, 
 _swigt__p_SVMExample, 
+_swigt__p_LRInfo, 
 _swigt__p_KInput, 
 _swigt__p_CInput, 
 _swigt__p_LRInput, 
@@ -5329,16 +6178,17 @@ _swigt__p_NBModel,
 _swigt__p_KList, 
 _swigt__p_KMatrix, 
 _swigt__p_KModels, 
-_swigt__p_NBInput, 
 _swigt__p_DInput, 
+_swigt__p_NBInput, 
 _swigt__p_NBInfo, 
 _swigt__p_CMInfo, 
 _swigt__p_NBResult, 
 _swigt__p_NBList, 
 _swigt__p_SVMInput, 
 _swigt__p_XX, 
-_swigt__p_CHInfo, 
 _swigt__p_int, 
+_swigt__p_SVMSparseInput, 
+_swigt__p_CHInfo, 
 0
 };
 

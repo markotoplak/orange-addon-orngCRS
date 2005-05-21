@@ -1,6 +1,9 @@
 #include <assert.h>
 #include "svm.h"
 
+typedef struct svm_model *psvm_model;
+
+
 struct CHInfo {
 	long    n;			/* number of combinations */
 	long	*merging;	/* merging pairs */
@@ -69,6 +72,27 @@ struct SVMExample {
 	char   *masking;
 };
 
+struct SVMSparseInput {
+	long nn;
+	long elements;
+	int *lengths;
+	double **value;  
+	int    **index;
+	double *label;
+};
+
+
+struct SVMSparseExample {
+	long nn;
+	double *value;
+	int	   *index;
+};
+
+struct SVMOut {
+	long nn;
+	double *v;
+};
+
 struct CInput {
 	long nn;
 	long jpp;
@@ -79,7 +103,6 @@ struct DInput {
 	long nn;
 	double *data;
 };
-
 
 
 
@@ -99,14 +122,27 @@ void LRInfoCleanup(struct LRInfo *source);
 void LRcleanup(struct LRInput *p);
 void SVMcleanup(struct SVMInput *p);
 void SVMexcleanup(struct SVMExample *p);
+void SVMscleanup(struct SVMSparseInput *p);
+void SVMsecleanup(struct SVMSparseExample *p);
 
-psvm_model SVMClassifier(struct svm_model *InValue);
+double SVMClassify(psvm_model model, struct SVMExample *input);
+void SVMClassifyP(psvm_model model, struct SVMExample *input, struct SVMOut *OutValue );
+void SVMClassifyM(psvm_model model, struct SVMExample *input, struct SVMOut *OutValue );
+double SVMClassifyS(psvm_model model, struct SVMSparseExample *input);
+void SVMClassifyPS(psvm_model model, struct SVMSparseExample *input, struct SVMOut *OutValue );
+void SVMClassifyMS(psvm_model model, struct SVMSparseExample *input, struct SVMOut *OutValue );
+struct svm_model *SVMLearnS(struct SVMSparseInput *input, int svm_type, int kernel_type, double degree,
+		 double gamma, double coef0, double nu, double cache_size, double C, 
+		 double eps, double p, int shrinking, int probability, int nr_weight, double *weight, 
+		 int *weight_label);
 struct svm_model *SVMLearn(struct SVMInput *input, int svm_type, int kernel_type, double degree,
 		 double gamma, double coef0, double nu, double cache_size, double C, 
-		 double eps, double p, int shrinking, int nr_weight, double *weight, 
-		 double *weight_label);
-double SVMClassify(psvm_model model, struct SVMExample *input);
-double SVMClassifyM(psvm_model model, struct SVMExample *input);
+		 double eps, double p, int shrinking, int probability, int nr_weight, double *weight, 
+		 int *weight_label);
+
+void svm_destroy_model(struct svm_model *model);
+psvm_model SVMClassifier(struct svm_model *InValue);
+
 
 
 struct XX {

@@ -27,6 +27,26 @@ except AttributeError:
     _newclass = 0
 
 
+svm_destroy_model = _orngCRS.svm_destroy_model
+
+SVMClassifier = _orngCRS.SVMClassifier
+
+SVMLearnS = _orngCRS.SVMLearnS
+
+SVMLearn = _orngCRS.SVMLearn
+
+SVMClassify = _orngCRS.SVMClassify
+
+SVMClassifyP = _orngCRS.SVMClassifyP
+
+SVMClassifyM = _orngCRS.SVMClassifyM
+
+SVMClassifyS = _orngCRS.SVMClassifyS
+
+SVMClassifyPS = _orngCRS.SVMClassifyPS
+
+SVMClassifyMS = _orngCRS.SVMClassifyMS
+
 MCluster = _orngCRS.MCluster
 
 HCluster = _orngCRS.HCluster
@@ -42,16 +62,6 @@ DFCluster = _orngCRS.DFCluster
 LogReg = _orngCRS.LogReg
 
 Computer = _orngCRS.Computer
-
-svm_destroy_model = _orngCRS.svm_destroy_model
-
-SVMClassifier = _orngCRS.SVMClassifier
-
-SVMLearn = _orngCRS.SVMLearn
-
-SVMClassify = _orngCRS.SVMClassify
-
-SVMClassifyM = _orngCRS.SVMClassifyM
 
 NBprepare = _orngCRS.NBprepare
 

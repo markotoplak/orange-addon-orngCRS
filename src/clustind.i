@@ -441,6 +441,142 @@
  }
 }
 
+
+%typemap(python,in) struct SVMSparseInput * {
+ /* Check if is a list */
+ if (PyList_Check($input)) {
+   int i, j, k, nex, nvals;
+   
+   nex = PyList_Size($input);
+   nvals = 0;
+
+   $1 = (struct SVMSparseInput *) malloc(sizeof(struct SVMSparseInput));
+   $1->elements = 0;
+   $1->index = NULL;
+   $1->value = NULL;
+   $1->label = NULL;
+   for (i = 0; i < nex; i++) {
+     PyObject *ex = PyList_GetItem($input,i);
+     // example
+     if (PyList_Check(ex)) {
+		 nvals = PyList_Size(ex)-1;
+		 if ($1->index == NULL) {
+			 $1->nn = nex;
+			 $1->lengths = (int *)malloc($1->nn*sizeof(int));
+			 $1->value = (double **)malloc($1->nn*sizeof(double *));
+			 $1->index = (int **)malloc($1->nn*sizeof(int *));
+			 $1->label = (double *)malloc($1->nn*sizeof(double));
+			 for(j = 0; j < nex; ++j)
+				$1->lengths[j] = -1;
+		 }
+		// fetch the class (must be binary)
+		PyObject *p = PyList_GetItem(ex,0);
+		if (p == NULL) {
+			PyErr_SetString(PyExc_TypeError,"cannot fetch label");
+			SVMscleanup($1);
+ 			return NULL;
+ 		}
+		if (PyInt_Check(p) || PyLong_Check(p)) {
+			$1->label[i] = (double)PyInt_AsLong(p);
+		} else if(PyFloat_Check(p)) {
+			$1->label[i] = PyFloat_AsDouble(p);
+		} else {
+			PyErr_SetString(PyExc_TypeError,"class not float or int");
+			SVMscleanup($1);
+			return NULL;
+		}
+		$1->lengths[i] = nvals-1;
+		$1->elements += nvals-1;
+		if(nvals > 0) {
+			$1->value[i] = (double *)malloc((nvals-1)*sizeof(double));
+			$1->index[i] = (int *)malloc((nvals-1)*sizeof(int));
+		}
+		// fetch the attribute values
+		for (j = 1; j < nvals; ++j) {
+			PyObject *p = PyList_GetItem(ex,j);
+	 		if(PyTuple_Check(p)) {
+	 			PyObject *idx = PyTuple_GetItem(p,0); 
+				PyObject *val = PyTuple_GetItem(p,1); 
+				if ((PyInt_Check(idx) || PyLong_Check(idx)) && (PyInt_AsLong(idx) >= 1) ) {
+					$1->index[i][j-1] = PyInt_AsLong(idx);
+				} else {
+					PyErr_SetString(PyExc_TypeError,"index not a positive integer");
+					SVMscleanup($1);
+					return NULL;
+				}
+				if (PyInt_Check(idx) || PyLong_Check(idx)) {
+					$1->value[i][j-1] = (double)PyInt_AsLong(idx);
+				} else if(PyFloat_Check(p)) {
+					$1->value[i][j-1] = PyFloat_AsDouble(val);
+				}  else {
+					PyErr_SetString(PyExc_TypeError,"value not an integer or a float");
+					SVMscleanup($1);
+					return NULL;
+				}
+			} else {
+				PyErr_SetString(PyExc_TypeError,"attribute values within an example must be tuples (index,value)");
+				SVMscleanup($1);
+				return NULL;
+			}
+		 } 
+     } else {
+       PyErr_SetString(PyExc_TypeError,"example table must contain examples as lists of tuples");
+       SVMscleanup($1);
+       return NULL;
+     }
+   }
+ } else {
+   PyErr_SetString(PyExc_TypeError,"not a list");
+   return NULL;
+ }
+}
+
+%typemap(python,in) struct SVMSparseExample * {
+int nvals, i,j; 
+ /* Check if is a list */
+ if (PyList_Check($input)) {
+     if (PyList_Check($input)) {
+		 nvals = PyList_Size($input);
+		 $1->nn = nvals;
+ 		 $1->value = (double *)malloc((nvals)*sizeof(double));
+		 $1->index = (int *)malloc((nvals)*sizeof(int));
+		// fetch the attribute values
+		for (j = 0; j < nvals; ++j) {
+			PyObject *p = PyList_GetItem($input,j);
+	 		if(PyTuple_Check(p)) {
+	 			PyObject *idx = PyTuple_GetItem(p,0); 
+				PyObject *val = PyTuple_GetItem(p,1); 
+				if (PyInt_Check(idx) || PyLong_Check(idx)) {
+					$1->index[j-1] = PyInt_AsLong(idx);
+				} else {
+					PyErr_SetString(PyExc_TypeError,"index not 1 or 0");
+					SVMsecleanup($1);
+					return NULL;
+				}
+				if (PyInt_Check(idx) || PyLong_Check(idx)) {
+					$1->value[j-1] = (double)PyInt_AsLong(idx);
+				} else if(PyFloat_Check(p)) {
+					$1->value[j-1] = PyFloat_AsDouble(val);
+				}  else {
+					PyErr_SetString(PyExc_TypeError,"value not an integer or a float");
+					SVMsecleanup($1);
+					return NULL;
+				}
+			} else {
+				PyErr_SetString(PyExc_TypeError,"attribute values within an example must be tuples (index,value)");
+				SVMsecleanup($1);
+				return NULL;
+			}
+		 } 
+     } else {
+       PyErr_SetString(PyExc_TypeError,"example must be a list of tuples");
+       SVMsecleanup($1);
+       return NULL;
+     }
+   }
+}
+
+
 %typemap(python,in) struct LRInput * {
  /* Check if is a list */
 // printf("A-");
@@ -667,6 +803,12 @@
 %typemap(python,arginit) struct SVMExample * {
   $1 = NULL;
 }
+%typemap(python,arginit) struct SVMSparseInput *{
+  $1 = NULL;
+}
+%typemap(python,arginit) struct SVMSparseExample * {
+  $1 = NULL;
+}
 %typemap(python,arginit) struct CInput * {
   $1 = NULL;
 }
@@ -722,6 +864,31 @@
   }
 }
 
+%typemap(python,freearg) struct SVMSparseInput * {
+  if($1 != NULL) {
+	  int i;
+	  for (i = 0; i < $1->nn; ++i) {
+	    if($1->lengths[i] > 0) {
+			free((double*)$1->value[i]);
+			free((int*)$1->index[i]);
+		}
+	  }
+	  free((double**) $1->value);
+	  free((int**) $1->index);
+	  free((double*) $1->label);
+	  free((int*) $1->lengths);
+	  free((struct SVMSparseInput*) $1);
+  }
+}
+
+%typemap(python,freearg) struct SVMSparseExample * {
+  if ($1 != NULL) {
+	  free((double*) $1->value);
+	  free((int *) $1->index);
+	  free((struct SVMSparseExample*) $1);
+  }
+}
+
 %typemap(python,freearg) struct CInput * {
   if ($1 != NULL) {
 	  free((double*) $1->data);
@@ -739,7 +906,7 @@
 
 %typemap(python, in) struct svm_model * {
     PyObject *o, *t, *p, *zz, *uu;
-	int m,l,i,j, elements;
+	int m,l,i,j, elements, pairs;
 	struct svm_node *x_space;
 	struct svm_model *model;
 	struct svm_parameter *param;
@@ -750,6 +917,8 @@
 	param = &(model->param);
 	model->label = NULL;
 	model->nSV = NULL;
+	model->probA = NULL;
+	model->probB = NULL;
 
 	if (!PyDict_Check(o)) {
        PyErr_SetString(PyExc_TypeError,"must be a dictionary");
@@ -823,10 +992,29 @@
 	   free(model);
 	   return NULL;
 	}
-	model->rho = (double *)malloc(sizeof(double)*m*(m-1)/2);
-	for(i=0;i<m*(m-1)/2;i++) {
+	pairs = m*(m-1)/2;
+	model->rho = (double *)malloc(sizeof(double)*pairs);
+	for(i=0;i<pairs;i++) {
 		p = PyList_GetItem(t, i);
 		model->rho[i] = PyFloat_AsDouble(p);
+	}
+
+	t = PyDict_GetItemString(o, "ProbA");
+	if (t != NULL) {
+		model->probA = (double *)malloc(sizeof(double)*pairs);
+		for(i=0;i<pairs;i++) {
+			p = PyList_GetItem(t, i);
+			model->probA[i] = PyFloat_AsDouble(p);
+		}
+	}
+
+	t = PyDict_GetItemString(o, "ProbB");
+	if (t != NULL) {
+		model->probB = (double *)malloc(sizeof(double)*pairs);
+		for(i=0;i<pairs;i++) {
+			p = PyList_GetItem(t, i);
+			model->probB[i] = PyFloat_AsDouble(p);
+		}
 	}
 
 	t = PyDict_GetItemString(o, "label");
@@ -918,7 +1106,6 @@
     int i, j, nr_class, l, elements;
     PyObject *o, *t, *p, *ip;
 
-//    printf("svmo:1\n");
 	o = PyDict_New();
     t = PyInt_FromLong(param->svm_type);
 	PyDict_SetItemString(o, "svm_type", t); Py_XDECREF(t);
@@ -956,6 +1143,21 @@
 		PyDict_SetItemString(o, "rho", t); Py_XDECREF(t);
 	}
 	
+	if($1->probA) {
+	   	t = PyList_New(nr_class*(nr_class-1)/2);
+		for(i=0;i<nr_class*(nr_class-1)/2;i++) {
+			PyList_SetItem(t, i, PyFloat_FromDouble($1->probA[i]));
+		}
+		PyDict_SetItemString(o, "ProbA", t); Py_XDECREF(t);
+	}
+	
+	if($1->probB) {
+	   	t = PyList_New(nr_class*(nr_class-1)/2);
+		for(i=0;i<nr_class*(nr_class-1)/2;i++) {
+			PyList_SetItem(t, i, PyFloat_FromDouble($1->probB[i]));
+		}
+		PyDict_SetItemString(o, "ProbB", t); Py_XDECREF(t);
+	}
 	
 	if($1->label) {
 	   	t = PyList_New(nr_class);
@@ -1026,6 +1228,59 @@
 	svm_destroy_model($1);
     $result = o;
 } 
+
+
+
+%typemap(python,ignore) struct SVMOut *OutValue {
+    $1 = (struct SVMOut *)malloc(sizeof(struct SVMOut));
+}
+%typemap(python,argout) struct SVMOut *OutValue {
+   int i;
+   PyObject *o, *q;
+
+   o = PyList_New($1->nn);
+
+   for(i = 0; i < $1->nn; ++i) {
+	 q = PyFloat_FromDouble($1->v[i]);
+	 PyList_SetItem(o, i, q);
+   }
+   free($1->v);
+   free($1);
+   if ((!$result) || ($result == Py_None)) {
+	   $result = o;
+   } else {
+	   if (!PyList_Check($result)) {
+		   PyObject *o2 = $result;
+		   $result = PyList_New(0);
+		   PyList_Append($result,o2);
+		   Py_XDECREF(o2);
+	   }
+	   PyList_Append($result,o);
+	   Py_XDECREF(o);
+   }
+}
+
+
+void svm_destroy_model(struct svm_model *model);
+psvm_model SVMClassifier(struct svm_model *InValue);
+struct svm_model *SVMLearnS(struct SVMSparseInput *input, int svm_type, int kernel_type, double degree,
+		 double gamma, double coef0, double nu, double cache_size, double C, 
+		 double eps, double p, int shrinking, int probability, int nr_weight, double *weight, 
+		 int *weight_label);
+struct svm_model *SVMLearn(struct SVMInput *input, int svm_type, int kernel_type, double degree,
+		 double gamma, double coef0, double nu, double cache_size, double C, 
+		 double eps, double p, int shrinking, int probability, int nr_weight, double *weight, 
+		 int *weight_label);
+double SVMClassify(psvm_model model, struct SVMExample *input);
+void SVMClassifyP(psvm_model model, struct SVMExample *input, struct SVMOut *OutValue );
+void SVMClassifyM(psvm_model model, struct SVMExample *input, struct SVMOut *OutValue );
+double SVMClassifyS(psvm_model model, struct SVMSparseExample *input);
+void SVMClassifyPS(psvm_model model, struct SVMSparseExample *input, struct SVMOut *OutValue );
+void SVMClassifyMS(psvm_model model, struct SVMSparseExample *input, struct SVMOut *OutValue );
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 
 
 %typemap(python,ignore) struct NBResult *OutValue {
@@ -1439,14 +1694,6 @@ void Computer(struct XX *input, struct XX *OutValue);
 
 
 
-void svm_destroy_model(struct svm_model *model);
-psvm_model SVMClassifier(struct svm_model *InValue);
-struct svm_model *SVMLearn(struct SVMInput *input, int svm_type, int kernel_type, int degree,
-		 double gamma, double coef0, double nu, double cache_size, double C, 
-		 double eps, double p, int shrinking, int nr_weight=0, double *weight=NULL, 
-		 double *weight_label=NULL);
-double SVMClassify(psvm_model model, struct SVMExample *input);
-double SVMClassifyM(psvm_model model, struct SVMExample *input);
 
 struct NBInfo *NBprepare(struct NBInput *input);
 void NBkill(struct NBInfo *p);

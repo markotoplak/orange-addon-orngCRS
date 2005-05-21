@@ -55,10 +55,14 @@ extern "C" {
 		doublereal *clusinf, doublereal *sylinf,
 		integer *nisol);
 
+#define Malloc(type,n) (type *)malloc((n)*sizeof(type))
+
+
+// dense data
 struct svm_model *SVMLearn(struct SVMInput *input, int svm_type, int kernel_type, double degree,
 		 double gamma, double coef0, double nu, double cache_size, double C, 
-		 double eps, double p, int shrinking, int nr_weight=0, double *weight=NULL, 
-		 double *weight_label=NULL) 
+		 double eps, double p, int shrinking, int probability, int nr_weight=0, double *weight=NULL, 
+		 int *weight_label=NULL) 
 {
 	struct svm_parameter param;		// set by parse_command_line
 	struct svm_problem prob;		// set by read_problem
@@ -80,11 +84,10 @@ struct svm_model *SVMLearn(struct SVMInput *input, int svm_type, int kernel_type
 	param.nr_weight = nr_weight;
 	param.weight_label = weight_label;
 	param.weight = weight;
+	param.probability = probability;
 
 	prob.l = input->nn;
 	elements = input->total; //total is corrected + nn
-
-	//printf("svm:1\n");
 
 	prob.y = Malloc(double,prob.l);
 	prob.x = Malloc(struct svm_node *,prob.l);
@@ -111,16 +114,67 @@ struct svm_model *SVMLearn(struct SVMInput *input, int svm_type, int kernel_type
 
 	if(param.gamma == 0)
 		param.gamma = 1.0/max_index;
-	//printf("svm:2\n");
 	return svm_train(&prob,&param);
 }
 
-psvm_model SVMClassifier(struct svm_model *InValue) {
-	return InValue;
+// sparse data
+struct svm_model *SVMLearnS(struct SVMSparseInput *input, int svm_type, int kernel_type, double degree,
+		 double gamma, double coef0, double nu, double cache_size, double C, 
+		 double eps, double p, int shrinking, int probability, int nr_weight=0, double *weight=NULL, 
+		 int *weight_label=NULL) 
+{
+	struct svm_parameter param;		// set by parse_command_line
+	struct svm_problem prob;		// set by read_problem
+	struct svm_node *x_space;
+	int max_index, i, j, k;
+
+	// default values
+	param.svm_type = svm_type;
+	param.kernel_type = kernel_type;
+	param.degree = degree;
+	param.gamma = gamma;	// 1/k
+	param.coef0 = coef0;
+	param.nu = nu;
+	param.cache_size = cache_size;
+	param.C = C;
+	param.eps = eps;
+	param.p = p;
+	param.shrinking = shrinking;
+	param.nr_weight = nr_weight;
+	param.weight_label = weight_label;
+	param.weight = weight;
+	param.probability = probability;
+
+	prob.l = input->nn;
+	prob.y = Malloc(double,prob.l);
+	prob.x = Malloc(struct svm_node *,prob.l);
+	x_space = Malloc(struct svm_node, input->elements+input->nn); // there are the label terminators
+
+	max_index = 0;
+	j=0;
+	for(i=0;i<prob.l;i++)
+	{
+		prob.x[i] = &x_space[j];
+		prob.y[i] = input->label[i];
+		for(k = 0; k < input->lengths[i]; ++k)
+		{
+			if(input->index[i][k] > max_index) {
+				max_index = input->index[i][k];
+			}
+			x_space[j].index = input->index[i][k];
+			x_space[j].value = input->value[i][k];
+			++j;
+		}	
+		x_space[j++].index = -1;
+	}
+
+	if(param.gamma == 0)
+		param.gamma = 1.0/max_index;
+	return svm_train(&prob,&param);
 }
 
 double SVMClassify(psvm_model model, struct SVMExample *input) {
-	int i,j;
+	int i,j,nc;
 	struct svm_node *x;
 	double r;
 
@@ -141,9 +195,8 @@ double SVMClassify(psvm_model model, struct SVMExample *input) {
 
 	return r;
 }
-
-double SVMClassifyM(psvm_model model, struct SVMExample *input) {
-	int i,j;
+void SVMClassifyP(psvm_model model, struct SVMExample *input, struct SVMOut *out) {
+	int i,j,nc;
 	struct svm_node *x;
 	double r;
 
@@ -158,12 +211,116 @@ double SVMClassifyM(psvm_model model, struct SVMExample *input) {
 	}
 	x[i].index = -1;
 
-	r = svm_predict_margin(model, x);
+	if(model->param.svm_type == ONE_CLASS || model->param.svm_type == EPSILON_SVR || model->param.svm_type == NU_SVR) {
+		nc = 1;
+	} else 
+		nc = model->nr_class;
+	out->nn = nc;
+	out->v = (double *)malloc(sizeof(double)*nc);
+	r = svm_predict_probability(model, x, out->v);
+
+	free(x);
+}
+
+void SVMClassifyM(psvm_model model, struct SVMExample *input, struct SVMOut *out) {
+	int i,j,nc;
+	struct svm_node *x;
+
+	x = (struct svm_node*)malloc(sizeof(struct svm_node)*(input->k+1));
+	i = 0;
+	for(j = 0; j < input->k; ++j) {
+		if (input->masking[j] != 1) {
+			x[i].index = j+1;
+			x[i].value = input->data[j];
+			++i;
+		}
+	}
+	x[i].index = -1;
+
+	if(model->param.svm_type == ONE_CLASS || model->param.svm_type == EPSILON_SVR || model->param.svm_type == NU_SVR) {
+		nc = 1;
+	} else 
+		nc = model->nr_class;
+	out->nn = nc;
+	out->v = (double *)malloc(sizeof(double)*nc);
+	svm_predict_values(model, x, out->v);
+
+	free(x);
+}
+
+psvm_model SVMClassifier(struct svm_model *InValue) {
+	return InValue;
+}
+
+double SVMClassifyS(psvm_model model, struct SVMSparseExample *input) {
+	int i,j,nc;
+	struct svm_node *x;
+	double r;
+
+	x = (struct svm_node*)malloc(sizeof(struct svm_node)*(input->nn+1));
+	i = 0;
+	for(j = 0; j < input->nn; ++j) {
+		x[i].index = input->index[j];
+		x[i].value = input->value[j];
+		++i;
+	}
+	x[i].index = -1;
+
+	r = svm_predict(model, x);
 
 	free(x);
 
 	return r;
 }
+void SVMClassifyPS(psvm_model model, struct SVMSparseExample *input, struct SVMOut *out) {
+	int i,j,nc;
+	struct svm_node *x;
+	double r;
+
+	x = (struct svm_node*)malloc(sizeof(struct svm_node)*(input->nn+1));
+	i = 0;
+	for(j = 0; j < input->nn; ++j) {
+		x[i].index = input->index[j];
+		x[i].value = input->value[j];
+		++i;
+	}
+	x[i].index = -1;
+
+	if(model->param.svm_type == ONE_CLASS || model->param.svm_type == EPSILON_SVR || model->param.svm_type == NU_SVR) {
+		nc = 1;
+	} else 
+		nc = model->nr_class;
+	out->nn = nc;
+	out->v = (double *)malloc(sizeof(double)*nc);
+	r = svm_predict_probability(model, x, out->v);
+
+	free(x);
+}
+
+void SVMClassifyMS(psvm_model model, struct SVMSparseExample *input, struct SVMOut *out) {
+	int i,j,nc;
+	struct svm_node *x;
+
+	x = (struct svm_node*)malloc(sizeof(struct svm_node)*(input->nn+1));
+	i = 0;
+	for(j = 0; j < input->nn; ++j) {
+		x[i].index = input->index[j];
+		x[i].value = input->value[j];
+		++i;
+	}
+	x[i].index = -1;
+
+	if(model->param.svm_type == ONE_CLASS || model->param.svm_type == EPSILON_SVR || model->param.svm_type == NU_SVR) {
+		nc = 1;
+	} else 
+		nc = model->nr_class;
+	out->nn = nc;
+	out->v = (double *)malloc(sizeof(double)*nc);
+	svm_predict_values(model, x, out->v);
+
+	free(x);
+}
+
 
 void LogReg(struct LRInput *input, double regularization, struct LRInfo *O) {
 	int i;
@@ -171,16 +328,6 @@ void LogReg(struct LRInput *input, double regularization, struct LRInfo *O) {
 	O->nn = input->nn;
 	O->k = input->k;
 
-	//printf("#att:%d #ex:%d\n",O->k,O->nn);
-	
-/*
-	for (i = 1; i <= input->nn; ++i) {
-		printf("\nEx %d = %d :: ",i,input->success[i]);
-		for (j = 1;  j<= input->k; ++j) {
-			printf("%2.2f ",input->data[i][j]);
-		}
-	}
-*/
 	O->beta = (double*)malloc(sizeof(double)*(input->k+1));
 	O->se_beta = (double*)malloc(sizeof(double)*(input->k+1));
 	O->fit = (double*)malloc(sizeof(double)*(input->nn+1));
@@ -191,13 +338,11 @@ void LogReg(struct LRInput *input, double regularization, struct LRInfo *O) {
 		O->cov_beta[i] = (double*)malloc(sizeof(double)*(input->k+1));
 		O->dependent[i] = 0; // no dependence
 	}
-//	printf("+lr:2\n");
 	logistic(O->error, input->nn,input->data,input->k,input->success,input->trials,
 		O->chisq, O->devnce, O->ndf, O->beta, O->se_beta,
 		O->fit, O->cov_beta, O->stdres, O->dependent, regularization
 	);
-//	printf("-lr:2\n");
-	//printf("lr:3\n");
+
 }
 
 void LRInfoCleanup(struct LRInfo *source) {
@@ -251,6 +396,32 @@ void SVMcleanup(struct SVMInput *p) {
 	free(p);
 }
 
+void SVMsecleanup(struct SVMSparseExample *p) {
+	if (p->value != NULL) {
+		free(p->value);
+		free(p->index);
+	}
+	free(p);
+}
+
+void SVMscleanup(struct SVMSparseInput *p) {
+	int i;
+	if (p->value != NULL) {
+		if(p->lengths[i] > 0) {
+			free((double*)p->value[i]);
+			free((int*)p->index[i]);
+		}
+		free(p->value);
+		free(p->index);
+		free(p->lengths);
+	}
+	if (p->label!= NULL) {
+		free(p->label);
+	}
+	free(p);
+}
+
+
 void HCluster(struct CInput *input, int metric, int method, struct CHInfo *OutValue) {
 	long i, res,nn,jpp;
 	long *kwan, *ner, jdyss, nydist, *jmtd, meth, jalg, *merge;
@@ -291,20 +462,6 @@ void HCluster(struct CInput *input, int metric, int method, struct CHInfo *OutVa
 
 	OutValue->ac = ac;
 
-//	cout << ac;
-/*	cout << "\nMerging: \n";
-	for (i = 0; i < nn-1; ++i) {
-		cout << merge[i*2] << " " << merge[i*2+1] << "\n";
-	}
-	cout << "\nOrder: ";
-	for (i = 0; i < nn; ++i) {
-		cout << ner[i] << " ";
-	}
-	cout << "\nHeight: ";
-	for (i = 0; i < nn; ++i) {
-		cout << ban[i] << " ";
-	}
-	*/
 	free(dv); free(dv2); free(jmtd); free(valmd); free(kwan);
 }
 
@@ -364,19 +521,6 @@ void MCluster(struct CInput *input, long k, int metric, struct CMInfo *OutValue)
 		med, obj, clu, clusinf, silinf, isol
 	);
 
-
-/*	entropy = 0;
-	for (i = 0; i < k; ++i) {
-		sum = 0;
-		for (j = 0; j < jpp; ++j) {
-			if ((*cases[med[i]-1]->a)[j] > 1e-6)
-				entropy -= (*cases[med[i]-1]->a)[j] * log((*cases[med[i]-1]->a)[j]);
-			sum += (*cases[med[i]-1]->a)[j];
-		}
-		if ((1-sum) > 1e-6)
-			entropy -= (1-sum) * log(1-sum);
-	}
-*/
 	// copy the average silhouettes
 	OutValue->cdisp = (double*)malloc(sizeof(double)*k);
 	OutValue->k = k;
@@ -416,7 +560,6 @@ void FCluster(struct CInput *input, long k, int metric, struct CFInfo *OutValue)
 	clu = OutValue->mapping = (long*)malloc(sizeof(long)*nn);
 
 	dv = (double*)malloc((1 + (nn * (nn - 1))/2)*sizeof(double));
-	//x = (double*)malloc(sizeof(double)*(nn*jpp));
 	jmtd = (long*)malloc(sizeof(long)*jpp);
 	valmd = (double*)malloc(sizeof(double)*jpp);
 	a1 = (long*)malloc(sizeof(long)*nn);
@@ -460,20 +603,6 @@ void FCluster(struct CInput *input, long k, int metric, struct CFInfo *OutValue)
 		silinf /**/, &eps
 	);
 
-
-/*	entropy = 0;
-	for (i = 0; i < k; ++i) {
-		sum = 0;
-		for (j = 0; j < jpp; ++j) {
-			if ((*cases[med[i]-1]->a)[j] > 1e-6)
-				entropy -= (*cases[med[i]-1]->a)[j] * log((*cases[med[i]-1]->a)[j]);
-			sum += (*cases[med[i]-1]->a)[j];
-		}
-		if ((1-sum) > 1e-6)
-			entropy -= (1-sum) * log(1-sum);
-	}
-*/
-	
 	// copy the average silhouettes
 	OutValue->iterations =  int(obj[0]);
 	OutValue->value = obj[1];
@@ -530,20 +659,6 @@ void DHCluster(struct DInput *input, int method, struct CHInfo *OutValue) {
 
 	OutValue->ac = ac;
 
-//	cout << ac;
-/*	cout << "\nMerging: \n";
-	for (i = 0; i < nn-1; ++i) {
-		cout << merge[i*2] << " " << merge[i*2+1] << "\n";
-	}
-	cout << "\nOrder: ";
-	for (i = 0; i < nn; ++i) {
-		cout << ner[i] << " ";
-	}
-	cout << "\nHeight: ";
-	for (i = 0; i < nn; ++i) {
-		cout << ban[i] << " ";
-	}
-	*/
 	free(dv2); free(kwan); free(x);
 }
 
@@ -593,19 +708,6 @@ void DMCluster(struct DInput *input, long k, struct CMInfo *OutValue) {
 		med, obj, clu, clusinf, silinf, isol
 	);
 
-
-/*	entropy = 0;
-	for (i = 0; i < k; ++i) {
-		sum = 0;
-		for (j = 0; j < jpp; ++j) {
-			if ((*cases[med[i]-1]->a)[j] > 1e-6)
-				entropy -= (*cases[med[i]-1]->a)[j] * log((*cases[med[i]-1]->a)[j]);
-			sum += (*cases[med[i]-1]->a)[j];
-		}
-		if ((1-sum) > 1e-6)
-			entropy -= (1-sum) * log(1-sum);
-	}
-*/
 	// copy the average silhouettes
 	OutValue->cdisp = (double*)malloc(sizeof(double)*k);
 	OutValue->k = k;
@@ -682,20 +784,6 @@ void DFCluster(struct DInput *input, long k, struct CFInfo *OutValue) {
 		obj /**/, clu /**/, 
 		silinf /**/, &eps
 	);
-
-
-/*	entropy = 0;
-	for (i = 0; i < k; ++i) {
-		sum = 0;
-		for (j = 0; j < jpp; ++j) {
-			if ((*cases[med[i]-1]->a)[j] > 1e-6)
-				entropy -= (*cases[med[i]-1]->a)[j] * log((*cases[med[i]-1]->a)[j]);
-			sum += (*cases[med[i]-1]->a)[j];
-		}
-		if ((1-sum) > 1e-6)
-			entropy -= (1-sum) * log(1-sum);
-	}
-*/
 	
 	// copy the average silhouettes
 	OutValue->iterations =  int(obj[0]);
@@ -719,6 +807,9 @@ void DFCluster(struct DInput *input, long k, struct CFInfo *OutValue) {
 	free(obj);
 	free(silinf);
 }
+
+
+// some correlation computation stuff...
 
 void xComputer(struct XX *input, struct XX *OutValue) {
 	int i, j, k, mi,ma,ofs;
