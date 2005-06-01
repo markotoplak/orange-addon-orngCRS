@@ -504,9 +504,9 @@
 					SVMscleanup($1);
 					return NULL;
 				}
-				if (PyInt_Check(idx) || PyLong_Check(idx)) {
-					$1->value[i][j-1] = (double)PyInt_AsLong(idx);
-				} else if(PyFloat_Check(p)) {
+				if (PyInt_Check(val) || PyLong_Check(val)) {
+					$1->value[i][j-1] = (double)PyInt_AsLong(val);
+				} else if(PyFloat_Check(val)) {
 					$1->value[i][j-1] = PyFloat_AsDouble(val);
 				}  else {
 					PyErr_SetString(PyExc_TypeError,"value not an integer or a float");
@@ -534,35 +534,35 @@
 %typemap(python,in) struct SVMSparseExample * {
 int nvals, i,j; 
  /* Check if is a list */
- if (PyList_Check($input)) {
      if (PyList_Check($input)) {
 		 nvals = PyList_Size($input);
+		 $1 = (SVMSparseExample *)malloc(sizeof(SVMSparseExample));
 		 $1->nn = nvals;
  		 $1->value = (double *)malloc((nvals)*sizeof(double));
 		 $1->index = (int *)malloc((nvals)*sizeof(int));
-		// fetch the attribute values
-		for (j = 0; j < nvals; ++j) {
+		 // fetch the attribute values
+		 for (j = 0; j < nvals; ++j) {
 			PyObject *p = PyList_GetItem($input,j);
 	 		if(PyTuple_Check(p)) {
 	 			PyObject *idx = PyTuple_GetItem(p,0); 
 				PyObject *val = PyTuple_GetItem(p,1); 
 				if (PyInt_Check(idx) || PyLong_Check(idx)) {
-					$1->index[j-1] = PyInt_AsLong(idx);
+					$1->index[j] = PyInt_AsLong(idx);
 				} else {
 					PyErr_SetString(PyExc_TypeError,"index not 1 or 0");
 					SVMsecleanup($1);
 					return NULL;
 				}
-				if (PyInt_Check(idx) || PyLong_Check(idx)) {
-					$1->value[j-1] = (double)PyInt_AsLong(idx);
-				} else if(PyFloat_Check(p)) {
-					$1->value[j-1] = PyFloat_AsDouble(val);
+				if (PyInt_Check(val) || PyLong_Check(val)) {
+					$1->value[j] = (double)PyInt_AsLong(val);
+				} else if(PyFloat_Check(val)) {
+					$1->value[j] = PyFloat_AsDouble(val);
 				}  else {
 					PyErr_SetString(PyExc_TypeError,"value not an integer or a float");
 					SVMsecleanup($1);
 					return NULL;
 				}
-			} else {
+			} else { 
 				PyErr_SetString(PyExc_TypeError,"attribute values within an example must be tuples (index,value)");
 				SVMsecleanup($1);
 				return NULL;
@@ -573,7 +573,6 @@ int nvals, i,j;
        SVMsecleanup($1);
        return NULL;
      }
-   }
 }
 
 

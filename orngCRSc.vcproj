@@ -202,6 +202,7 @@
 				ProgramDatabaseFile="orngCRSc___Win32_FINAL/_orngCRS.pdb"
 				GenerateMapFile="TRUE"
 				MapFileName=".\tmp/_orngCRS.map"
+				MapLines="TRUE"
 				SubSystem="2"
 				ImportLibrary="orngCRSc___Win32_FINAL/_orngCRS.lib"
 				TargetMachine="1"/>

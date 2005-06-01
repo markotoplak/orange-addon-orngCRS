@@ -407,9 +407,11 @@ void SVMsecleanup(struct SVMSparseExample *p) {
 void SVMscleanup(struct SVMSparseInput *p) {
 	int i;
 	if (p->value != NULL) {
-		if(p->lengths[i] > 0) {
-			free((double*)p->value[i]);
-			free((int*)p->index[i]);
+		for(i = 0; i < p->nn; ++i) {
+			if(p->lengths[i] > 0) {
+				free((double*)p->value[i]);
+				free((int*)p->index[i]);
+			}
 		}
 		free(p->value);
 		free(p->index);

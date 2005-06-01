@@ -1210,9 +1210,9 @@ static PyObject *_wrap_SVMLearnS(PyObject *self, PyObject *args) {
                                 SVMscleanup(arg1);
                                 return NULL;
                             }
-                            if (PyInt_Check(idx) || PyLong_Check(idx)) {
-                                arg1->value[i][j-1] = (double)PyInt_AsLong(idx);
-                            }else if(PyFloat_Check(p)) {
+                            if (PyInt_Check(val) || PyLong_Check(val)) {
+                                arg1->value[i][j-1] = (double)PyInt_AsLong(val);
+                            }else if(PyFloat_Check(val)) {
                                 arg1->value[i][j-1] = PyFloat_AsDouble(val);
                             }else {
                                 PyErr_SetString(PyExc_TypeError,"value not an integer or a float");
@@ -2126,44 +2126,43 @@ static PyObject *_wrap_SVMClassifyS(PyObject *self, PyObject *args) {
         int nvals, i,j; 
         /* Check if is a list */
         if (PyList_Check(obj1)) {
-            if (PyList_Check(obj1)) {
-                nvals = PyList_Size(obj1);
-                arg2->nn = nvals;
-                arg2->value = (double *)malloc((nvals)*sizeof(double));
-                arg2->index = (int *)malloc((nvals)*sizeof(int));
-                // fetch the attribute values
-                for (j = 0; j < nvals; ++j) {
-                    PyObject *p = PyList_GetItem(obj1,j);
-                    if(PyTuple_Check(p)) {
-                        PyObject *idx = PyTuple_GetItem(p,0); 
-                        PyObject *val = PyTuple_GetItem(p,1); 
-                        if (PyInt_Check(idx) || PyLong_Check(idx)) {
-                            arg2->index[j-1] = PyInt_AsLong(idx);
-                        }else {
-                            PyErr_SetString(PyExc_TypeError,"index not 1 or 0");
-                            SVMsecleanup(arg2);
-                            return NULL;
-                        }
-                        if (PyInt_Check(idx) || PyLong_Check(idx)) {
-                            arg2->value[j-1] = (double)PyInt_AsLong(idx);
-                        }else if(PyFloat_Check(p)) {
-                            arg2->value[j-1] = PyFloat_AsDouble(val);
-                        }else {
-                            PyErr_SetString(PyExc_TypeError,"value not an integer or a float");
-                            SVMsecleanup(arg2);
-                            return NULL;
-                        }
+            nvals = PyList_Size(obj1);
+            arg2 = (SVMSparseExample *)malloc(sizeof(SVMSparseExample));
+            arg2->nn = nvals;
+            arg2->value = (double *)malloc((nvals)*sizeof(double));
+            arg2->index = (int *)malloc((nvals)*sizeof(int));
+            // fetch the attribute values
+            for (j = 0; j < nvals; ++j) {
+                PyObject *p = PyList_GetItem(obj1,j);
+                if(PyTuple_Check(p)) {
+                    PyObject *idx = PyTuple_GetItem(p,0); 
+                    PyObject *val = PyTuple_GetItem(p,1); 
+                    if (PyInt_Check(idx) || PyLong_Check(idx)) {
+                        arg2->index[j] = PyInt_AsLong(idx);
                     }else {
-                        PyErr_SetString(PyExc_TypeError,"attribute values within an example must be tuples (index,value)");
+                        PyErr_SetString(PyExc_TypeError,"index not 1 or 0");
                         SVMsecleanup(arg2);
                         return NULL;
                     }
+                    if (PyInt_Check(val) || PyLong_Check(val)) {
+                        arg2->value[j] = (double)PyInt_AsLong(val);
+                    }else if(PyFloat_Check(val)) {
+                        arg2->value[j] = PyFloat_AsDouble(val);
+                    }else {
+                        PyErr_SetString(PyExc_TypeError,"value not an integer or a float");
+                        SVMsecleanup(arg2);
+                        return NULL;
+                    }
+                }else {
+                    PyErr_SetString(PyExc_TypeError,"attribute values within an example must be tuples (index,value)");
+                    SVMsecleanup(arg2);
+                    return NULL;
                 }
-            }else {
-                PyErr_SetString(PyExc_TypeError,"example must be a list of tuples");
-                SVMsecleanup(arg2);
-                return NULL;
             }
+        }else {
+            PyErr_SetString(PyExc_TypeError,"example must be a list of tuples");
+            SVMsecleanup(arg2);
+            return NULL;
         }
     }
     result = (double)SVMClassifyS(arg1,arg2);
@@ -2211,44 +2210,43 @@ static PyObject *_wrap_SVMClassifyPS(PyObject *self, PyObject *args) {
         int nvals, i,j; 
         /* Check if is a list */
         if (PyList_Check(obj1)) {
-            if (PyList_Check(obj1)) {
-                nvals = PyList_Size(obj1);
-                arg2->nn = nvals;
-                arg2->value = (double *)malloc((nvals)*sizeof(double));
-                arg2->index = (int *)malloc((nvals)*sizeof(int));
-                // fetch the attribute values
-                for (j = 0; j < nvals; ++j) {
-                    PyObject *p = PyList_GetItem(obj1,j);
-                    if(PyTuple_Check(p)) {
-                        PyObject *idx = PyTuple_GetItem(p,0); 
-                        PyObject *val = PyTuple_GetItem(p,1); 
-                        if (PyInt_Check(idx) || PyLong_Check(idx)) {
-                            arg2->index[j-1] = PyInt_AsLong(idx);
-                        }else {
-                            PyErr_SetString(PyExc_TypeError,"index not 1 or 0");
-                            SVMsecleanup(arg2);
-                            return NULL;
-                        }
-                        if (PyInt_Check(idx) || PyLong_Check(idx)) {
-                            arg2->value[j-1] = (double)PyInt_AsLong(idx);
-                        }else if(PyFloat_Check(p)) {
-                            arg2->value[j-1] = PyFloat_AsDouble(val);
-                        }else {
-                            PyErr_SetString(PyExc_TypeError,"value not an integer or a float");
-                            SVMsecleanup(arg2);
-                            return NULL;
-                        }
+            nvals = PyList_Size(obj1);
+            arg2 = (SVMSparseExample *)malloc(sizeof(SVMSparseExample));
+            arg2->nn = nvals;
+            arg2->value = (double *)malloc((nvals)*sizeof(double));
+            arg2->index = (int *)malloc((nvals)*sizeof(int));
+            // fetch the attribute values
+            for (j = 0; j < nvals; ++j) {
+                PyObject *p = PyList_GetItem(obj1,j);
+                if(PyTuple_Check(p)) {
+                    PyObject *idx = PyTuple_GetItem(p,0); 
+                    PyObject *val = PyTuple_GetItem(p,1); 
+                    if (PyInt_Check(idx) || PyLong_Check(idx)) {
+                        arg2->index[j] = PyInt_AsLong(idx);
                     }else {
-                        PyErr_SetString(PyExc_TypeError,"attribute values within an example must be tuples (index,value)");
+                        PyErr_SetString(PyExc_TypeError,"index not 1 or 0");
                         SVMsecleanup(arg2);
                         return NULL;
                     }
+                    if (PyInt_Check(val) || PyLong_Check(val)) {
+                        arg2->value[j] = (double)PyInt_AsLong(val);
+                    }else if(PyFloat_Check(val)) {
+                        arg2->value[j] = PyFloat_AsDouble(val);
+                    }else {
+                        PyErr_SetString(PyExc_TypeError,"value not an integer or a float");
+                        SVMsecleanup(arg2);
+                        return NULL;
+                    }
+                }else {
+                    PyErr_SetString(PyExc_TypeError,"attribute values within an example must be tuples (index,value)");
+                    SVMsecleanup(arg2);
+                    return NULL;
                 }
-            }else {
-                PyErr_SetString(PyExc_TypeError,"example must be a list of tuples");
-                SVMsecleanup(arg2);
-                return NULL;
             }
+        }else {
+            PyErr_SetString(PyExc_TypeError,"example must be a list of tuples");
+            SVMsecleanup(arg2);
+            return NULL;
         }
     }
     SVMClassifyPS(arg1,arg2,arg3);
@@ -2321,44 +2319,43 @@ static PyObject *_wrap_SVMClassifyMS(PyObject *self, PyObject *args) {
         int nvals, i,j; 
         /* Check if is a list */
         if (PyList_Check(obj1)) {
-            if (PyList_Check(obj1)) {
-                nvals = PyList_Size(obj1);
-                arg2->nn = nvals;
-                arg2->value = (double *)malloc((nvals)*sizeof(double));
-                arg2->index = (int *)malloc((nvals)*sizeof(int));
-                // fetch the attribute values
-                for (j = 0; j < nvals; ++j) {
-                    PyObject *p = PyList_GetItem(obj1,j);
-                    if(PyTuple_Check(p)) {
-                        PyObject *idx = PyTuple_GetItem(p,0); 
-                        PyObject *val = PyTuple_GetItem(p,1); 
-                        if (PyInt_Check(idx) || PyLong_Check(idx)) {
-                            arg2->index[j-1] = PyInt_AsLong(idx);
-                        }else {
-                            PyErr_SetString(PyExc_TypeError,"index not 1 or 0");
-                            SVMsecleanup(arg2);
-                            return NULL;
-                        }
-                        if (PyInt_Check(idx) || PyLong_Check(idx)) {
-                            arg2->value[j-1] = (double)PyInt_AsLong(idx);
-                        }else if(PyFloat_Check(p)) {
-                            arg2->value[j-1] = PyFloat_AsDouble(val);
-                        }else {
-                            PyErr_SetString(PyExc_TypeError,"value not an integer or a float");
-                            SVMsecleanup(arg2);
-                            return NULL;
-                        }
+            nvals = PyList_Size(obj1);
+            arg2 = (SVMSparseExample *)malloc(sizeof(SVMSparseExample));
+            arg2->nn = nvals;
+            arg2->value = (double *)malloc((nvals)*sizeof(double));
+            arg2->index = (int *)malloc((nvals)*sizeof(int));
+            // fetch the attribute values
+            for (j = 0; j < nvals; ++j) {
+                PyObject *p = PyList_GetItem(obj1,j);
+                if(PyTuple_Check(p)) {
+                    PyObject *idx = PyTuple_GetItem(p,0); 
+                    PyObject *val = PyTuple_GetItem(p,1); 
+                    if (PyInt_Check(idx) || PyLong_Check(idx)) {
+                        arg2->index[j] = PyInt_AsLong(idx);
                     }else {
-                        PyErr_SetString(PyExc_TypeError,"attribute values within an example must be tuples (index,value)");
+                        PyErr_SetString(PyExc_TypeError,"index not 1 or 0");
                         SVMsecleanup(arg2);
                         return NULL;
                     }
+                    if (PyInt_Check(val) || PyLong_Check(val)) {
+                        arg2->value[j] = (double)PyInt_AsLong(val);
+                    }else if(PyFloat_Check(val)) {
+                        arg2->value[j] = PyFloat_AsDouble(val);
+                    }else {
+                        PyErr_SetString(PyExc_TypeError,"value not an integer or a float");
+                        SVMsecleanup(arg2);
+                        return NULL;
+                    }
+                }else {
+                    PyErr_SetString(PyExc_TypeError,"attribute values within an example must be tuples (index,value)");
+                    SVMsecleanup(arg2);
+                    return NULL;
                 }
-            }else {
-                PyErr_SetString(PyExc_TypeError,"example must be a list of tuples");
-                SVMsecleanup(arg2);
-                return NULL;
             }
+        }else {
+            PyErr_SetString(PyExc_TypeError,"example must be a list of tuples");
+            SVMsecleanup(arg2);
+            return NULL;
         }
     }
     SVMClassifyMS(arg1,arg2,arg3);
