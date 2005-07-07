@@ -6,8 +6,6 @@
 #include <map>
 #include <algorithm>
 
-//#define _DEBUG
-#include <crtdbg.h>
 
 using namespace std;
 
@@ -227,7 +225,6 @@ void KCache::setEnsemble(struct KModels *m, struct KArray *weights) {
 	map<long,int> LUT;
 	map<long,int>::iterator LUTi;
 	
-	_ASSERTE( _CrtCheckMemory( ) );
 	emptyEnsemble();
 	ensemble = new KEnsemble;
 	ensemble->regions = new vector<KRegion *>;
@@ -277,7 +274,6 @@ void KCache::setEnsemble(struct KModels *m, struct KArray *weights) {
 	for(k = 0; k < ensemble->regions->size(); ++k)
 		ensemble->predictions[k] = (double *)malloc(sizeof(double)*d->card[d->na]); // for every class value, a prediction
 
-	_ASSERTE( _CrtCheckMemory( ) );
 }
 
 void KCache::ClassifyEnsemble(int *ex, double *outresult) {
@@ -285,7 +281,6 @@ void KCache::ClassifyEnsemble(int *ex, double *outresult) {
 	unsigned int j,k;
 	double sum, prob, lprob, pred;
 
-	_ASSERTE( _CrtCheckMemory( ) );
 	// for all the classes
 	for(i = 0; i < d->card[d->na]; ++i){
 		ex[d->na] = i;
@@ -330,7 +325,6 @@ void KCache::ClassifyEnsemble(int *ex, double *outresult) {
 		//printf("%f ",outresult[i]);
 	}
 	//printf("\n");
-	_ASSERTE( _CrtCheckMemory( ) );
 }
 
 // convert the odds into probabilities for a given case
@@ -341,7 +335,7 @@ void KCache::deLogize(double *outresult) {
 
 	maxo = -1e200;
 	for(i = 0; i < d->card[d->na]; ++i){
-		maxo = max(maxo,results[i]);
+		maxo = maxx(maxo,results[i]);
 	}
 
 	sum = 0.0;
