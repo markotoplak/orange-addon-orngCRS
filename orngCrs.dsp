@@ -127,6 +127,10 @@ SOURCE=.\src\pam.c
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\pr_statistics.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\svm.cpp
 # End Source File
 # Begin Source File
@@ -164,6 +168,10 @@ SOURCE=.\src\models.h
 # Begin Source File
 
 SOURCE=.\src\nb.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\pr_statistics.h
 # End Source File
 # Begin Source File
 
