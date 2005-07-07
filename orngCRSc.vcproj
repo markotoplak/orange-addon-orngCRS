@@ -125,7 +125,7 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/export:init_orngCRS"
-				AdditionalDependencies="c:\dev\python\libs\python23.lib"
+				AdditionalDependencies="c:\dev\python\libs\python24.lib"
 				OutputFile="_orngCRS.pyd"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
