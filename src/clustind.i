@@ -1260,7 +1260,7 @@ int nvals, i,j;
 }
 
 
-void svm_destroy_model(struct svm_model *model);
+void svm_destroy_model(psvm_model model);
 psvm_model SVMClassifier(struct svm_model *InValue);
 struct svm_model *SVMLearnS(struct SVMSparseInput *input, int svm_type, int kernel_type, double degree,
 		 double gamma, double coef0, double nu, double cache_size, double C, 

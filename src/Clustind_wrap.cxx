@@ -648,8 +648,8 @@ SWIG_InstallConstants(PyObject *d, swig_const_info constants[]) {
 #define  SWIGTYPE_p_CFInfo swig_types[0] 
 #define  SWIGTYPE_p_KArray swig_types[1] 
 #define  SWIGTYPE_p_double swig_types[2] 
-#define  SWIGTYPE_p_psvm_model swig_types[3] 
-#define  SWIGTYPE_p_svm_model swig_types[4] 
+#define  SWIGTYPE_p_svm_model swig_types[3] 
+#define  SWIGTYPE_p_psvm_model swig_types[4] 
 #define  SWIGTYPE_p_KInfo swig_types[5] 
 #define  SWIGTYPE_p_KModel swig_types[6] 
 #define  SWIGTYPE_p_SVMOut swig_types[7] 
@@ -696,203 +696,13 @@ extern "C" {
 #endif
 static PyObject *_wrap_svm_destroy_model(PyObject *self, PyObject *args) {
     PyObject *resultobj;
-    struct svm_model *arg1 ;
+    psvm_model arg1 ;
+    psvm_model *argp1 ;
     PyObject * obj0  = 0 ;
     
     if(!PyArg_ParseTuple(args,(char *)"O:svm_destroy_model",&obj0)) goto fail;
-    {
-        PyObject *o, *t, *p, *zz, *uu;
-        int m,l,i,j, elements, pairs;
-        struct svm_node *x_space;
-        struct svm_model *model;
-        struct svm_parameter *param;
-        
-        
-        o = obj0;
-        model = (struct svm_model *)malloc(sizeof(struct svm_model));
-        param = &(model->param);
-        model->label = NULL;
-        model->nSV = NULL;
-        model->probA = NULL;
-        model->probB = NULL;
-        
-        if (!PyDict_Check(o)) {
-            PyErr_SetString(PyExc_TypeError,"must be a dictionary");
-            free(model);
-            return NULL;
-        }
-        t = PyDict_GetItemString(o, "svm_type");
-        if (!PyInt_Check(t)) {
-            PyErr_SetString(PyExc_TypeError,"svm_type missing");
-            free(model);
-            return NULL;
-        }
-        param->svm_type = PyInt_AsLong(t);
-        t = PyDict_GetItemString(o, "kernel_type");
-        if (!PyInt_Check(t)) {
-            PyErr_SetString(PyExc_TypeError,"kernel_type missing");
-            free(model);
-            return NULL;
-        }
-        param->kernel_type = PyInt_AsLong(t);
-        
-        if(param->kernel_type == POLY) {
-            t = PyDict_GetItemString(o, "degree");
-            if (!PyFloat_Check(t)) {
-                PyErr_SetString(PyExc_TypeError,"degree missing");
-                free(model);
-                return NULL;
-            }
-            param->degree = PyFloat_AsDouble(t);
-        }
-        
-        if(param->kernel_type == POLY || param->kernel_type == RBF || param->kernel_type == SIGMOID) {
-            t = PyDict_GetItemString(o, "gamma");
-            if (!PyFloat_Check(t)) {
-                PyErr_SetString(PyExc_TypeError,"gamma missing");
-                free(model);
-                return NULL;
-            }
-            param->gamma = PyFloat_AsDouble(t);
-        }
-        
-        if(param->kernel_type == POLY || param->kernel_type == SIGMOID) {
-            t = PyDict_GetItemString(o, "coef0");
-            if (!PyFloat_Check(t)) {
-                PyErr_SetString(PyExc_TypeError,"coef0 missing");
-                free(model);
-                return NULL;
-            }
-            param->coef0 = PyFloat_AsDouble(t);
-        }
-        
-        t = PyDict_GetItemString(o, "nr_class");
-        if (!PyInt_Check(t)) {
-            PyErr_SetString(PyExc_TypeError,"nr_class missing");
-            free(model);
-            return NULL;
-        }
-        m = model->nr_class = PyInt_AsLong(t);
-        t = PyDict_GetItemString(o, "total_sv");
-        if (!PyInt_Check(t)) {
-            PyErr_SetString(PyExc_TypeError,"total_sv missing");
-            free(model);
-            return NULL;
-        }
-        l = model->l = PyInt_AsLong(t);
-        
-        
-        t = PyDict_GetItemString(o, "rho");
-        if (!PyList_Check(t)) {
-            PyErr_SetString(PyExc_TypeError,"rho missing");
-            free(model);
-            return NULL;
-        }
-        pairs = m*(m-1)/2;
-        model->rho = (double *)malloc(sizeof(double)*pairs);
-        for(i=0;i<pairs;i++) {
-            p = PyList_GetItem(t, i);
-            model->rho[i] = PyFloat_AsDouble(p);
-        }
-        
-        t = PyDict_GetItemString(o, "ProbA");
-        if (t != NULL) {
-            model->probA = (double *)malloc(sizeof(double)*pairs);
-            for(i=0;i<pairs;i++) {
-                p = PyList_GetItem(t, i);
-                model->probA[i] = PyFloat_AsDouble(p);
-            }
-        }
-        
-        t = PyDict_GetItemString(o, "ProbB");
-        if (t != NULL) {
-            model->probB = (double *)malloc(sizeof(double)*pairs);
-            for(i=0;i<pairs;i++) {
-                p = PyList_GetItem(t, i);
-                model->probB[i] = PyFloat_AsDouble(p);
-            }
-        }
-        
-        t = PyDict_GetItemString(o, "label");
-        if (t != NULL) {
-            model->label = (int *)malloc(sizeof(int)*m);
-            for(i=0;i<m;i++) {
-                p = PyList_GetItem(t, i);
-                model->label[i] = PyInt_AsLong(p);
-            }
-        }
-        
-        t = PyDict_GetItemString(o, "nr_sv");
-        if (t != NULL) {
-            model->nSV = (int *)malloc(sizeof(int)*m);
-            for(i=0;i<m;i++) {
-                p = PyList_GetItem(t, i);
-                model->nSV[i] = PyInt_AsLong(p);
-            }
-        }
-        
-        t = PyDict_GetItemString(o, "elements");
-        elements = PyInt_AsLong(t);
-        
-        model->sv_coef = (double **)malloc(sizeof(double *)*m);
-        model->SV = (struct svm_node **)malloc(sizeof(struct svm_node **)*l);
-        for(i=0;i<m;i++)
-        model->sv_coef[i] = (double *)malloc(sizeof(double)*l);
-        
-        x_space = (struct svm_node *)malloc(sizeof(struct svm_node)*elements);
-        
-        p = PyDict_GetItemString(o, "SV");
-        if (!PyList_Check(p) || PyList_Size(p)!=l) {
-            PyErr_SetString(PyExc_TypeError,"SV list missing");
-            free(model);
-            return NULL;
-        }
-        j = 0;
-        for(i=0;i<l;i++)
-        {
-            int jj, kk;
-            
-            zz = PyList_GetItem(p,i);
-            if (!PyList_Check(zz)) {
-                PyErr_SetString(PyExc_TypeError,"wrong SV vector (leak)"); return NULL;
-            }
-            
-            t = PyList_GetItem(zz, 0); // sv_coef is first
-            if (!PyList_Check(t) || PyList_Size(t)!= m-1 ) {
-                PyErr_SetString(PyExc_TypeError,"SV coef wrong (leak)"); return NULL;
-            }
-            
-            for(jj=0;jj<m-1;jj++) {
-                uu = PyList_GetItem(t, jj);
-                if (!PyFloat_Check(uu)) {
-                    PyErr_SetString(PyExc_TypeError,"SV coef entry wrong (leak)"); return NULL;
-                }
-                model->sv_coef[jj][i] = PyFloat_AsDouble(uu);
-            }
-            
-            model->SV[i] = &(x_space[j]);
-            
-            kk = PyList_Size(zz);
-            
-            for (jj = 1; jj < kk; ++jj) {
-                t =PyList_GetItem(zz, jj);
-                if (!PyTuple_Check(t)) {
-                    PyErr_SetString(PyExc_TypeError,"SV entry wrong (leak)"); return NULL;
-                }
-                
-                uu = PyTuple_GetItem(t,0);
-                x_space[j].index = PyInt_AsLong(uu);
-                uu = PyTuple_GetItem(t,1);
-                x_space[j].value = PyFloat_AsDouble(uu);
-                
-                ++j;
-            }
-            x_space[j++].index = -1;
-        }
-        assert(j == elements);
-        model->free_sv = 1;	// XXX
-        arg1 = model;
-    }
+    if ((SWIG_ConvertPtr(obj0,(void **) &argp1, SWIGTYPE_p_psvm_model,SWIG_POINTER_EXCEPTION) == -1)) SWIG_fail;
+    arg1 = *argp1; 
     svm_destroy_model(arg1);
     
     Py_INCREF(Py_None); resultobj = Py_None;
@@ -6129,8 +5939,8 @@ static PyMethodDef SwigMethods[] = {
 static swig_type_info _swigt__p_CFInfo[] = {{"_p_CFInfo", 0, "struct CFInfo *", 0},{"_p_CFInfo"},{0}};
 static swig_type_info _swigt__p_KArray[] = {{"_p_KArray", 0, "struct KArray *", 0},{"_p_KArray"},{0}};
 static swig_type_info _swigt__p_double[] = {{"_p_double", 0, "double *", 0},{"_p_double"},{0}};
-static swig_type_info _swigt__p_psvm_model[] = {{"_p_psvm_model", 0, "psvm_model *", 0},{"_p_psvm_model"},{0}};
 static swig_type_info _swigt__p_svm_model[] = {{"_p_svm_model", 0, "struct svm_model *", 0},{"_p_svm_model"},{0}};
+static swig_type_info _swigt__p_psvm_model[] = {{"_p_psvm_model", 0, "psvm_model *", 0},{"_p_psvm_model"},{0}};
 static swig_type_info _swigt__p_KInfo[] = {{"_p_KInfo", 0, "struct KInfo *", 0},{"_p_KInfo"},{0}};
 static swig_type_info _swigt__p_KModel[] = {{"_p_KModel", 0, "struct KModel *", 0},{"_p_KModel"},{0}};
 static swig_type_info _swigt__p_SVMOut[] = {{"_p_SVMOut", 0, "struct SVMOut *", 0},{"_p_SVMOut"},{0}};
@@ -6160,8 +5970,8 @@ static swig_type_info *swig_types_initial[] = {
 _swigt__p_CFInfo, 
 _swigt__p_KArray, 
 _swigt__p_double, 
-_swigt__p_psvm_model, 
 _swigt__p_svm_model, 
+_swigt__p_psvm_model, 
 _swigt__p_KInfo, 
 _swigt__p_KModel, 
 _swigt__p_SVMOut, 
