@@ -854,6 +854,7 @@ static PyObject *_wrap_SVMClassifier(PyObject *self, PyObject *args) {
         elements = PyInt_AsLong(t);
         
         model->sv_coef = (double **)malloc(sizeof(double *)*m);
+        model->SVidx = (int *)malloc(sizeof(int)*l); // allocate even if not use
         model->SV = (struct svm_node **)malloc(sizeof(struct svm_node **)*l);
         for(i=0;i<m;i++)
         model->sv_coef[i] = (double *)malloc(sizeof(double)*l);
@@ -943,7 +944,7 @@ static PyObject *_wrap_SVMLearnS(PyObject *self, PyObject *args) {
     int arg14 ;
     double *arg15 ;
     int *arg16 ;
-    struct svm_model *result;
+    struct wsvm_model *result;
     PyObject * obj0  = 0 ;
     PyObject * obj14  = 0 ;
     PyObject * obj15  = 0 ;
@@ -1092,13 +1093,13 @@ static PyObject *_wrap_SVMLearnS(PyObject *self, PyObject *args) {
             return NULL;
         }
     }
-    result = (struct svm_model *)SVMLearnS(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,arg11,arg12,arg13,arg14,arg15,arg16);
+    result = (struct wsvm_model *)SVMLearnS(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,arg11,arg12,arg13,arg14,arg15,arg16);
     
     {
-        struct svm_parameter *param = &(result->param);
+        struct svm_parameter *param = &(result->m->param);
         double **sv_coef;
         struct svm_node **SV;
-        struct svm_model *model = result;
+        struct svm_model *model = result->m;
         int i, j, nr_class, l, elements;
         PyObject *o, *t, *p, *ip;
         
@@ -1134,40 +1135,40 @@ static PyObject *_wrap_SVMLearnS(PyObject *self, PyObject *args) {
         {
             t = PyList_New(nr_class*(nr_class-1)/2);
             for(i=0;i<nr_class*(nr_class-1)/2;i++) {
-                PyList_SetItem(t, i, PyFloat_FromDouble(result->rho[i]));
+                PyList_SetItem(t, i, PyFloat_FromDouble(model->rho[i]));
             }
             PyDict_SetItemString(o, "rho", t); Py_XDECREF(t);
         }
         
-        if(result->probA) {
+        if(model->probA) {
             t = PyList_New(nr_class*(nr_class-1)/2);
             for(i=0;i<nr_class*(nr_class-1)/2;i++) {
-                PyList_SetItem(t, i, PyFloat_FromDouble(result->probA[i]));
+                PyList_SetItem(t, i, PyFloat_FromDouble(model->probA[i]));
             }
             PyDict_SetItemString(o, "ProbA", t); Py_XDECREF(t);
         }
         
-        if(result->probB) {
+        if(model->probB) {
             t = PyList_New(nr_class*(nr_class-1)/2);
             for(i=0;i<nr_class*(nr_class-1)/2;i++) {
-                PyList_SetItem(t, i, PyFloat_FromDouble(result->probB[i]));
+                PyList_SetItem(t, i, PyFloat_FromDouble(model->probB[i]));
             }
             PyDict_SetItemString(o, "ProbB", t); Py_XDECREF(t);
         }
         
-        if(result->label) {
+        if(model->label) {
             t = PyList_New(nr_class);
             for(i=0;i<nr_class;i++) {
-                PyList_SetItem(t, i, PyInt_FromLong(result->label[i]));
+                PyList_SetItem(t, i, PyInt_FromLong(model->label[i]));
             }
             PyDict_SetItemString(o, "label", t); Py_XDECREF(t);
         }
         
         
-        if(result->nSV) {
+        if(model->nSV) {
             t = PyList_New(nr_class);
             for(i=0;i<nr_class;i++) {
-                PyList_SetItem(t, i, PyInt_FromLong(result->nSV[i]));
+                PyList_SetItem(t, i, PyInt_FromLong(model->nSV[i]));
             }
             PyDict_SetItemString(o, "nr_sv", t); Py_XDECREF(t);
         }
@@ -1186,7 +1187,7 @@ static PyObject *_wrap_SVMLearnS(PyObject *self, PyObject *args) {
             
             t = PyList_New(nr_class-1);
             for(j=0;j<nr_class-1;j++) {
-                PyList_SetItem(t, j, PyFloat_FromDouble(result->sv_coef[j][i]));
+                PyList_SetItem(t, j, PyFloat_FromDouble(model->sv_coef[j][i]));
             }
             
             // count attributes
@@ -1221,7 +1222,12 @@ static PyObject *_wrap_SVMLearnS(PyObject *self, PyObject *args) {
         //  printf("svmo:2\n");
         t = PyInt_FromLong(elements);
         PyDict_SetItemString(o, "elements", t); Py_XDECREF(t);
-        svm_destroy_model(result);
+        svm_destroy_model(result->m);
+        free(result->prob->x);	
+        free(result->prob->y);	
+        free(result->prob);	
+        free(result->x_space);	
+        free(result);
         resultobj = o;
     }
     {
@@ -1296,7 +1302,7 @@ static PyObject *_wrap_SVMLearn(PyObject *self, PyObject *args) {
     int arg14 ;
     double *arg15 ;
     int *arg16 ;
-    struct svm_model *result;
+    struct wsvm_model *result;
     PyObject * obj0  = 0 ;
     PyObject * obj14  = 0 ;
     PyObject * obj15  = 0 ;
@@ -1455,13 +1461,13 @@ static PyObject *_wrap_SVMLearn(PyObject *self, PyObject *args) {
             return NULL;
         }
     }
-    result = (struct svm_model *)SVMLearn(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,arg11,arg12,arg13,arg14,arg15,arg16);
+    result = (struct wsvm_model *)SVMLearn(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,arg11,arg12,arg13,arg14,arg15,arg16);
     
     {
-        struct svm_parameter *param = &(result->param);
+        struct svm_parameter *param = &(result->m->param);
         double **sv_coef;
         struct svm_node **SV;
-        struct svm_model *model = result;
+        struct svm_model *model = result->m;
         int i, j, nr_class, l, elements;
         PyObject *o, *t, *p, *ip;
         
@@ -1497,40 +1503,40 @@ static PyObject *_wrap_SVMLearn(PyObject *self, PyObject *args) {
         {
             t = PyList_New(nr_class*(nr_class-1)/2);
             for(i=0;i<nr_class*(nr_class-1)/2;i++) {
-                PyList_SetItem(t, i, PyFloat_FromDouble(result->rho[i]));
+                PyList_SetItem(t, i, PyFloat_FromDouble(model->rho[i]));
             }
             PyDict_SetItemString(o, "rho", t); Py_XDECREF(t);
         }
         
-        if(result->probA) {
+        if(model->probA) {
             t = PyList_New(nr_class*(nr_class-1)/2);
             for(i=0;i<nr_class*(nr_class-1)/2;i++) {
-                PyList_SetItem(t, i, PyFloat_FromDouble(result->probA[i]));
+                PyList_SetItem(t, i, PyFloat_FromDouble(model->probA[i]));
             }
             PyDict_SetItemString(o, "ProbA", t); Py_XDECREF(t);
         }
         
-        if(result->probB) {
+        if(model->probB) {
             t = PyList_New(nr_class*(nr_class-1)/2);
             for(i=0;i<nr_class*(nr_class-1)/2;i++) {
-                PyList_SetItem(t, i, PyFloat_FromDouble(result->probB[i]));
+                PyList_SetItem(t, i, PyFloat_FromDouble(model->probB[i]));
             }
             PyDict_SetItemString(o, "ProbB", t); Py_XDECREF(t);
         }
         
-        if(result->label) {
+        if(model->label) {
             t = PyList_New(nr_class);
             for(i=0;i<nr_class;i++) {
-                PyList_SetItem(t, i, PyInt_FromLong(result->label[i]));
+                PyList_SetItem(t, i, PyInt_FromLong(model->label[i]));
             }
             PyDict_SetItemString(o, "label", t); Py_XDECREF(t);
         }
         
         
-        if(result->nSV) {
+        if(model->nSV) {
             t = PyList_New(nr_class);
             for(i=0;i<nr_class;i++) {
-                PyList_SetItem(t, i, PyInt_FromLong(result->nSV[i]));
+                PyList_SetItem(t, i, PyInt_FromLong(model->nSV[i]));
             }
             PyDict_SetItemString(o, "nr_sv", t); Py_XDECREF(t);
         }
@@ -1549,7 +1555,7 @@ static PyObject *_wrap_SVMLearn(PyObject *self, PyObject *args) {
             
             t = PyList_New(nr_class-1);
             for(j=0;j<nr_class-1;j++) {
-                PyList_SetItem(t, j, PyFloat_FromDouble(result->sv_coef[j][i]));
+                PyList_SetItem(t, j, PyFloat_FromDouble(model->sv_coef[j][i]));
             }
             
             // count attributes
@@ -1584,7 +1590,12 @@ static PyObject *_wrap_SVMLearn(PyObject *self, PyObject *args) {
         //  printf("svmo:2\n");
         t = PyInt_FromLong(elements);
         PyDict_SetItemString(o, "elements", t); Py_XDECREF(t);
-        svm_destroy_model(result);
+        svm_destroy_model(result->m);
+        free(result->prob->x);	
+        free(result->prob->y);	
+        free(result->prob);	
+        free(result->x_space);	
+        free(result);
         resultobj = o;
     }
     {

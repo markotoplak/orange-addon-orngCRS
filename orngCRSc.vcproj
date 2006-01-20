@@ -94,7 +94,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				GlobalOptimizations="TRUE"
-				InlineFunctionExpansion="2"
+				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="TRUE"
 				ImproveFloatingPointConsistency="TRUE"
 				FavorSizeOrSpeed="1"
@@ -118,6 +118,7 @@
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"
 				CompileAs="0"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
@@ -125,7 +126,7 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/export:init_orngCRS"
-				AdditionalDependencies="c:\dev\python\libs\python24.lib"
+				AdditionalDependencies="c:\dev\python\libs\python23.lib"
 				OutputFile="_orngCRS.pyd"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -173,7 +174,9 @@
 			ATLMinimizesCRunTimeLibraryUsage="FALSE">
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="0"
+				Optimization="3"
+				GlobalOptimizations="TRUE"
+				FavorSizeOrSpeed="1"
 				OptimizeForProcessor="2"
 				AdditionalIncludeDirectories="C:\dev\Python\include"
 				PreprocessorDefinitions="WIN32;_WINDOWS"
@@ -193,7 +196,7 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/export:init_orngCRS"
-				AdditionalDependencies="c:\dev\python\libs\python24.lib"
+				AdditionalDependencies="c:\dev\python\libs\python23.lib"
 				OutputFile="c:\temp\xx\_orngCRS.pyd"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"

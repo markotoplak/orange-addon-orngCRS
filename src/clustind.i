@@ -1038,6 +1038,7 @@ int nvals, i,j;
 	elements = PyInt_AsLong(t);
 	
 	model->sv_coef = (double **)malloc(sizeof(double *)*m);
+	model->SVidx = (int *)malloc(sizeof(int)*l); // allocate even if not use
 	model->SV = (struct svm_node **)malloc(sizeof(struct svm_node **)*l);
 	for(i=0;i<m;i++)
 		model->sv_coef[i] = (double *)malloc(sizeof(double)*l);
@@ -1097,11 +1098,11 @@ int nvals, i,j;
 	$1 = model;
 }
 
-%typemap(python, out) struct svm_model * {
-	struct svm_parameter *param = &($1->param);
+%typemap(python, out) struct wsvm_model * {
+	struct svm_parameter *param = &($1->m->param);
 	double **sv_coef;
 	struct svm_node **SV;
-	struct svm_model *model = $1;
+	struct svm_model *model = $1->m;
     int i, j, nr_class, l, elements;
     PyObject *o, *t, *p, *ip;
 
@@ -1137,40 +1138,40 @@ int nvals, i,j;
 	{
 	   	t = PyList_New(nr_class*(nr_class-1)/2);
 		for(i=0;i<nr_class*(nr_class-1)/2;i++) {
-			PyList_SetItem(t, i, PyFloat_FromDouble($1->rho[i]));
+			PyList_SetItem(t, i, PyFloat_FromDouble(model->rho[i]));
 		}
 		PyDict_SetItemString(o, "rho", t); Py_XDECREF(t);
 	}
 	
-	if($1->probA) {
+	if(model->probA) {
 	   	t = PyList_New(nr_class*(nr_class-1)/2);
 		for(i=0;i<nr_class*(nr_class-1)/2;i++) {
-			PyList_SetItem(t, i, PyFloat_FromDouble($1->probA[i]));
+			PyList_SetItem(t, i, PyFloat_FromDouble(model->probA[i]));
 		}
 		PyDict_SetItemString(o, "ProbA", t); Py_XDECREF(t);
 	}
 	
-	if($1->probB) {
+	if(model->probB) {
 	   	t = PyList_New(nr_class*(nr_class-1)/2);
 		for(i=0;i<nr_class*(nr_class-1)/2;i++) {
-			PyList_SetItem(t, i, PyFloat_FromDouble($1->probB[i]));
+			PyList_SetItem(t, i, PyFloat_FromDouble(model->probB[i]));
 		}
 		PyDict_SetItemString(o, "ProbB", t); Py_XDECREF(t);
 	}
 	
-	if($1->label) {
+	if(model->label) {
 	   	t = PyList_New(nr_class);
 		for(i=0;i<nr_class;i++) {
-			PyList_SetItem(t, i, PyInt_FromLong($1->label[i]));
+			PyList_SetItem(t, i, PyInt_FromLong(model->label[i]));
 		}
 		PyDict_SetItemString(o, "label", t); Py_XDECREF(t);
 	}
 	
 	
-	if($1->nSV) {
+	if(model->nSV) {
 	   	t = PyList_New(nr_class);
 		for(i=0;i<nr_class;i++) {
-			PyList_SetItem(t, i, PyInt_FromLong($1->nSV[i]));
+			PyList_SetItem(t, i, PyInt_FromLong(model->nSV[i]));
 		}
 		PyDict_SetItemString(o, "nr_sv", t); Py_XDECREF(t);
 	}
@@ -1189,7 +1190,7 @@ int nvals, i,j;
 
 	   	t = PyList_New(nr_class-1);
 		for(j=0;j<nr_class-1;j++) {
-			PyList_SetItem(t, j, PyFloat_FromDouble($1->sv_coef[j][i]));
+			PyList_SetItem(t, j, PyFloat_FromDouble(model->sv_coef[j][i]));
 		}
 
 		// count attributes
@@ -1224,7 +1225,12 @@ int nvals, i,j;
 //  printf("svmo:2\n");
     t = PyInt_FromLong(elements);
 	PyDict_SetItemString(o, "elements", t); Py_XDECREF(t);
-	svm_destroy_model($1);
+	svm_destroy_model($1->m);
+	free($1->prob->x);	
+	free($1->prob->y);	
+	free($1->prob);	
+	free($1->x_space);	
+	free($1);
     $result = o;
 } 
 
@@ -1262,11 +1268,11 @@ int nvals, i,j;
 
 void svm_destroy_model(psvm_model model);
 psvm_model SVMClassifier(struct svm_model *InValue);
-struct svm_model *SVMLearnS(struct SVMSparseInput *input, int svm_type, int kernel_type, double degree,
+struct wsvm_model *SVMLearnS(struct SVMSparseInput *input, int svm_type, int kernel_type, double degree,
 		 double gamma, double coef0, double nu, double cache_size, double C, 
 		 double eps, double p, int shrinking, int probability, int nr_weight, double *weight, 
 		 int *weight_label);
-struct svm_model *SVMLearn(struct SVMInput *input, int svm_type, int kernel_type, double degree,
+struct wsvm_model *SVMLearn(struct SVMInput *input, int svm_type, int kernel_type, double degree,
 		 double gamma, double coef0, double nu, double cache_size, double C, 
 		 double eps, double p, int shrinking, int probability, int nr_weight, double *weight, 
 		 int *weight_label);

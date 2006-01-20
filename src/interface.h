@@ -3,7 +3,6 @@
 
 typedef struct svm_model *psvm_model;
 
-
 struct CHInfo {
 	long    n;			/* number of combinations */
 	long	*merging;	/* merging pairs */
@@ -104,6 +103,12 @@ struct DInput {
 	double *data;
 };
 
+struct wsvm_model {
+	struct svm_model *m;
+	struct svm_node *x_space;
+	struct svm_problem *prob;
+};
+
 
 
 #ifdef __cplusplus
@@ -131,11 +136,11 @@ void SVMClassifyM(psvm_model model, struct SVMExample *input, struct SVMOut *Out
 double SVMClassifyS(psvm_model model, struct SVMSparseExample *input);
 void SVMClassifyPS(psvm_model model, struct SVMSparseExample *input, struct SVMOut *OutValue );
 void SVMClassifyMS(psvm_model model, struct SVMSparseExample *input, struct SVMOut *OutValue );
-struct svm_model *SVMLearnS(struct SVMSparseInput *input, int svm_type, int kernel_type, double degree,
+struct wsvm_model *SVMLearnS(struct SVMSparseInput *input, int svm_type, int kernel_type, double degree,
 		 double gamma, double coef0, double nu, double cache_size, double C, 
 		 double eps, double p, int shrinking, int probability, int nr_weight, double *weight, 
 		 int *weight_label);
-struct svm_model *SVMLearn(struct SVMInput *input, int svm_type, int kernel_type, double degree,
+struct wsvm_model *SVMLearn(struct SVMInput *input, int svm_type, int kernel_type, double degree,
 		 double gamma, double coef0, double nu, double cache_size, double C, 
 		 double eps, double p, int shrinking, int probability, int nr_weight, double *weight, 
 		 int *weight_label);

@@ -59,15 +59,16 @@ extern "C" {
 
 
 // dense data
-struct svm_model *SVMLearn(struct SVMInput *input, int svm_type, int kernel_type, double degree,
+struct wsvm_model *SVMLearn(struct SVMInput *input, int svm_type, int kernel_type, double degree,
 		 double gamma, double coef0, double nu, double cache_size, double C, 
 		 double eps, double p, int shrinking, int probability, int nr_weight=0, double *weight=NULL, 
 		 int *weight_label=NULL) 
 {
 	struct svm_parameter param;		// set by parse_command_line
-	struct svm_problem prob;		// set by read_problem
+	struct svm_problem *prob;		// set by read_problem
 	struct svm_node *x_space;
 	int elements, max_index, i, j, k;
+	struct wsvm_model *task = Malloc(struct wsvm_model, 1);
 
 	// default values
 	param.svm_type = svm_type;
@@ -86,19 +87,20 @@ struct svm_model *SVMLearn(struct SVMInput *input, int svm_type, int kernel_type
 	param.weight = weight;
 	param.probability = probability;
 
-	prob.l = input->nn;
+	prob = Malloc(struct svm_problem,1);
+	prob->l = input->nn;
 	elements = input->total; //total is corrected + nn
 
-	prob.y = Malloc(double,prob.l);
-	prob.x = Malloc(struct svm_node *,prob.l);
+	prob->y = Malloc(double,prob->l);
+	prob->x = Malloc(struct svm_node *,prob->l);
 	x_space = Malloc(struct svm_node,elements);
 
 	max_index = 0;
 	j=0;
-	for(i=0;i<prob.l;i++)
+	for(i=0;i<prob->l;i++)
 	{
-		prob.x[i] = &x_space[j];
-		prob.y[i] = input->label[i];
+		prob->x[i] = &x_space[j];
+		prob->y[i] = input->label[i];
 		for(k = 0; k < input->k; ++k)
 		{
 			if (input->masking[i][k] != 1) {
@@ -114,19 +116,24 @@ struct svm_model *SVMLearn(struct SVMInput *input, int svm_type, int kernel_type
 
 	if(param.gamma == 0)
 		param.gamma = 1.0/max_index;
-	return svm_train(&prob,&param);
+	task->m = svm_train(prob,&param);
+	task->x_space = x_space;
+	task->prob = prob;
+	return task;
 }
 
 // sparse data
-struct svm_model *SVMLearnS(struct SVMSparseInput *input, int svm_type, int kernel_type, double degree,
+struct wsvm_model *SVMLearnS(struct SVMSparseInput *input, int svm_type, int kernel_type, double degree,
 		 double gamma, double coef0, double nu, double cache_size, double C, 
 		 double eps, double p, int shrinking, int probability, int nr_weight=0, double *weight=NULL, 
 		 int *weight_label=NULL) 
 {
 	struct svm_parameter param;		// set by parse_command_line
-	struct svm_problem prob;		// set by read_problem
+	struct svm_problem *prob;		// set by read_problem
 	struct svm_node *x_space;
+    struct svm_model *tmpr;
 	int max_index, i, j, k;
+	struct wsvm_model *task = Malloc(struct wsvm_model, 1);
 
 	// default values
 	param.svm_type = svm_type;
@@ -145,17 +152,18 @@ struct svm_model *SVMLearnS(struct SVMSparseInput *input, int svm_type, int kern
 	param.weight = weight;
 	param.probability = probability;
 
-	prob.l = input->nn;
-	prob.y = Malloc(double,prob.l);
-	prob.x = Malloc(struct svm_node *,prob.l);
+	prob = Malloc(struct svm_problem,1);
+	prob->l = input->nn;
+	prob->y = Malloc(double,prob->l);
+	prob->x = Malloc(struct svm_node *,prob->l);
 	x_space = Malloc(struct svm_node, input->elements+input->nn); // there are the label terminators
 
 	max_index = 0;
 	j=0;
-	for(i=0;i<prob.l;i++)
+	for(i=0;i<prob->l;i++)
 	{
-		prob.x[i] = &x_space[j];
-		prob.y[i] = input->label[i];
+		prob->x[i] = &x_space[j];
+		prob->y[i] = input->label[i];
 		for(k = 0; k < input->lengths[i]; ++k)
 		{
 			if(input->index[i][k] > max_index) {
@@ -170,7 +178,10 @@ struct svm_model *SVMLearnS(struct SVMSparseInput *input, int svm_type, int kern
 
 	if(param.gamma == 0)
 		param.gamma = 1.0/max_index;
-	return svm_train(&prob,&param);
+	task->m = svm_train(prob,&param);
+	task->x_space = x_space;
+	task->prob = prob;
+	return task;
 }
 
 double SVMClassify(psvm_model model, struct SVMExample *input) {
