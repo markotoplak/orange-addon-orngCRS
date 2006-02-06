@@ -1,10 +1,10 @@
 #INSTALL NOTES: Before running this makefile, change the INCLUDE_DIR and 
 #PYTHONLIB variables to for your local environment
 
-INCLUDE_DIR = /usr/include/python2.4
-PYTHONLIB = /usr/lib/python2.4/config/libpython2.4.dll.a
+INCLUDE_DIR = /home/jakulin/include/python2.3
+PYTHONLIB = /home/jakulin/lib/python2.3/config/libpython2.3.a
 
-CFLAGS = -fPIC
+CFLAGS = -fPIC -O3
 
 
 default:
@@ -15,11 +15,11 @@ clean:
 
 all: _orngCRS
 
-clustind_wrap.cxx: 
+Clustind_wrap.cxx: 
 	swig -python clustind.i
 
 clustind_wrap.o: 
-	g++ -c $(CFLAGS) clustind_wrap.cxx -o clustind_wrap.o -I$(INCLUDE_DIR)
+	g++ -c $(CFLAGS) -I$(INCLUDE_DIR) Clustind_wrap.cxx -o clustind_wrap.o
 
 twins.o: twins.c
 	gcc -c $(CFLAGS) twins.c -o twins.o
