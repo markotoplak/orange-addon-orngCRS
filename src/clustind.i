@@ -4,25 +4,54 @@
 #include "svm.h"
 #include "nb.h"
 #include "kikuchi.h"
+
+typedef struct CMInfo TCMInfo;
+typedef struct LRInfo TLRInfo;
+typedef struct CHInfo TCHInfo;
+typedef struct CFInfo TCFInfo;
+typedef struct SVMInput TSVMInput;
+typedef struct SVMExample TSVMExample;
+typedef struct SVMSparseInput TSVMSparseInput;
+typedef struct SVMSparseExample TSVMSparseExample ;
+typedef struct svm_model Tsvm_model;
+typedef struct wsvm_model Twsvm_model;
+typedef struct LRInput TLRInput;
+typedef struct CInput TCInput;
+typedef struct DInput TDInput;
+typedef struct SVMOut TSVMOut;
+typedef struct NBResult TNBResult;
+typedef struct NBInput TNBInput;
+typedef struct NBModel TNBModel;
+typedef struct NBList TNBList;
+typedef struct XX TXX;
+typedef struct NBInfo TNBInfo;
+typedef struct KInput TKInput;
+typedef struct KList TKList;
+typedef struct KMatrix TKMatrix;
+typedef struct KModel TKModel;
+typedef struct KGroup TKGroup;
+typedef struct KModels TKModels;
+typedef struct KArray TKArray;
+typedef struct KInfo TKInfo;
 %}
 
-%typemap(python,ignore) struct LRInfo *OutValue {
-    $1 = (struct LRInfo *)malloc(sizeof(struct LRInfo));
+%typemap(in,numinputs=0) TLRInfo *OutValue {
+    $1 = (TLRInfo *)malloc(sizeof(TLRInfo));
 }
 
-%typemap(python,ignore) struct CHInfo *OutValue {
-    $1 = (struct CHInfo *)malloc(sizeof(struct CHInfo));
+%typemap(in,numinputs=0) TCHInfo *OutValue {
+    $1 = (TCHInfo *)malloc(sizeof(TCHInfo));
 }
 
-%typemap(python,ignore) struct CMInfo *OutValue {
-    $1 = (struct CMInfo *)malloc(sizeof(struct CMInfo));
+%typemap(in,numinputs=0) TCMInfo *OutValue {
+    $1 = (TCMInfo *)malloc(sizeof(TCMInfo));
 }
 
-%typemap(python,ignore) struct CFInfo *OutValue {
-    $1 = (struct CFInfo *)malloc(sizeof(struct CFInfo));
+%typemap(in,numinputs=0) TCFInfo *OutValue {
+    $1 = (TCFInfo *)malloc(sizeof(TCFInfo));
 }
 
-%typemap(python,argout) struct LRInfo *OutValue {
+%typemap(argout) TLRInfo *OutValue {
        int i,j;
        PyObject *o, *chisq, *devnce, *ndf, *beta, *se_beta, *fit, *covbeta, *deps; 
 	   PyObject *error, *stdres, *ll, *kk;
@@ -98,7 +127,7 @@
 }
 
 
-%typemap(python,argout) struct CHInfo *OutValue {
+%typemap(argout) TCHInfo *OutValue {
        int i;
        PyObject *o, *ac, *n, *height, *order, *merging, *ll;
 
@@ -144,7 +173,7 @@
        }
 }
 
-%typemap(python,argout) struct CMInfo *OutValue {
+%typemap(argout) TCMInfo *OutValue {
        int i;
        PyObject *o, *k, *cdisp, *disp, *n, *mapping, *medoids, *ll;
 
@@ -195,7 +224,7 @@
 }
 
 
-%typemap(python,argout) struct CFInfo *OutValue {
+%typemap(argout) TCFInfo *OutValue {
        int i,j,c;
        PyObject *o, *k, *cdisp, *disp, *n, *iterations, *value, *mapping, *membership, *ll, *kk;
 
@@ -255,7 +284,7 @@
 }
 
 // This tells SWIG to treat double * as a special case
-%typemap(python,in) double * {
+%typemap(in) double * {
  /* Check if is a list */
  if (PyList_Check($input)) {
    int size = PyList_Size($input);
@@ -281,7 +310,7 @@
 }
 
 // This tells SWIG to treat int * as a special case
-%typemap(python,in) int * {
+%typemap(in) int * {
  /* Check if is a list */
  if (PyList_Check($input)) {
    int size = PyList_Size($input);
@@ -305,7 +334,7 @@
 }
 
 
-%typemap(python,in) struct SVMInput * {
+%typemap(in) TSVMInput * {
  /* Check if is a list */
  if (PyList_Check($input)) {
    int i, j, k, size, msize;
@@ -313,7 +342,7 @@
    size = PyList_Size($input);
    msize = 0;
 
-   $1 = (struct SVMInput *) malloc(sizeof(struct SVMInput));
+   $1 = (TSVMInput *) malloc(sizeof(TSVMInput));
    $1->data = NULL;
    $1->masking = NULL;
    $1->label = NULL;
@@ -404,14 +433,14 @@
  //("svmi:done\n");
 }
 
-%typemap(python,in) struct SVMExample * {
+%typemap(in) TSVMExample * {
  /* Check if is a list */
  if (PyList_Check($input)) {
    int j, msize;
 
    msize = PyList_Size($input);
 
-   $1 = (struct SVMExample *)malloc(sizeof(struct SVMExample));
+   $1 = (TSVMExample *)malloc(sizeof(TSVMExample));
    $1->k = msize;
    $1->data    = (double *)malloc(sizeof(double)*msize);
    $1->masking = (char *)malloc(sizeof(char)*msize);
@@ -442,7 +471,7 @@
 }
 
 
-%typemap(python,in) struct SVMSparseInput * {
+%typemap(in) TSVMSparseInput * {
  /* Check if is a list */
  if (PyList_Check($input)) {
    int i, j, k, nex, nvals;
@@ -450,7 +479,7 @@
    nex = PyList_Size($input);
    nvals = 0;
 
-   $1 = (struct SVMSparseInput *) malloc(sizeof(struct SVMSparseInput));
+   $1 = (TSVMSparseInput *) malloc(sizeof(TSVMSparseInput));
    $1->elements = 0;
    $1->index = NULL;
    $1->value = NULL;
@@ -531,7 +560,7 @@
  }
 }
 
-%typemap(python,in) struct SVMSparseExample * {
+%typemap(in) TSVMSparseExample * {
 int nvals, i,j; 
  /* Check if is a list */
      if (PyList_Check($input)) {
@@ -576,7 +605,7 @@ int nvals, i,j;
 }
 
 
-%typemap(python,in) struct LRInput * {
+%typemap(in) TLRInput * {
  /* Check if is a list */
 // printf("A-");
  if (PyList_Check($input)) {
@@ -585,7 +614,7 @@ int nvals, i,j;
    size = PyList_Size($input);
    msize = 0;
 	//printf("lr:-1\n");
-   $1 = (struct LRInput *) malloc(sizeof(struct LRInput));
+   $1 = (TLRInput *) malloc(sizeof(TLRInput));
    $1->data = NULL;
    $1->success = NULL;
    for (i = 0; i < size; i++) {
@@ -674,7 +703,7 @@ int nvals, i,j;
  //printf("lr:-2\n");
 }
 
-%typemap(python,in) struct CInput * {
+%typemap(in) TCInput * {
  /* Check if is a list */
  if (PyList_Check($input)) {
    int i, j, size, msize;
@@ -682,7 +711,7 @@ int nvals, i,j;
    size = PyList_Size($input);
    msize = 0;
 
-   $1 = (struct CInput *) malloc(sizeof(struct CInput));
+   $1 = (TCInput *) malloc(sizeof(TCInput));
    $1->data = NULL;
    for (i = 0; i < size; i++) {
      PyObject *o = PyList_GetItem($input,i);
@@ -731,14 +760,14 @@ int nvals, i,j;
 }
 
 
-%typemap(python,in) struct DInput * {
+%typemap(in) TDInput * {
  /* Check if is a list */
  if (PyList_Check($input)) {
    int i, j, size, offset;
 
    size = PyList_Size($input);     /* the number of elements - 1 */
 
-   $1 = (struct DInput *) malloc(sizeof(struct DInput));
+   $1 = (TDInput *) malloc(sizeof(TDInput));
    $1->nn = size+1;
    $1->data = (double *)malloc((1 + (size * (size + 1))/2)*sizeof(double));
 
@@ -787,47 +816,47 @@ int nvals, i,j;
 }
 
 
-%typemap(python,arginit) double *{
+%typemap(arginit) double *{
   $1 = NULL;
 }
-%typemap(python,arginit) int *{
+%typemap(arginit) int *{
   $1 = NULL;
 }
-%typemap(python,arginit) struct LRInput *{
+%typemap(arginit) TLRInput *{
   $1 = NULL;
 }
-%typemap(python,arginit) struct SVMInput *{
+%typemap(arginit) TSVMInput *{
   $1 = NULL;
 }
-%typemap(python,arginit) struct SVMExample * {
+%typemap(arginit) TSVMExample * {
   $1 = NULL;
 }
-%typemap(python,arginit) struct SVMSparseInput *{
+%typemap(arginit) TSVMSparseInput *{
   $1 = NULL;
 }
-%typemap(python,arginit) struct SVMSparseExample * {
+%typemap(arginit) TSVMSparseExample * {
   $1 = NULL;
 }
-%typemap(python,arginit) struct CInput * {
+%typemap(arginit) TCInput * {
   $1 = NULL;
 }
-%typemap(python,arginit) struct DInput * {
+%typemap(arginit) TDInput * {
   $1 = NULL;
 }
 
 // This cleans up the double * array we malloc'd before the function call
-%typemap(python,freearg) double * {
+%typemap(freearg) double * {
   if ($1 != NULL)
 	free((double *) $1);
 }
 
 // This cleans up the double * array we malloc'd before the function call
-%typemap(python,freearg) int * {
+%typemap(freearg) int * {
   if ($1 != NULL)
 	  free((int *) $1);
 }
 
-%typemap(python,freearg) struct LRInput * {
+%typemap(freearg) TLRInput * {
   if($1 != NULL) {
 	  int i;
 	  for (i = 0; i <= $1->nn; ++i)
@@ -835,11 +864,11 @@ int nvals, i,j;
 	  free((double**) $1->data);
 	  free((double*) $1->success);
 	  free((double*) $1->trials);
-	  free((struct LRInput*) $1);
+	  free((TLRInput*) $1);
   }
 }
 
-%typemap(python,freearg) struct SVMInput * {
+%typemap(freearg) TSVMInput * {
   if($1 != NULL) {
 	  int i;
 	  //printf("svmc:1\n");
@@ -850,20 +879,20 @@ int nvals, i,j;
 	  free((double**) $1->data);
 	  free((char**) $1->masking);
 	  free((double*) $1->label);
-	  free((struct SVMInput*) $1);
+	  free((TSVMInput*) $1);
 	  //("svmc:2\n");
   }
 }
 
-%typemap(python,freearg) struct SVMExample * {
+%typemap(freearg) TSVMExample * {
   if ($1 != NULL) {
 	  free((double*) $1->data);
 	  free((char*) $1->masking);
-	  free((struct SVMExample*) $1);
+	  free((TSVMExample*) $1);
   }
 }
 
-%typemap(python,freearg) struct SVMSparseInput * {
+%typemap(freearg) TSVMSparseInput * {
   if($1 != NULL) {
 	  int i;
 	  for (i = 0; i < $1->nn; ++i) {
@@ -876,43 +905,43 @@ int nvals, i,j;
 	  free((int**) $1->index);
 	  free((double*) $1->label);
 	  free((int*) $1->lengths);
-	  free((struct SVMSparseInput*) $1);
+	  free((TSVMSparseInput*) $1);
   }
 }
 
-%typemap(python,freearg) struct SVMSparseExample * {
+%typemap(freearg) TSVMSparseExample * {
   if ($1 != NULL) {
 	  free((double*) $1->value);
 	  free((int *) $1->index);
-	  free((struct SVMSparseExample*) $1);
+	  free((TSVMSparseExample*) $1);
   }
 }
 
-%typemap(python,freearg) struct CInput * {
+%typemap(freearg) TCInput * {
   if ($1 != NULL) {
 	  free((double*) $1->data);
-	  free((struct CInput*) $1);
+	  free((TCInput*) $1);
   }
 }
 
-%typemap(python,freearg) struct DInput * {
+%typemap(freearg) TDInput * {
   if ($1 != NULL) {
 	  free((double*) $1->data);
-	  free((struct DInput*) $1);
+	  free((TDInput*) $1);
   }
 }
 
 
-%typemap(python, in) struct svm_model * {
+%typemap( in) Tsvm_model * {
     PyObject *o, *t, *p, *zz, *uu;
 	int m,l,i,j, elements, pairs;
 	struct svm_node *x_space;
-	struct svm_model *model;
+	Tsvm_model *model;
 	struct svm_parameter *param;
 
 
 	o = $input;
-	model = (struct svm_model *)malloc(sizeof(struct svm_model));
+	model = (Tsvm_model *)malloc(sizeof(Tsvm_model));
 	param = &(model->param);
 	model->label = NULL;
 	model->nSV = NULL;
@@ -1098,11 +1127,11 @@ int nvals, i,j;
 	$1 = model;
 }
 
-%typemap(python, out) struct wsvm_model * {
+%typemap( out) Twsvm_model * {
 	struct svm_parameter *param = &($1->m->param);
 	double **sv_coef;
 	struct svm_node **SV;
-	struct svm_model *model = $1->m;
+	Tsvm_model *model = $1->m;
     int i, j, nr_class, l, elements;
     PyObject *o, *t, *p, *ip;
 
@@ -1236,10 +1265,10 @@ int nvals, i,j;
 
 
 
-%typemap(python,ignore) struct SVMOut *OutValue {
-    $1 = (struct SVMOut *)malloc(sizeof(struct SVMOut));
+%typemap(in,numinputs=0) TSVMOut *OutValue {
+    $1 = (TSVMOut *)malloc(sizeof(TSVMOut));
 }
-%typemap(python,argout) struct SVMOut *OutValue {
+%typemap(argout) TSVMOut *OutValue {
    int i;
    PyObject *o, *q;
 
@@ -1267,32 +1296,32 @@ int nvals, i,j;
 
 
 void svm_destroy_model(psvm_model model);
-psvm_model SVMClassifier(struct svm_model *InValue);
-struct wsvm_model *SVMLearnS(struct SVMSparseInput *input, int svm_type, int kernel_type, double degree,
+psvm_model SVMClassifier(Tsvm_model *InValue);
+Twsvm_model *SVMLearnS(TSVMSparseInput *input, int svm_type, int kernel_type, double degree,
 		 double gamma, double coef0, double nu, double cache_size, double C, 
 		 double eps, double p, int shrinking, int probability, int nr_weight, double *weight, 
 		 int *weight_label);
-struct wsvm_model *SVMLearn(struct SVMInput *input, int svm_type, int kernel_type, double degree,
+Twsvm_model *SVMLearn(TSVMInput *input, int svm_type, int kernel_type, double degree,
 		 double gamma, double coef0, double nu, double cache_size, double C, 
 		 double eps, double p, int shrinking, int probability, int nr_weight, double *weight, 
 		 int *weight_label);
-double SVMClassify(psvm_model model, struct SVMExample *input);
-void SVMClassifyP(psvm_model model, struct SVMExample *input, struct SVMOut *OutValue );
-void SVMClassifyM(psvm_model model, struct SVMExample *input, struct SVMOut *OutValue );
-double SVMClassifyS(psvm_model model, struct SVMSparseExample *input);
-void SVMClassifyPS(psvm_model model, struct SVMSparseExample *input, struct SVMOut *OutValue );
-void SVMClassifyMS(psvm_model model, struct SVMSparseExample *input, struct SVMOut *OutValue );
+double SVMClassify(psvm_model model, TSVMExample *input);
+void SVMClassifyP(psvm_model model, TSVMExample *input, TSVMOut *OutValue );
+void SVMClassifyM(psvm_model model, TSVMExample *input, TSVMOut *OutValue );
+double SVMClassifyS(psvm_model model, TSVMSparseExample *input);
+void SVMClassifyPS(psvm_model model, TSVMSparseExample *input, TSVMOut *OutValue );
+void SVMClassifyMS(psvm_model model, TSVMSparseExample *input, TSVMOut *OutValue );
 
 
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
 
-%typemap(python,ignore) struct NBResult *OutValue {
-    $1 = (struct NBResult *)malloc(sizeof(struct NBResult));
+%typemap(in,numinputs=0) TNBResult *OutValue {
+    $1 = (TNBResult *)malloc(sizeof(TNBResult));
 }
 
-%typemap(python,in) struct NBInput * {
+%typemap(in) TNBInput * {
  int i, j, size, msize;
  PyObject *arr,*cvl,*cards,*alpha;
  /* Check if is a list */
@@ -1303,7 +1332,7 @@ void SVMClassifyMS(psvm_model model, struct SVMSparseExample *input, struct SVMO
    size = PyList_Size(arr);
    msize = 0;
 	//printf("lr:-1\n");
-   $1 = (struct NBInput *) malloc(sizeof(struct NBInput));
+   $1 = (TNBInput *) malloc(sizeof(TNBInput));
    $1->data = NULL;
    $1->l = NULL;
    $1->card = NULL;
@@ -1412,10 +1441,10 @@ void SVMClassifyMS(psvm_model model, struct SVMSparseExample *input, struct SVMO
  }
 }
 
-%typemap(python,in) struct NBModel * {
+%typemap(in) TNBModel * {
 	PyObject *p, *sing, *grup;
 
-	$1 = (struct NBModel *) malloc(sizeof(struct NBInput));
+	$1 = (TNBModel *) malloc(sizeof(TNBInput));
 	$1->nosingles = 0;
 	$1->singles = NULL;
 	$1->nogroups = 0;
@@ -1459,7 +1488,7 @@ void SVMClassifyMS(psvm_model model, struct SVMSparseExample *input, struct SVMO
 	}
 }
 
-%typemap(python,argout) struct NBResult *OutValue {
+%typemap(argout) TNBResult *OutValue {
    int i,j,c;
    PyObject *o, *err, *q;
 
@@ -1499,11 +1528,11 @@ void SVMClassifyMS(psvm_model model, struct SVMSparseExample *input, struct SVMO
 }
 
 
-%typemap(python,ignore) struct NBList *OutValue {
-    $1 = (struct NBList *)malloc(sizeof(struct NBList));
+%typemap(in,numinputs=0) TNBList *OutValue {
+    $1 = (TNBList *)malloc(sizeof(TNBList));
 }
 
-%typemap(python,argout) struct NBList *OutValue {
+%typemap(argout) TNBList *OutValue {
    int i;
    PyObject *o, *q;
 
@@ -1531,11 +1560,11 @@ void SVMClassifyMS(psvm_model model, struct SVMSparseExample *input, struct SVMO
 }
 
 
-%typemap(python,arginit) struct NBModel * {
+%typemap(arginit) TNBModel * {
 	$1 = NULL;
 }
 
-%typemap(python,freearg) struct NBModel * {
+%typemap(freearg) TNBModel * {
 	int i;
 	if($1->singles != NULL)
 	  free($1->singles);
@@ -1550,25 +1579,25 @@ void SVMClassifyMS(psvm_model model, struct SVMSparseExample *input, struct SVMO
 
 
 
-void MCluster(struct CInput *in, long k, int metric, struct CMInfo *OutValue);
-void HCluster(struct CInput *in, int metric, int method, struct CHInfo *OutValue);
-void DMCluster(struct DInput *in, long k, struct CMInfo *OutValue);
-void DHCluster(struct DInput *in, int method, struct CHInfo *OutValue);
-void FCluster(struct CInput *in, long k, int metric, struct CFInfo *OutValue);
-void DFCluster(struct DInput *in, long k, struct CFInfo *OutValue);
+void MCluster(TCInput *in, long k, int metric, TCMInfo *OutValue);
+void HCluster(TCInput *in, int metric, int method, TCHInfo *OutValue);
+void DMCluster(TDInput *in, long k, TCMInfo *OutValue);
+void DHCluster(TDInput *in, int method, TCHInfo *OutValue);
+void FCluster(TCInput *in, long k, int metric, TCFInfo *OutValue);
+void DFCluster(TDInput *in, long k, TCFInfo *OutValue);
 
-void LogReg(struct LRInput *input, double regularization, struct LRInfo *OutValue);
-
-
+void LogReg(TLRInput *input, double regularization, TLRInfo *OutValue);
 
 
 
 
-%typemap(python,arginit) struct XX * {
+
+
+%typemap(arginit) TXX * {
 	$1 = NULL;
 }
 
-%typemap(python,freearg) struct XX * {
+%typemap(freearg) TXX * {
 	int i;
 	if($1->data != NULL) {
 	  for (i = 0; i < $1->nn; ++i) {
@@ -1579,11 +1608,11 @@ void LogReg(struct LRInput *input, double regularization, struct LRInfo *OutValu
 	free($1);
 }
 
-%typemap(python,ignore) struct XX *OutValue {
-    $1 = (struct XX *)malloc(sizeof(struct XX));
+%typemap(in,numinputs=0) TXX *OutValue {
+    $1 = (TXX *)malloc(sizeof(TXX));
 }
 
-%typemap(python,argout) struct XX *OutValue {
+%typemap(argout) TXX *OutValue {
    int i,j;
    PyObject *o, *p, *q;
 
@@ -1612,7 +1641,7 @@ void LogReg(struct LRInput *input, double regularization, struct LRInfo *OutValu
    }
 }
 
-%typemap(python,in) struct XX * {
+%typemap(in) TXX * {
  /* Check if is a list */
  if (PyList_Check($input)) {
    int i, j, size, msize;
@@ -1620,7 +1649,7 @@ void LogReg(struct LRInput *input, double regularization, struct LRInfo *OutValu
    size = PyList_Size($input);
    msize = 0;
 
-   $1 = (struct XX*) malloc(sizeof(struct XX));
+   $1 = (TXX*) malloc(sizeof(TXX));
    $1->data = NULL;
    for (i = 0; i < size; i++) {
      PyObject *o = PyList_GetItem($input,i);
@@ -1685,7 +1714,7 @@ void LogReg(struct LRInput *input, double regularization, struct LRInfo *OutValu
 }
 
 
-void Computer(struct XX *input, struct XX *OutValue);
+void Computer(TXX *input, TXX *OutValue);
 
 
 
@@ -1700,28 +1729,28 @@ void Computer(struct XX *input, struct XX *OutValue);
 
 
 
-struct NBInfo *NBprepare(struct NBInput *input);
-void NBkill(struct NBInfo *p);
-void NBcleanup(struct NBInput *p);
-void NBquality(struct NBInfo *in, struct NBModel *m, struct NBResult *OutValue);
-void TANquality(struct NBInfo *in, struct NBModel *m, struct NBResult *OutValue);
-void NBdivergence(struct NBInfo *in, struct NBModel *m, struct NBResult *OutValue);
-void NBqualityW(struct NBInfo *in, double *w, struct NBModel *m, struct NBResult *OutValue);
-void NBsaveScores(struct NBInfo *in);
-void NBrememberScores(struct NBInfo *in);
-void NBcompareScores(struct NBInfo *in, struct NBResult *OutValue);
-void NBexportScores(struct NBInfo *in, int mode, struct NBList *OutValue);
-void NBexportProbabilities(struct NBInfo *in, int mode, struct NBList *OutValue);
+TNBInfo *NBprepare(TNBInput *input);
+void NBkill(TNBInfo *p);
+void NBcleanup(TNBInput *p);
+void NBquality(TNBInfo *in, TNBModel *m, TNBResult *OutValue);
+void TANquality(TNBInfo *in, TNBModel *m, TNBResult *OutValue);
+void NBdivergence(TNBInfo *in, TNBModel *m, TNBResult *OutValue);
+void NBqualityW(TNBInfo *in, double *w, TNBModel *m, TNBResult *OutValue);
+void NBsaveScores(TNBInfo *in);
+void NBrememberScores(TNBInfo *in);
+void NBcompareScores(TNBInfo *in, TNBResult *OutValue);
+void NBexportScores(TNBInfo *in, int mode, TNBList *OutValue);
+void NBexportProbabilities(TNBInfo *in, int mode, TNBList *OutValue);
 double NBcompareLists(int n, double *a, double *b);
-void NBstoreModel(struct NBInfo *in, double *w, struct NBModel *m);
-void NBclassify(struct NBInfo *in, int *ex, struct NBList *OutValue);
-void NBclassifyW(struct NBInfo *in, int *ex, struct NBList *OutValue);
-void NBupdate(struct NBInfo *in, int attribute, int card, int *values);
+void NBstoreModel(TNBInfo *in, double *w, TNBModel *m);
+void NBclassify(TNBInfo *in, int *ex, TNBList *OutValue);
+void NBclassifyW(TNBInfo *in, int *ex, TNBList *OutValue);
+void NBupdate(TNBInfo *in, int attribute, int card, int *values);
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-%typemap(python,in) struct KInput * {
+%typemap(in) TKInput * {
  int i, j, size, msize;
  PyObject *arr,*cards;
  /* Check if is a list */
@@ -1732,7 +1761,7 @@ void NBupdate(struct NBInfo *in, int attribute, int card, int *values);
    size = PyList_Size(arr);
    msize = 0;
 	//printf("lr:-1\n");
-   $1 = (struct KInput *) malloc(sizeof(struct KInput));
+   $1 = (TKInput *) malloc(sizeof(TKInput));
    $1->data = NULL;
    $1->card = NULL;
    for (i = 0; i < size; i++) {
@@ -1801,11 +1830,11 @@ void NBupdate(struct NBInfo *in, int attribute, int card, int *values);
  }
 }
 
-%typemap(python,ignore) struct KList *OutValue {
-    $1 = (struct KList *)malloc(sizeof(struct KList));
+%typemap(in,numinputs=0) TKList *OutValue {
+    $1 = (TKList *)malloc(sizeof(TKList));
 }
 
-%typemap(python,argout) struct KList *OutValue {
+%typemap(argout) TKList *OutValue {
    int i;
    PyObject *o, *q;
 
@@ -1832,11 +1861,11 @@ void NBupdate(struct NBInfo *in, int attribute, int card, int *values);
    }
 }
 
-%typemap(python,ignore) struct KMatrix *OutValue {
-    $1 = (struct KMatrix *)malloc(sizeof(struct KMatrix));
+%typemap(in,numinputs=0) TKMatrix *OutValue {
+    $1 = (TKMatrix *)malloc(sizeof(TKMatrix));
 }
 
-%typemap(python,argout) struct KMatrix *OutValue {
+%typemap(argout) TKMatrix *OutValue {
    int i,j;
    PyObject *o, *p, *q;
 
@@ -1868,10 +1897,10 @@ void NBupdate(struct NBInfo *in, int attribute, int card, int *values);
 }
 
 
-%typemap(python,in) struct KModel * {
+%typemap(in) TKModel * {
 	PyObject *p;
 
-	$1 = (struct KModel *) malloc(sizeof(struct KModel));
+	$1 = (TKModel *) malloc(sizeof(TKModel));
 	$1->nogroups = 0;
 	$1->groups = NULL;
 
@@ -1880,7 +1909,7 @@ void NBupdate(struct NBInfo *in, int attribute, int card, int *values);
 
 		$1->nogroups = PyList_Size($input);
 		if($1->nogroups > 0) {
-			$1->groups = (struct KGroup *)malloc(sizeof(struct KGroup)*$1->nogroups);
+			$1->groups = (TKGroup *)malloc(sizeof(TKGroup)*$1->nogroups);
 			for (i = 0; i < $1->nogroups; i++) {
 				PyObject *o = PyList_GetItem($input,i);
 				PyObject *list = PyTuple_GetItem(o,1);
@@ -1898,11 +1927,11 @@ void NBupdate(struct NBInfo *in, int attribute, int card, int *values);
 	}
 }
 
-%typemap(python,arginit) struct KModel * {
+%typemap(arginit) TKModel * {
 	$1 = NULL;
 }
 
-%typemap(python,freearg) struct KModel * {
+%typemap(freearg) TKModel * {
 	int i;
 	if($1->groups != NULL) {
 	  for (i = 0; i < $1->nogroups; ++i) {
@@ -1915,10 +1944,10 @@ void NBupdate(struct NBInfo *in, int attribute, int card, int *values);
 
 /////
 
-%typemap(python,in) struct KModels * {
+%typemap(in) TKModels * {
 	PyObject *p;
 
-	$1 = (struct KModels *) malloc(sizeof(struct KModels));
+	$1 = (TKModels *) malloc(sizeof(TKModels));
 	$1->nomodels = 0;
 	$1->models = NULL;
 
@@ -1928,14 +1957,14 @@ void NBupdate(struct NBInfo *in, int attribute, int card, int *values);
 
 		$1->nomodels = PyList_Size($input);
 		if($1->nomodels > 0) {
-			$1->models = (struct KModel *)malloc(sizeof(struct KModel)*$1->nomodels);
+			$1->models = (TKModel *)malloc(sizeof(TKModel)*$1->nomodels);
 			for (k = 0; k < $1->nomodels; k++) {
 				p = PyList_GetItem($input,k);
 				mod = $1->models + k;
 				mod->groups = NULL;
 				mod->nogroups = PyList_Size(p);
 				if(mod->nogroups > 0) {
-					mod->groups = (struct KGroup *)malloc(sizeof(struct KGroup)*mod->nogroups);
+					mod->groups = (TKGroup *)malloc(sizeof(TKGroup)*mod->nogroups);
 					for (i = 0; i < mod->nogroups; i++) {
 						PyObject *o = PyList_GetItem(p,i);
 						PyObject *list = PyTuple_GetItem(o,1);
@@ -1955,11 +1984,11 @@ void NBupdate(struct NBInfo *in, int attribute, int card, int *values);
 	}
 }
 
-%typemap(python,arginit) struct KModels * {
+%typemap(arginit) TKModels * {
 	$1 = NULL;
 }
 
-%typemap(python,freearg) struct KModels * {
+%typemap(freearg) TKModels * {
 	int i,j,k;
 	KModel *mod;
 	if($1->models != NULL) {
@@ -1978,10 +2007,10 @@ void NBupdate(struct NBInfo *in, int attribute, int card, int *values);
 }
 
 
-%typemap(python,in) struct KArray * {
+%typemap(in) TKArray * {
 	PyObject *p;
 
-	$1 = (struct KArray *) malloc(sizeof(struct KArray));
+	$1 = (TKArray *) malloc(sizeof(TKArray));
 	$1->n = 0;
 	$1->l = NULL;
 
@@ -2001,11 +2030,11 @@ void NBupdate(struct NBInfo *in, int attribute, int card, int *values);
 	}
 }
 
-%typemap(python,arginit) struct KArray * {
+%typemap(arginit) TKArray * {
 	$1 = NULL;
 }
 
-%typemap(python,freearg) struct KArray * {
+%typemap(freearg) TKArray * {
 	int i;
 	if($1->l != NULL) {
 	  free($1->l);
@@ -2013,17 +2042,17 @@ void NBupdate(struct NBInfo *in, int attribute, int card, int *values);
 	free($1);
 }
 
-void Ksetmodel(struct KInfo *in, struct KModel *m);
-void Kaddmodel(struct KInfo *in, struct KModel *m);
-void Ktestaddition(struct KInfo *in, struct KModel *m, struct KList *OutValue);
+void Ksetmodel(TKInfo *in, TKModel *m);
+void Kaddmodel(TKInfo *in, TKModel *m);
+void Ktestaddition(TKInfo *in, TKModel *m, TKList *OutValue);
 
-void Kdie(struct KInfo *p);
-void Kuse(struct KInfo *in, int *ex, struct KList *OutValue);
-double Kvalidate(struct KInfo *in, int *ex);
-struct KInfo *Kremember(struct KInput *input, double prior);
-void Klearn(struct KInfo *in, int samples, int depth, struct KMatrix *OutValue);
-void KgetDOF(struct KInfo *in, struct KList *OutValue);
-void Kcheckreversal(struct KInfo *in, struct KList *OutValue);
-void Ksetensemble(struct KInfo *in, struct KModels *ms, struct KArray *weights);
-void Kuseensemble(struct KInfo *in, int *ex, struct KList *OutValue);
-void Ktestmodels(struct KInfo *in, struct KModels *ms, int samples, struct KMatrix *OutValue);
+void Kdie(TKInfo *p);
+void Kuse(TKInfo *in, int *ex, TKList *OutValue);
+double Kvalidate(TKInfo *in, int *ex);
+TKInfo *Kremember(TKInput *input, double prior);
+void Klearn(TKInfo *in, int samples, int depth, TKMatrix *OutValue);
+void KgetDOF(TKInfo *in, TKList *OutValue);
+void Kcheckreversal(TKInfo *in, TKList *OutValue);
+void Ksetensemble(TKInfo *in, TKModels *ms, TKArray *weights);
+void Kuseensemble(TKInfo *in, int *ex, TKList *OutValue);
+void Ktestmodels(TKInfo *in, TKModels *ms, int samples, TKMatrix *OutValue);

@@ -2465,39 +2465,38 @@ SWIG_Python_MustGetPtr(PyObject *obj, swig_type_info *ty, int argnum, int flags)
 
 /* -------- TYPES TABLE (BEGIN) -------- */
 
-#define SWIGTYPE_p_CFInfo swig_types[0]
-#define SWIGTYPE_p_CHInfo swig_types[1]
-#define SWIGTYPE_p_CInput swig_types[2]
-#define SWIGTYPE_p_CMInfo swig_types[3]
-#define SWIGTYPE_p_DInput swig_types[4]
-#define SWIGTYPE_p_KArray swig_types[5]
-#define SWIGTYPE_p_KInfo swig_types[6]
-#define SWIGTYPE_p_KInput swig_types[7]
-#define SWIGTYPE_p_KList swig_types[8]
-#define SWIGTYPE_p_KMatrix swig_types[9]
-#define SWIGTYPE_p_KModel swig_types[10]
-#define SWIGTYPE_p_KModels swig_types[11]
-#define SWIGTYPE_p_LRInfo swig_types[12]
-#define SWIGTYPE_p_LRInput swig_types[13]
-#define SWIGTYPE_p_NBInfo swig_types[14]
-#define SWIGTYPE_p_NBInput swig_types[15]
-#define SWIGTYPE_p_NBList swig_types[16]
-#define SWIGTYPE_p_NBModel swig_types[17]
-#define SWIGTYPE_p_NBResult swig_types[18]
-#define SWIGTYPE_p_SVMExample swig_types[19]
-#define SWIGTYPE_p_SVMInput swig_types[20]
-#define SWIGTYPE_p_SVMOut swig_types[21]
-#define SWIGTYPE_p_SVMSparseExample swig_types[22]
-#define SWIGTYPE_p_SVMSparseInput swig_types[23]
-#define SWIGTYPE_p_XX swig_types[24]
-#define SWIGTYPE_p_char swig_types[25]
-#define SWIGTYPE_p_double swig_types[26]
-#define SWIGTYPE_p_int swig_types[27]
-#define SWIGTYPE_p_psvm_model swig_types[28]
-#define SWIGTYPE_p_svm_model swig_types[29]
-#define SWIGTYPE_p_wsvm_model swig_types[30]
-static swig_type_info *swig_types[32];
-static swig_module_info swig_module = {swig_types, 31, 0, 0, 0, 0};
+#define SWIGTYPE_p_TCFInfo swig_types[0]
+#define SWIGTYPE_p_TCHInfo swig_types[1]
+#define SWIGTYPE_p_TCInput swig_types[2]
+#define SWIGTYPE_p_TCMInfo swig_types[3]
+#define SWIGTYPE_p_TDInput swig_types[4]
+#define SWIGTYPE_p_TKArray swig_types[5]
+#define SWIGTYPE_p_TKInfo swig_types[6]
+#define SWIGTYPE_p_TKInput swig_types[7]
+#define SWIGTYPE_p_TKList swig_types[8]
+#define SWIGTYPE_p_TKMatrix swig_types[9]
+#define SWIGTYPE_p_TKModel swig_types[10]
+#define SWIGTYPE_p_TKModels swig_types[11]
+#define SWIGTYPE_p_TLRInfo swig_types[12]
+#define SWIGTYPE_p_TLRInput swig_types[13]
+#define SWIGTYPE_p_TNBInfo swig_types[14]
+#define SWIGTYPE_p_TNBInput swig_types[15]
+#define SWIGTYPE_p_TNBList swig_types[16]
+#define SWIGTYPE_p_TNBModel swig_types[17]
+#define SWIGTYPE_p_TNBResult swig_types[18]
+#define SWIGTYPE_p_TSVMExample swig_types[19]
+#define SWIGTYPE_p_TSVMInput swig_types[20]
+#define SWIGTYPE_p_TSVMOut swig_types[21]
+#define SWIGTYPE_p_TSVMSparseExample swig_types[22]
+#define SWIGTYPE_p_TSVMSparseInput swig_types[23]
+#define SWIGTYPE_p_TXX swig_types[24]
+#define SWIGTYPE_p_Tsvm_model swig_types[25]
+#define SWIGTYPE_p_char swig_types[26]
+#define SWIGTYPE_p_double swig_types[27]
+#define SWIGTYPE_p_int swig_types[28]
+#define SWIGTYPE_p_psvm_model swig_types[29]
+static swig_type_info *swig_types[31];
+static swig_module_info swig_module = {swig_types, 30, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -2591,6 +2590,35 @@ namespace swig {
 #include "svm.h"
 #include "nb.h"
 #include "kikuchi.h"
+
+typedef struct CMInfo TCMInfo;
+typedef struct LRInfo TLRInfo;
+typedef struct CHInfo TCHInfo;
+typedef struct CFInfo TCFInfo;
+typedef struct SVMInput TSVMInput;
+typedef struct SVMExample TSVMExample;
+typedef struct SVMSparseInput TSVMSparseInput;
+typedef struct SVMSparseExample TSVMSparseExample ;
+typedef struct svm_model Tsvm_model;
+typedef struct wsvm_model Twsvm_model;
+typedef struct LRInput TLRInput;
+typedef struct CInput TCInput;
+typedef struct DInput TDInput;
+typedef struct SVMOut TSVMOut;
+typedef struct NBResult TNBResult;
+typedef struct NBInput TNBInput;
+typedef struct NBModel TNBModel;
+typedef struct NBList TNBList;
+typedef struct XX TXX;
+typedef struct NBInfo TNBInfo;
+typedef struct KInput TKInput;
+typedef struct KList TKList;
+typedef struct KMatrix TKMatrix;
+typedef struct KModel TKModel;
+typedef struct KGroup TKGroup;
+typedef struct KModels TKModels;
+typedef struct KArray TKArray;
+typedef struct KInfo TKInfo;
 
 
 #include <limits.h>
@@ -2776,18 +2804,205 @@ fail:
 
 SWIGINTERN PyObject *_wrap_SVMClassifier(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  svm_model *arg1 = (svm_model *) 0 ;
+  Tsvm_model *arg1 = (Tsvm_model *) 0 ;
   psvm_model result;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
   PyObject * obj0 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:SVMClassifier",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_svm_model, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SVMClassifier" "', argument " "1"" of type '" "svm_model *""'"); 
+  {
+    PyObject *o, *t, *p, *zz, *uu;
+    int m,l,i,j, elements, pairs;
+    struct svm_node *x_space;
+    Tsvm_model *model;
+    struct svm_parameter *param;
+    
+    
+    o = obj0;
+    model = (Tsvm_model *)malloc(sizeof(Tsvm_model));
+    param = &(model->param);
+    model->label = NULL;
+    model->nSV = NULL;
+    model->probA = NULL;
+    model->probB = NULL;
+    
+    if (!PyDict_Check(o)) {
+      PyErr_SetString(PyExc_TypeError,"must be a dictionary");
+      free(model);
+      return NULL;
+    }
+    t = PyDict_GetItemString(o, "svm_type");
+    if (!PyInt_Check(t)) {
+      PyErr_SetString(PyExc_TypeError,"svm_type missing");
+      free(model);
+      return NULL;
+    }
+    param->svm_type = PyInt_AsLong(t);
+    t = PyDict_GetItemString(o, "kernel_type");
+    if (!PyInt_Check(t)) {
+      PyErr_SetString(PyExc_TypeError,"kernel_type missing");
+      free(model);
+      return NULL;
+    }
+    param->kernel_type = PyInt_AsLong(t);
+    
+    if(param->kernel_type == POLY) {
+      t = PyDict_GetItemString(o, "degree");
+      if (!PyFloat_Check(t)) {
+        PyErr_SetString(PyExc_TypeError,"degree missing");
+        free(model);
+        return NULL;
+      }
+      param->degree = PyFloat_AsDouble(t);
+    }
+    
+    if(param->kernel_type == POLY || param->kernel_type == RBF || param->kernel_type == SIGMOID) {
+      t = PyDict_GetItemString(o, "gamma");
+      if (!PyFloat_Check(t)) {
+        PyErr_SetString(PyExc_TypeError,"gamma missing");
+        free(model);
+        return NULL;
+      }
+      param->gamma = PyFloat_AsDouble(t);
+    }
+    
+    if(param->kernel_type == POLY || param->kernel_type == SIGMOID) {
+      t = PyDict_GetItemString(o, "coef0");
+      if (!PyFloat_Check(t)) {
+        PyErr_SetString(PyExc_TypeError,"coef0 missing");
+        free(model);
+        return NULL;
+      }
+      param->coef0 = PyFloat_AsDouble(t);
+    }
+    
+    t = PyDict_GetItemString(o, "nr_class");
+    if (!PyInt_Check(t)) {
+      PyErr_SetString(PyExc_TypeError,"nr_class missing");
+      free(model);
+      return NULL;
+    }
+    m = model->nr_class = PyInt_AsLong(t);
+    t = PyDict_GetItemString(o, "total_sv");
+    if (!PyInt_Check(t)) {
+      PyErr_SetString(PyExc_TypeError,"total_sv missing");
+      free(model);
+      return NULL;
+    }
+    l = model->l = PyInt_AsLong(t);
+    
+    
+    t = PyDict_GetItemString(o, "rho");
+    if (!PyList_Check(t)) {
+      PyErr_SetString(PyExc_TypeError,"rho missing");
+      free(model);
+      return NULL;
+    }
+    pairs = m*(m-1)/2;
+    model->rho = (double *)malloc(sizeof(double)*pairs);
+    for(i=0;i<pairs;i++) {
+      p = PyList_GetItem(t, i);
+      model->rho[i] = PyFloat_AsDouble(p);
+    }
+    
+    t = PyDict_GetItemString(o, "ProbA");
+    if (t != NULL) {
+      model->probA = (double *)malloc(sizeof(double)*pairs);
+      for(i=0;i<pairs;i++) {
+        p = PyList_GetItem(t, i);
+        model->probA[i] = PyFloat_AsDouble(p);
+      }
+    }
+    
+    t = PyDict_GetItemString(o, "ProbB");
+    if (t != NULL) {
+      model->probB = (double *)malloc(sizeof(double)*pairs);
+      for(i=0;i<pairs;i++) {
+        p = PyList_GetItem(t, i);
+        model->probB[i] = PyFloat_AsDouble(p);
+      }
+    }
+    
+    t = PyDict_GetItemString(o, "label");
+    if (t != NULL) {
+      model->label = (int *)malloc(sizeof(int)*m);
+      for(i=0;i<m;i++) {
+        p = PyList_GetItem(t, i);
+        model->label[i] = PyInt_AsLong(p);
+      }
+    }
+    
+    t = PyDict_GetItemString(o, "nr_sv");
+    if (t != NULL) {
+      model->nSV = (int *)malloc(sizeof(int)*m);
+      for(i=0;i<m;i++) {
+        p = PyList_GetItem(t, i);
+        model->nSV[i] = PyInt_AsLong(p);
+      }
+    }
+    
+    t = PyDict_GetItemString(o, "elements");
+    elements = PyInt_AsLong(t);
+    
+    model->sv_coef = (double **)malloc(sizeof(double *)*m);
+    model->SVidx = (int *)malloc(sizeof(int)*l); // allocate even if not use
+    model->SV = (struct svm_node **)malloc(sizeof(struct svm_node **)*l);
+    for(i=0;i<m;i++)
+    model->sv_coef[i] = (double *)malloc(sizeof(double)*l);
+    
+    x_space = (struct svm_node *)malloc(sizeof(struct svm_node)*elements);
+    
+    p = PyDict_GetItemString(o, "SV");
+    if (!PyList_Check(p) || PyList_Size(p)!=l) {
+      PyErr_SetString(PyExc_TypeError,"SV list missing");
+      free(model);
+      return NULL;
+    }
+    j = 0;
+    for(i=0;i<l;i++)
+    {
+      int jj, kk;
+      
+      zz = PyList_GetItem(p,i);
+      if (!PyList_Check(zz)) {
+        PyErr_SetString(PyExc_TypeError,"wrong SV vector (leak)"); return NULL;
+      }
+      
+      t = PyList_GetItem(zz, 0); // sv_coef is first
+      if (!PyList_Check(t) || PyList_Size(t)!= m-1 ) {
+        PyErr_SetString(PyExc_TypeError,"SV coef wrong (leak)"); return NULL;
+      }
+      
+      for(jj=0;jj<m-1;jj++) {
+        uu = PyList_GetItem(t, jj);
+        if (!PyFloat_Check(uu)) {
+          PyErr_SetString(PyExc_TypeError,"SV coef entry wrong (leak)"); return NULL;
+        }
+        model->sv_coef[jj][i] = PyFloat_AsDouble(uu);
+      }
+      
+      model->SV[i] = &(x_space[j]);
+      
+      kk = PyList_Size(zz);
+      
+      for (jj = 1; jj < kk; ++jj) {
+        t =PyList_GetItem(zz, jj);
+        if (!PyTuple_Check(t)) {
+          PyErr_SetString(PyExc_TypeError,"SV entry wrong (leak)"); return NULL;
+        }
+        
+        uu = PyTuple_GetItem(t,0);
+        x_space[j].index = PyInt_AsLong(uu);
+        uu = PyTuple_GetItem(t,1);
+        x_space[j].value = PyFloat_AsDouble(uu);
+        
+        ++j;
+      }
+      x_space[j++].index = -1;
+    }
+    assert(j == elements);
+    model->free_sv = 1;	// XXX
+    arg1 = model;
   }
-  arg1 = reinterpret_cast< svm_model * >(argp1);
   result = SVMClassifier(arg1);
   resultobj = SWIG_NewPointerObj((new psvm_model(static_cast< const psvm_model& >(result))), SWIGTYPE_p_psvm_model, SWIG_POINTER_OWN |  0 );
   return resultobj;
@@ -2798,7 +3013,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_SVMLearnS(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  SVMSparseInput *arg1 = (SVMSparseInput *) 0 ;
+  TSVMSparseInput *arg1 = (TSVMSparseInput *) 0 ;
   int arg2 ;
   int arg3 ;
   double arg4 ;
@@ -2814,9 +3029,7 @@ SWIGINTERN PyObject *_wrap_SVMLearnS(PyObject *SWIGUNUSEDPARM(self), PyObject *a
   int arg14 ;
   double *arg15 = (double *) 0 ;
   int *arg16 = (int *) 0 ;
-  wsvm_model *result = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
+  Twsvm_model *result = 0 ;
   int val2 ;
   int ecode2 = 0 ;
   int val3 ;
@@ -2861,17 +3074,103 @@ SWIGINTERN PyObject *_wrap_SVMLearnS(PyObject *SWIGUNUSEDPARM(self), PyObject *a
   PyObject * obj15 = 0 ;
   
   {
+    arg1 = NULL;
+  }
+  {
     arg15 = NULL;
   }
   {
     arg16 = NULL;
   }
   if (!PyArg_ParseTuple(args,(char *)"OOOOOOOOOOOOOOOO:SVMLearnS",&obj0,&obj1,&obj2,&obj3,&obj4,&obj5,&obj6,&obj7,&obj8,&obj9,&obj10,&obj11,&obj12,&obj13,&obj14,&obj15)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_SVMSparseInput, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SVMLearnS" "', argument " "1"" of type '" "SVMSparseInput *""'"); 
+  {
+    /* Check if is a list */
+    if (PyList_Check(obj0)) {
+      int i, j, k, nex, nvals;
+      
+      nex = PyList_Size(obj0);
+      nvals = 0;
+      
+      arg1 = (TSVMSparseInput *) malloc(sizeof(TSVMSparseInput));
+      arg1->elements = 0;
+      arg1->index = NULL;
+      arg1->value = NULL;
+      arg1->label = NULL;
+      for (i = 0; i < nex; i++) {
+        PyObject *ex = PyList_GetItem(obj0,i);
+        // example
+        if (PyList_Check(ex)) {
+          nvals = PyList_Size(ex)-1;
+          if (arg1->index == NULL) {
+            arg1->nn = nex;
+            arg1->lengths = (int *)malloc(arg1->nn*sizeof(int));
+            arg1->value = (double **)malloc(arg1->nn*sizeof(double *));
+            arg1->index = (int **)malloc(arg1->nn*sizeof(int *));
+            arg1->label = (double *)malloc(arg1->nn*sizeof(double));
+            for(j = 0; j < nex; ++j)
+            arg1->lengths[j] = -1;
+          }
+          // fetch the class (must be binary)
+          PyObject *p = PyList_GetItem(ex,0);
+          if (p == NULL) {
+            PyErr_SetString(PyExc_TypeError,"cannot fetch label");
+            SVMscleanup(arg1);
+            return NULL;
+          }
+          if (PyInt_Check(p) || PyLong_Check(p)) {
+            arg1->label[i] = (double)PyInt_AsLong(p);
+          } else if(PyFloat_Check(p)) {
+            arg1->label[i] = PyFloat_AsDouble(p);
+          } else {
+            PyErr_SetString(PyExc_TypeError,"class not float or int");
+            SVMscleanup(arg1);
+            return NULL;
+          }
+          arg1->lengths[i] = nvals-1;
+          arg1->elements += nvals-1;
+          if(nvals > 0) {
+            arg1->value[i] = (double *)malloc((nvals-1)*sizeof(double));
+            arg1->index[i] = (int *)malloc((nvals-1)*sizeof(int));
+          }
+          // fetch the attribute values
+          for (j = 1; j < nvals; ++j) {
+            PyObject *p = PyList_GetItem(ex,j);
+            if(PyTuple_Check(p)) {
+              PyObject *idx = PyTuple_GetItem(p,0); 
+              PyObject *val = PyTuple_GetItem(p,1); 
+              if ((PyInt_Check(idx) || PyLong_Check(idx)) && (PyInt_AsLong(idx) >= 1) ) {
+                arg1->index[i][j-1] = PyInt_AsLong(idx);
+              } else {
+                PyErr_SetString(PyExc_TypeError,"index not a positive integer");
+                SVMscleanup(arg1);
+                return NULL;
+              }
+              if (PyInt_Check(val) || PyLong_Check(val)) {
+                arg1->value[i][j-1] = (double)PyInt_AsLong(val);
+              } else if(PyFloat_Check(val)) {
+                arg1->value[i][j-1] = PyFloat_AsDouble(val);
+              }  else {
+                PyErr_SetString(PyExc_TypeError,"value not an integer or a float");
+                SVMscleanup(arg1);
+                return NULL;
+              }
+            } else {
+              PyErr_SetString(PyExc_TypeError,"attribute values within an example must be tuples (index,value)");
+              SVMscleanup(arg1);
+              return NULL;
+            }
+          } 
+        } else {
+          PyErr_SetString(PyExc_TypeError,"example table must contain examples as lists of tuples");
+          SVMscleanup(arg1);
+          return NULL;
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"not a list");
+      return NULL;
+    }
   }
-  arg1 = reinterpret_cast< SVMSparseInput * >(argp1);
   ecode2 = SWIG_AsVal_int(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "SVMLearnS" "', argument " "2"" of type '" "int""'");
@@ -2983,8 +3282,158 @@ SWIGINTERN PyObject *_wrap_SVMLearnS(PyObject *SWIGUNUSEDPARM(self), PyObject *a
       return NULL;
     }
   }
-  result = (wsvm_model *)SVMLearnS(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,arg11,arg12,arg13,arg14,arg15,arg16);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_wsvm_model, 0 |  0 );
+  result = (Twsvm_model *)SVMLearnS(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,arg11,arg12,arg13,arg14,arg15,arg16);
+  {
+    struct svm_parameter *param = &(result->m->param);
+    double **sv_coef;
+    struct svm_node **SV;
+    Tsvm_model *model = result->m;
+    int i, j, nr_class, l, elements;
+    PyObject *o, *t, *p, *ip;
+    
+    o = PyDict_New();
+    t = PyInt_FromLong(param->svm_type);
+    PyDict_SetItemString(o, "svm_type", t); Py_XDECREF(t);
+    t = PyInt_FromLong(param->kernel_type);
+    PyDict_SetItemString(o, "kernel_type", t); Py_XDECREF(t);
+    
+    if(param->kernel_type == POLY) {
+      t =	PyFloat_FromDouble(param->degree);
+      PyDict_SetItemString(o, "degree", t); Py_XDECREF(t);
+    }
+    
+    if(param->kernel_type == POLY || param->kernel_type == RBF || param->kernel_type == SIGMOID) {
+      t = PyFloat_FromDouble(param->gamma);
+      PyDict_SetItemString(o, "gamma", t); Py_XDECREF(t);
+    }
+    
+    if(param->kernel_type == POLY || param->kernel_type == SIGMOID) {
+      t = PyFloat_FromDouble(param->coef0);
+      PyDict_SetItemString(o, "coef0", t); Py_XDECREF(t);
+    }
+    
+    nr_class = model->nr_class;
+    l = model->l;
+    
+    t = PyInt_FromLong(nr_class);
+    PyDict_SetItemString(o, "nr_class", t); Py_XDECREF(t);
+    t = PyInt_FromLong(l);
+    PyDict_SetItemString(o, "total_sv", t); Py_XDECREF(t);
+    
+    {
+      t = PyList_New(nr_class*(nr_class-1)/2);
+      for(i=0;i<nr_class*(nr_class-1)/2;i++) {
+        PyList_SetItem(t, i, PyFloat_FromDouble(model->rho[i]));
+      }
+      PyDict_SetItemString(o, "rho", t); Py_XDECREF(t);
+    }
+    
+    if(model->probA) {
+      t = PyList_New(nr_class*(nr_class-1)/2);
+      for(i=0;i<nr_class*(nr_class-1)/2;i++) {
+        PyList_SetItem(t, i, PyFloat_FromDouble(model->probA[i]));
+      }
+      PyDict_SetItemString(o, "ProbA", t); Py_XDECREF(t);
+    }
+    
+    if(model->probB) {
+      t = PyList_New(nr_class*(nr_class-1)/2);
+      for(i=0;i<nr_class*(nr_class-1)/2;i++) {
+        PyList_SetItem(t, i, PyFloat_FromDouble(model->probB[i]));
+      }
+      PyDict_SetItemString(o, "ProbB", t); Py_XDECREF(t);
+    }
+    
+    if(model->label) {
+      t = PyList_New(nr_class);
+      for(i=0;i<nr_class;i++) {
+        PyList_SetItem(t, i, PyInt_FromLong(model->label[i]));
+      }
+      PyDict_SetItemString(o, "label", t); Py_XDECREF(t);
+    }
+    
+    
+    if(model->nSV) {
+      t = PyList_New(nr_class);
+      for(i=0;i<nr_class;i++) {
+        PyList_SetItem(t, i, PyInt_FromLong(model->nSV[i]));
+      }
+      PyDict_SetItemString(o, "nr_sv", t); Py_XDECREF(t);
+    }
+    
+    
+    sv_coef = model->sv_coef;
+    SV = model->SV;
+    
+    p = PyList_New(l);
+    ip = PyList_New(l);
+    elements = l; // terminals
+    for(i=0;i<l;i++)
+    {
+      const struct svm_node *pp;
+      PyObject *zz;
+      
+      t = PyList_New(nr_class-1);
+      for(j=0;j<nr_class-1;j++) {
+        PyList_SetItem(t, j, PyFloat_FromDouble(model->sv_coef[j][i]));
+      }
+      
+      // count attributes
+      pp = SV[i];
+      PyList_SetItem(ip, i, PyInt_FromLong(model->SVidx[i])); // save the SV index
+      j = 1;
+      while(pp->index != -1)
+      {
+        pp++; ++j;
+      }
+      
+      // allocate
+      zz = PyList_New(j);
+      PyList_SetItem(zz, 0, t); // sv_coef is first
+      
+      pp = SV[i];
+      j = 0;
+      while(pp->index != -1)
+      {
+        t = PyTuple_New(2);
+        PyTuple_SetItem(t,0,PyInt_FromLong(pp->index));
+        PyTuple_SetItem(t,1,PyFloat_FromDouble(pp->value));
+        pp++; ++j; ++elements;
+        PyList_SetItem(zz,j,t);
+      }
+      
+      PyList_SetItem(p,i,zz);
+    }
+    PyDict_SetItemString(o, "SV", p); Py_XDECREF(p);
+    PyDict_SetItemString(o, "SVi", ip); Py_XDECREF(ip);
+    
+    //  printf("svmo:2\n");
+    t = PyInt_FromLong(elements);
+    PyDict_SetItemString(o, "elements", t); Py_XDECREF(t);
+    svm_destroy_model(result->m);
+    free(result->prob->x);	
+    free(result->prob->y);	
+    free(result->prob);	
+    free(result->x_space);	
+    free(result);
+    resultobj = o;
+  }
+  {
+    if(arg1 != NULL) {
+      int i;
+      for (i = 0; i < arg1->nn; ++i) {
+        if(arg1->lengths[i] > 0) {
+          free((double*)arg1->value[i]);
+          free((int*)arg1->index[i]);
+        }
+      }
+      free((double**) arg1->value);
+      free((int**) arg1->index);
+      free((double*) arg1->label);
+      free((int*) arg1->lengths);
+      free((TSVMSparseInput*) arg1);
+    }
+  }
   {
     if (arg15 != NULL)
     free((double *) arg15);
@@ -2995,6 +3444,22 @@ SWIGINTERN PyObject *_wrap_SVMLearnS(PyObject *SWIGUNUSEDPARM(self), PyObject *a
   }
   return resultobj;
 fail:
+  {
+    if(arg1 != NULL) {
+      int i;
+      for (i = 0; i < arg1->nn; ++i) {
+        if(arg1->lengths[i] > 0) {
+          free((double*)arg1->value[i]);
+          free((int*)arg1->index[i]);
+        }
+      }
+      free((double**) arg1->value);
+      free((int**) arg1->index);
+      free((double*) arg1->label);
+      free((int*) arg1->lengths);
+      free((TSVMSparseInput*) arg1);
+    }
+  }
   {
     if (arg15 != NULL)
     free((double *) arg15);
@@ -3009,7 +3474,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_SVMLearn(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  SVMInput *arg1 = (SVMInput *) 0 ;
+  TSVMInput *arg1 = (TSVMInput *) 0 ;
   int arg2 ;
   int arg3 ;
   double arg4 ;
@@ -3025,9 +3490,7 @@ SWIGINTERN PyObject *_wrap_SVMLearn(PyObject *SWIGUNUSEDPARM(self), PyObject *ar
   int arg14 ;
   double *arg15 = (double *) 0 ;
   int *arg16 = (int *) 0 ;
-  wsvm_model *result = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
+  Twsvm_model *result = 0 ;
   int val2 ;
   int ecode2 = 0 ;
   int val3 ;
@@ -3072,17 +3535,113 @@ SWIGINTERN PyObject *_wrap_SVMLearn(PyObject *SWIGUNUSEDPARM(self), PyObject *ar
   PyObject * obj15 = 0 ;
   
   {
+    arg1 = NULL;
+  }
+  {
     arg15 = NULL;
   }
   {
     arg16 = NULL;
   }
   if (!PyArg_ParseTuple(args,(char *)"OOOOOOOOOOOOOOOO:SVMLearn",&obj0,&obj1,&obj2,&obj3,&obj4,&obj5,&obj6,&obj7,&obj8,&obj9,&obj10,&obj11,&obj12,&obj13,&obj14,&obj15)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_SVMInput, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SVMLearn" "', argument " "1"" of type '" "SVMInput *""'"); 
+  {
+    /* Check if is a list */
+    if (PyList_Check(obj0)) {
+      int i, j, k, size, msize;
+      
+      size = PyList_Size(obj0);
+      msize = 0;
+      
+      arg1 = (TSVMInput *) malloc(sizeof(TSVMInput));
+      arg1->data = NULL;
+      arg1->masking = NULL;
+      arg1->label = NULL;
+      for (i = 0; i < size; i++) {
+        PyObject *o = PyList_GetItem(obj0,i);
+        if (PyList_Check(o)) {
+          int zsize = PyList_Size(o);
+          if (arg1->data == NULL) {
+            msize = zsize;
+            arg1->nn = size;
+            arg1->k = msize-1;
+            arg1->total = (arg1->nn)*(msize-1+1); // size correction, last is class
+            arg1->masking = (char **)malloc(sizeof(char *)*(size+1));
+            for (j = 0; j <= size; ++j) {
+              arg1->masking[j] = (char *)malloc(sizeof(char)*(arg1->k+1));
+              for (k = 0; k <= arg1->k; ++k) {
+                arg1->masking[j][k] = 0;
+              }
+            }
+            arg1->data = (double **)malloc(sizeof(double *)*(size+1));
+            for (j = 0; j <= size; ++j) {
+              arg1->data[j] = (double *)malloc(sizeof(double)*(arg1->k+1));
+            }
+            arg1->label = (double *)malloc(sizeof(double)*(arg1->nn+1));
+          }
+          if (zsize == msize) {
+            // fetch the class (must be binary)
+            PyObject *p = PyList_GetItem(o,zsize-1);
+            if (p == NULL) {
+              PyErr_SetString(PyExc_TypeError,"cannot fetch example");
+              SVMcleanup(arg1);
+              return NULL;
+            }
+            
+            if (PyInt_Check(p) || PyLong_Check(p)) {
+              arg1->label[i] = (double)PyInt_AsLong(p);
+            } else if(PyFloat_Check(p)) {
+              arg1->label[i] = PyFloat_AsDouble(p);
+            } else {
+              PyErr_SetString(PyExc_TypeError,"class not float or int");
+              SVMcleanup(arg1);
+              return NULL;
+            }
+            
+            // fetch the attribute values
+            for (j = 0; j < zsize-1; ++j) {
+              PyObject *p = PyList_GetItem(o,j);
+              
+              if(PyTuple_Check(p)) {
+                PyObject *ps = PyTuple_GetItem(p,1); // masking
+                if (PyInt_Check(ps) || PyLong_Check(ps)) {
+                  arg1->masking[i][j] = (char)PyInt_AsLong(ps);
+                } else if(PyFloat_Check(ps)) {
+                  arg1->masking[i][j] = (char)PyFloat_AsDouble(ps);
+                } else {
+                  PyErr_SetString(PyExc_TypeError,"masking not 1 or 0");
+                  SVMcleanup(arg1);
+                  return NULL;
+                }
+                p = PyTuple_GetItem(p,0); // foist value
+              }
+              if (PyFloat_Check(p)) {
+                // correct +1 because that array starts at 1
+                arg1->data[i][j] = PyFloat_AsDouble(p);
+              } else if (PyInt_Check(p)) {
+                arg1->data[i][j] = (double)PyInt_AsLong(p);
+              } else {
+                PyErr_SetString(PyExc_TypeError,"examples must contain doubles or ints. if masking, use tuples");
+                SVMcleanup(arg1);
+                return NULL;
+              }
+            }
+          } else {
+            PyErr_SetString(PyExc_TypeError,"examples must be of equal size");
+            SVMcleanup(arg1);
+            return NULL;
+          }
+        } else {
+          PyErr_SetString(PyExc_TypeError,"example table must contain examples as lists");
+          SVMcleanup(arg1);
+          return NULL;
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"not a list");
+      return NULL;
+    }
+    //("svmi:done\n");
   }
-  arg1 = reinterpret_cast< SVMInput * >(argp1);
   ecode2 = SWIG_AsVal_int(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "SVMLearn" "', argument " "2"" of type '" "int""'");
@@ -3194,8 +3753,157 @@ SWIGINTERN PyObject *_wrap_SVMLearn(PyObject *SWIGUNUSEDPARM(self), PyObject *ar
       return NULL;
     }
   }
-  result = (wsvm_model *)SVMLearn(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,arg11,arg12,arg13,arg14,arg15,arg16);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_wsvm_model, 0 |  0 );
+  result = (Twsvm_model *)SVMLearn(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,arg11,arg12,arg13,arg14,arg15,arg16);
+  {
+    struct svm_parameter *param = &(result->m->param);
+    double **sv_coef;
+    struct svm_node **SV;
+    Tsvm_model *model = result->m;
+    int i, j, nr_class, l, elements;
+    PyObject *o, *t, *p, *ip;
+    
+    o = PyDict_New();
+    t = PyInt_FromLong(param->svm_type);
+    PyDict_SetItemString(o, "svm_type", t); Py_XDECREF(t);
+    t = PyInt_FromLong(param->kernel_type);
+    PyDict_SetItemString(o, "kernel_type", t); Py_XDECREF(t);
+    
+    if(param->kernel_type == POLY) {
+      t =	PyFloat_FromDouble(param->degree);
+      PyDict_SetItemString(o, "degree", t); Py_XDECREF(t);
+    }
+    
+    if(param->kernel_type == POLY || param->kernel_type == RBF || param->kernel_type == SIGMOID) {
+      t = PyFloat_FromDouble(param->gamma);
+      PyDict_SetItemString(o, "gamma", t); Py_XDECREF(t);
+    }
+    
+    if(param->kernel_type == POLY || param->kernel_type == SIGMOID) {
+      t = PyFloat_FromDouble(param->coef0);
+      PyDict_SetItemString(o, "coef0", t); Py_XDECREF(t);
+    }
+    
+    nr_class = model->nr_class;
+    l = model->l;
+    
+    t = PyInt_FromLong(nr_class);
+    PyDict_SetItemString(o, "nr_class", t); Py_XDECREF(t);
+    t = PyInt_FromLong(l);
+    PyDict_SetItemString(o, "total_sv", t); Py_XDECREF(t);
+    
+    {
+      t = PyList_New(nr_class*(nr_class-1)/2);
+      for(i=0;i<nr_class*(nr_class-1)/2;i++) {
+        PyList_SetItem(t, i, PyFloat_FromDouble(model->rho[i]));
+      }
+      PyDict_SetItemString(o, "rho", t); Py_XDECREF(t);
+    }
+    
+    if(model->probA) {
+      t = PyList_New(nr_class*(nr_class-1)/2);
+      for(i=0;i<nr_class*(nr_class-1)/2;i++) {
+        PyList_SetItem(t, i, PyFloat_FromDouble(model->probA[i]));
+      }
+      PyDict_SetItemString(o, "ProbA", t); Py_XDECREF(t);
+    }
+    
+    if(model->probB) {
+      t = PyList_New(nr_class*(nr_class-1)/2);
+      for(i=0;i<nr_class*(nr_class-1)/2;i++) {
+        PyList_SetItem(t, i, PyFloat_FromDouble(model->probB[i]));
+      }
+      PyDict_SetItemString(o, "ProbB", t); Py_XDECREF(t);
+    }
+    
+    if(model->label) {
+      t = PyList_New(nr_class);
+      for(i=0;i<nr_class;i++) {
+        PyList_SetItem(t, i, PyInt_FromLong(model->label[i]));
+      }
+      PyDict_SetItemString(o, "label", t); Py_XDECREF(t);
+    }
+    
+    
+    if(model->nSV) {
+      t = PyList_New(nr_class);
+      for(i=0;i<nr_class;i++) {
+        PyList_SetItem(t, i, PyInt_FromLong(model->nSV[i]));
+      }
+      PyDict_SetItemString(o, "nr_sv", t); Py_XDECREF(t);
+    }
+    
+    
+    sv_coef = model->sv_coef;
+    SV = model->SV;
+    
+    p = PyList_New(l);
+    ip = PyList_New(l);
+    elements = l; // terminals
+    for(i=0;i<l;i++)
+    {
+      const struct svm_node *pp;
+      PyObject *zz;
+      
+      t = PyList_New(nr_class-1);
+      for(j=0;j<nr_class-1;j++) {
+        PyList_SetItem(t, j, PyFloat_FromDouble(model->sv_coef[j][i]));
+      }
+      
+      // count attributes
+      pp = SV[i];
+      PyList_SetItem(ip, i, PyInt_FromLong(model->SVidx[i])); // save the SV index
+      j = 1;
+      while(pp->index != -1)
+      {
+        pp++; ++j;
+      }
+      
+      // allocate
+      zz = PyList_New(j);
+      PyList_SetItem(zz, 0, t); // sv_coef is first
+      
+      pp = SV[i];
+      j = 0;
+      while(pp->index != -1)
+      {
+        t = PyTuple_New(2);
+        PyTuple_SetItem(t,0,PyInt_FromLong(pp->index));
+        PyTuple_SetItem(t,1,PyFloat_FromDouble(pp->value));
+        pp++; ++j; ++elements;
+        PyList_SetItem(zz,j,t);
+      }
+      
+      PyList_SetItem(p,i,zz);
+    }
+    PyDict_SetItemString(o, "SV", p); Py_XDECREF(p);
+    PyDict_SetItemString(o, "SVi", ip); Py_XDECREF(ip);
+    
+    //  printf("svmo:2\n");
+    t = PyInt_FromLong(elements);
+    PyDict_SetItemString(o, "elements", t); Py_XDECREF(t);
+    svm_destroy_model(result->m);
+    free(result->prob->x);	
+    free(result->prob->y);	
+    free(result->prob);	
+    free(result->x_space);	
+    free(result);
+    resultobj = o;
+  }
+  {
+    if(arg1 != NULL) {
+      int i;
+      //printf("svmc:1\n");
+      for (i = 0; i <= arg1->nn; ++i) {
+        free((double*)arg1->data[i]);
+        free((char*)arg1->masking[i]);
+      }
+      free((double**) arg1->data);
+      free((char**) arg1->masking);
+      free((double*) arg1->label);
+      free((TSVMInput*) arg1);
+      //("svmc:2\n");
+    }
+  }
   {
     if (arg15 != NULL)
     free((double *) arg15);
@@ -3206,6 +3914,21 @@ SWIGINTERN PyObject *_wrap_SVMLearn(PyObject *SWIGUNUSEDPARM(self), PyObject *ar
   }
   return resultobj;
 fail:
+  {
+    if(arg1 != NULL) {
+      int i;
+      //printf("svmc:1\n");
+      for (i = 0; i <= arg1->nn; ++i) {
+        free((double*)arg1->data[i]);
+        free((char*)arg1->masking[i]);
+      }
+      free((double**) arg1->data);
+      free((char**) arg1->masking);
+      free((double*) arg1->label);
+      free((TSVMInput*) arg1);
+      //("svmc:2\n");
+    }
+  }
   {
     if (arg15 != NULL)
     free((double *) arg15);
@@ -3221,15 +3944,16 @@ fail:
 SWIGINTERN PyObject *_wrap_SVMClassify(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   psvm_model arg1 ;
-  SVMExample *arg2 = (SVMExample *) 0 ;
+  TSVMExample *arg2 = (TSVMExample *) 0 ;
   double result;
   void *argp1 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   
+  {
+    arg2 = NULL;
+  }
   if (!PyArg_ParseTuple(args,(char *)"OO:SVMClassify",&obj0,&obj1)) SWIG_fail;
   {
     res1 = SWIG_ConvertPtr(obj0, &argp1, SWIGTYPE_p_psvm_model,  0  | 0);
@@ -3244,15 +3968,60 @@ SWIGINTERN PyObject *_wrap_SVMClassify(PyObject *SWIGUNUSEDPARM(self), PyObject 
       if (SWIG_IsNewObj(res1)) delete temp;
     }
   }
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_SVMExample, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SVMClassify" "', argument " "2"" of type '" "SVMExample *""'"); 
+  {
+    /* Check if is a list */
+    if (PyList_Check(obj1)) {
+      int j, msize;
+      
+      msize = PyList_Size(obj1);
+      
+      arg2 = (TSVMExample *)malloc(sizeof(TSVMExample));
+      arg2->k = msize;
+      arg2->data    = (double *)malloc(sizeof(double)*msize);
+      arg2->masking = (char *)malloc(sizeof(char)*msize);
+      
+      // fetch the attribute values
+      for (j = 0; j < msize; ++j) {
+        PyObject *p = PyList_GetItem(obj1,j);
+        
+        arg2->masking[j] = 0;
+        if(PyTuple_Check(p)) {
+          arg2->masking[j] = 1;
+          p = PyTuple_GetItem(p,0); // foist value
+        }
+        if (PyFloat_Check(p)) {
+          arg2->data[j] = PyFloat_AsDouble(p);
+        } else if (PyInt_Check(p)) {
+          arg2->data[j] = (double)PyInt_AsLong(p);
+        } else {
+          PyErr_SetString(PyExc_TypeError,"examples must contain doubles or ints. if masking, use tuples");
+          SVMexcleanup(arg2);
+          return NULL;
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"not a list");
+      return NULL;
+    }
   }
-  arg2 = reinterpret_cast< SVMExample * >(argp2);
   result = (double)SVMClassify(arg1,arg2);
   resultobj = SWIG_From_double(static_cast< double >(result));
+  {
+    if (arg2 != NULL) {
+      free((double*) arg2->data);
+      free((char*) arg2->masking);
+      free((TSVMExample*) arg2);
+    }
+  }
   return resultobj;
 fail:
+  {
+    if (arg2 != NULL) {
+      free((double*) arg2->data);
+      free((char*) arg2->masking);
+      free((TSVMExample*) arg2);
+    }
+  }
   return NULL;
 }
 
@@ -3260,19 +4029,20 @@ fail:
 SWIGINTERN PyObject *_wrap_SVMClassifyP(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   psvm_model arg1 ;
-  SVMExample *arg2 = (SVMExample *) 0 ;
-  SVMOut *arg3 = (SVMOut *) 0 ;
+  TSVMExample *arg2 = (TSVMExample *) 0 ;
+  TSVMOut *arg3 = (TSVMOut *) 0 ;
   void *argp1 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:SVMClassifyP",&obj0,&obj1,&obj2)) SWIG_fail;
+  {
+    arg2 = NULL;
+  }
+  {
+    arg3 = (TSVMOut *)malloc(sizeof(TSVMOut));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"OO:SVMClassifyP",&obj0,&obj1)) SWIG_fail;
   {
     res1 = SWIG_ConvertPtr(obj0, &argp1, SWIGTYPE_p_psvm_model,  0  | 0);
     if (!SWIG_IsOK(res1)) {
@@ -3286,20 +4056,85 @@ SWIGINTERN PyObject *_wrap_SVMClassifyP(PyObject *SWIGUNUSEDPARM(self), PyObject
       if (SWIG_IsNewObj(res1)) delete temp;
     }
   }
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_SVMExample, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SVMClassifyP" "', argument " "2"" of type '" "SVMExample *""'"); 
+  {
+    /* Check if is a list */
+    if (PyList_Check(obj1)) {
+      int j, msize;
+      
+      msize = PyList_Size(obj1);
+      
+      arg2 = (TSVMExample *)malloc(sizeof(TSVMExample));
+      arg2->k = msize;
+      arg2->data    = (double *)malloc(sizeof(double)*msize);
+      arg2->masking = (char *)malloc(sizeof(char)*msize);
+      
+      // fetch the attribute values
+      for (j = 0; j < msize; ++j) {
+        PyObject *p = PyList_GetItem(obj1,j);
+        
+        arg2->masking[j] = 0;
+        if(PyTuple_Check(p)) {
+          arg2->masking[j] = 1;
+          p = PyTuple_GetItem(p,0); // foist value
+        }
+        if (PyFloat_Check(p)) {
+          arg2->data[j] = PyFloat_AsDouble(p);
+        } else if (PyInt_Check(p)) {
+          arg2->data[j] = (double)PyInt_AsLong(p);
+        } else {
+          PyErr_SetString(PyExc_TypeError,"examples must contain doubles or ints. if masking, use tuples");
+          SVMexcleanup(arg2);
+          return NULL;
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"not a list");
+      return NULL;
+    }
   }
-  arg2 = reinterpret_cast< SVMExample * >(argp2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_SVMOut, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "SVMClassifyP" "', argument " "3"" of type '" "SVMOut *""'"); 
-  }
-  arg3 = reinterpret_cast< SVMOut * >(argp3);
   SVMClassifyP(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
+  {
+    int i;
+    PyObject *o, *q;
+    
+    o = PyList_New(arg3->nn);
+    
+    for(i = 0; i < arg3->nn; ++i) {
+      q = PyFloat_FromDouble(arg3->v[i]);
+      PyList_SetItem(o, i, q);
+    }
+    free(arg3->v);
+    free(arg3);
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
+  {
+    if (arg2 != NULL) {
+      free((double*) arg2->data);
+      free((char*) arg2->masking);
+      free((TSVMExample*) arg2);
+    }
+  }
   return resultobj;
 fail:
+  {
+    if (arg2 != NULL) {
+      free((double*) arg2->data);
+      free((char*) arg2->masking);
+      free((TSVMExample*) arg2);
+    }
+  }
   return NULL;
 }
 
@@ -3307,19 +4142,20 @@ fail:
 SWIGINTERN PyObject *_wrap_SVMClassifyM(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   psvm_model arg1 ;
-  SVMExample *arg2 = (SVMExample *) 0 ;
-  SVMOut *arg3 = (SVMOut *) 0 ;
+  TSVMExample *arg2 = (TSVMExample *) 0 ;
+  TSVMOut *arg3 = (TSVMOut *) 0 ;
   void *argp1 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:SVMClassifyM",&obj0,&obj1,&obj2)) SWIG_fail;
+  {
+    arg2 = NULL;
+  }
+  {
+    arg3 = (TSVMOut *)malloc(sizeof(TSVMOut));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"OO:SVMClassifyM",&obj0,&obj1)) SWIG_fail;
   {
     res1 = SWIG_ConvertPtr(obj0, &argp1, SWIGTYPE_p_psvm_model,  0  | 0);
     if (!SWIG_IsOK(res1)) {
@@ -3333,20 +4169,85 @@ SWIGINTERN PyObject *_wrap_SVMClassifyM(PyObject *SWIGUNUSEDPARM(self), PyObject
       if (SWIG_IsNewObj(res1)) delete temp;
     }
   }
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_SVMExample, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SVMClassifyM" "', argument " "2"" of type '" "SVMExample *""'"); 
+  {
+    /* Check if is a list */
+    if (PyList_Check(obj1)) {
+      int j, msize;
+      
+      msize = PyList_Size(obj1);
+      
+      arg2 = (TSVMExample *)malloc(sizeof(TSVMExample));
+      arg2->k = msize;
+      arg2->data    = (double *)malloc(sizeof(double)*msize);
+      arg2->masking = (char *)malloc(sizeof(char)*msize);
+      
+      // fetch the attribute values
+      for (j = 0; j < msize; ++j) {
+        PyObject *p = PyList_GetItem(obj1,j);
+        
+        arg2->masking[j] = 0;
+        if(PyTuple_Check(p)) {
+          arg2->masking[j] = 1;
+          p = PyTuple_GetItem(p,0); // foist value
+        }
+        if (PyFloat_Check(p)) {
+          arg2->data[j] = PyFloat_AsDouble(p);
+        } else if (PyInt_Check(p)) {
+          arg2->data[j] = (double)PyInt_AsLong(p);
+        } else {
+          PyErr_SetString(PyExc_TypeError,"examples must contain doubles or ints. if masking, use tuples");
+          SVMexcleanup(arg2);
+          return NULL;
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"not a list");
+      return NULL;
+    }
   }
-  arg2 = reinterpret_cast< SVMExample * >(argp2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_SVMOut, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "SVMClassifyM" "', argument " "3"" of type '" "SVMOut *""'"); 
-  }
-  arg3 = reinterpret_cast< SVMOut * >(argp3);
   SVMClassifyM(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
+  {
+    int i;
+    PyObject *o, *q;
+    
+    o = PyList_New(arg3->nn);
+    
+    for(i = 0; i < arg3->nn; ++i) {
+      q = PyFloat_FromDouble(arg3->v[i]);
+      PyList_SetItem(o, i, q);
+    }
+    free(arg3->v);
+    free(arg3);
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
+  {
+    if (arg2 != NULL) {
+      free((double*) arg2->data);
+      free((char*) arg2->masking);
+      free((TSVMExample*) arg2);
+    }
+  }
   return resultobj;
 fail:
+  {
+    if (arg2 != NULL) {
+      free((double*) arg2->data);
+      free((char*) arg2->masking);
+      free((TSVMExample*) arg2);
+    }
+  }
   return NULL;
 }
 
@@ -3354,15 +4255,16 @@ fail:
 SWIGINTERN PyObject *_wrap_SVMClassifyS(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   psvm_model arg1 ;
-  SVMSparseExample *arg2 = (SVMSparseExample *) 0 ;
+  TSVMSparseExample *arg2 = (TSVMSparseExample *) 0 ;
   double result;
   void *argp1 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   
+  {
+    arg2 = NULL;
+  }
   if (!PyArg_ParseTuple(args,(char *)"OO:SVMClassifyS",&obj0,&obj1)) SWIG_fail;
   {
     res1 = SWIG_ConvertPtr(obj0, &argp1, SWIGTYPE_p_psvm_model,  0  | 0);
@@ -3377,15 +4279,67 @@ SWIGINTERN PyObject *_wrap_SVMClassifyS(PyObject *SWIGUNUSEDPARM(self), PyObject
       if (SWIG_IsNewObj(res1)) delete temp;
     }
   }
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_SVMSparseExample, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SVMClassifyS" "', argument " "2"" of type '" "SVMSparseExample *""'"); 
+  {
+    int nvals, i,j; 
+    /* Check if is a list */
+    if (PyList_Check(obj1)) {
+      nvals = PyList_Size(obj1);
+      arg2 = (SVMSparseExample *)malloc(sizeof(SVMSparseExample));
+      arg2->nn = nvals;
+      arg2->value = (double *)malloc((nvals)*sizeof(double));
+      arg2->index = (int *)malloc((nvals)*sizeof(int));
+      // fetch the attribute values
+      for (j = 0; j < nvals; ++j) {
+        PyObject *p = PyList_GetItem(obj1,j);
+        if(PyTuple_Check(p)) {
+          PyObject *idx = PyTuple_GetItem(p,0); 
+          PyObject *val = PyTuple_GetItem(p,1); 
+          if (PyInt_Check(idx) || PyLong_Check(idx)) {
+            arg2->index[j] = PyInt_AsLong(idx);
+          } else {
+            PyErr_SetString(PyExc_TypeError,"index not 1 or 0");
+            SVMsecleanup(arg2);
+            return NULL;
+          }
+          if (PyInt_Check(val) || PyLong_Check(val)) {
+            arg2->value[j] = (double)PyInt_AsLong(val);
+          } else if(PyFloat_Check(val)) {
+            arg2->value[j] = PyFloat_AsDouble(val);
+          }  else {
+            PyErr_SetString(PyExc_TypeError,"value not an integer or a float");
+            SVMsecleanup(arg2);
+            return NULL;
+          }
+        } else {
+          PyErr_SetString(PyExc_TypeError,"attribute values within an example must be tuples (index,value)");
+          SVMsecleanup(arg2);
+          return NULL;
+        }
+      } 
+    } else {
+      PyErr_SetString(PyExc_TypeError,"example must be a list of tuples");
+      SVMsecleanup(arg2);
+      return NULL;
+    }
   }
-  arg2 = reinterpret_cast< SVMSparseExample * >(argp2);
   result = (double)SVMClassifyS(arg1,arg2);
   resultobj = SWIG_From_double(static_cast< double >(result));
+  {
+    if (arg2 != NULL) {
+      free((double*) arg2->value);
+      free((int *) arg2->index);
+      free((TSVMSparseExample*) arg2);
+    }
+  }
   return resultobj;
 fail:
+  {
+    if (arg2 != NULL) {
+      free((double*) arg2->value);
+      free((int *) arg2->index);
+      free((TSVMSparseExample*) arg2);
+    }
+  }
   return NULL;
 }
 
@@ -3393,19 +4347,20 @@ fail:
 SWIGINTERN PyObject *_wrap_SVMClassifyPS(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   psvm_model arg1 ;
-  SVMSparseExample *arg2 = (SVMSparseExample *) 0 ;
-  SVMOut *arg3 = (SVMOut *) 0 ;
+  TSVMSparseExample *arg2 = (TSVMSparseExample *) 0 ;
+  TSVMOut *arg3 = (TSVMOut *) 0 ;
   void *argp1 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:SVMClassifyPS",&obj0,&obj1,&obj2)) SWIG_fail;
+  {
+    arg2 = NULL;
+  }
+  {
+    arg3 = (TSVMOut *)malloc(sizeof(TSVMOut));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"OO:SVMClassifyPS",&obj0,&obj1)) SWIG_fail;
   {
     res1 = SWIG_ConvertPtr(obj0, &argp1, SWIGTYPE_p_psvm_model,  0  | 0);
     if (!SWIG_IsOK(res1)) {
@@ -3419,20 +4374,92 @@ SWIGINTERN PyObject *_wrap_SVMClassifyPS(PyObject *SWIGUNUSEDPARM(self), PyObjec
       if (SWIG_IsNewObj(res1)) delete temp;
     }
   }
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_SVMSparseExample, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SVMClassifyPS" "', argument " "2"" of type '" "SVMSparseExample *""'"); 
+  {
+    int nvals, i,j; 
+    /* Check if is a list */
+    if (PyList_Check(obj1)) {
+      nvals = PyList_Size(obj1);
+      arg2 = (SVMSparseExample *)malloc(sizeof(SVMSparseExample));
+      arg2->nn = nvals;
+      arg2->value = (double *)malloc((nvals)*sizeof(double));
+      arg2->index = (int *)malloc((nvals)*sizeof(int));
+      // fetch the attribute values
+      for (j = 0; j < nvals; ++j) {
+        PyObject *p = PyList_GetItem(obj1,j);
+        if(PyTuple_Check(p)) {
+          PyObject *idx = PyTuple_GetItem(p,0); 
+          PyObject *val = PyTuple_GetItem(p,1); 
+          if (PyInt_Check(idx) || PyLong_Check(idx)) {
+            arg2->index[j] = PyInt_AsLong(idx);
+          } else {
+            PyErr_SetString(PyExc_TypeError,"index not 1 or 0");
+            SVMsecleanup(arg2);
+            return NULL;
+          }
+          if (PyInt_Check(val) || PyLong_Check(val)) {
+            arg2->value[j] = (double)PyInt_AsLong(val);
+          } else if(PyFloat_Check(val)) {
+            arg2->value[j] = PyFloat_AsDouble(val);
+          }  else {
+            PyErr_SetString(PyExc_TypeError,"value not an integer or a float");
+            SVMsecleanup(arg2);
+            return NULL;
+          }
+        } else {
+          PyErr_SetString(PyExc_TypeError,"attribute values within an example must be tuples (index,value)");
+          SVMsecleanup(arg2);
+          return NULL;
+        }
+      } 
+    } else {
+      PyErr_SetString(PyExc_TypeError,"example must be a list of tuples");
+      SVMsecleanup(arg2);
+      return NULL;
+    }
   }
-  arg2 = reinterpret_cast< SVMSparseExample * >(argp2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_SVMOut, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "SVMClassifyPS" "', argument " "3"" of type '" "SVMOut *""'"); 
-  }
-  arg3 = reinterpret_cast< SVMOut * >(argp3);
   SVMClassifyPS(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
+  {
+    int i;
+    PyObject *o, *q;
+    
+    o = PyList_New(arg3->nn);
+    
+    for(i = 0; i < arg3->nn; ++i) {
+      q = PyFloat_FromDouble(arg3->v[i]);
+      PyList_SetItem(o, i, q);
+    }
+    free(arg3->v);
+    free(arg3);
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
+  {
+    if (arg2 != NULL) {
+      free((double*) arg2->value);
+      free((int *) arg2->index);
+      free((TSVMSparseExample*) arg2);
+    }
+  }
   return resultobj;
 fail:
+  {
+    if (arg2 != NULL) {
+      free((double*) arg2->value);
+      free((int *) arg2->index);
+      free((TSVMSparseExample*) arg2);
+    }
+  }
   return NULL;
 }
 
@@ -3440,19 +4467,20 @@ fail:
 SWIGINTERN PyObject *_wrap_SVMClassifyMS(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   psvm_model arg1 ;
-  SVMSparseExample *arg2 = (SVMSparseExample *) 0 ;
-  SVMOut *arg3 = (SVMOut *) 0 ;
+  TSVMSparseExample *arg2 = (TSVMSparseExample *) 0 ;
+  TSVMOut *arg3 = (TSVMOut *) 0 ;
   void *argp1 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:SVMClassifyMS",&obj0,&obj1,&obj2)) SWIG_fail;
+  {
+    arg2 = NULL;
+  }
+  {
+    arg3 = (TSVMOut *)malloc(sizeof(TSVMOut));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"OO:SVMClassifyMS",&obj0,&obj1)) SWIG_fail;
   {
     res1 = SWIG_ConvertPtr(obj0, &argp1, SWIGTYPE_p_psvm_model,  0  | 0);
     if (!SWIG_IsOK(res1)) {
@@ -3466,49 +4494,172 @@ SWIGINTERN PyObject *_wrap_SVMClassifyMS(PyObject *SWIGUNUSEDPARM(self), PyObjec
       if (SWIG_IsNewObj(res1)) delete temp;
     }
   }
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_SVMSparseExample, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SVMClassifyMS" "', argument " "2"" of type '" "SVMSparseExample *""'"); 
+  {
+    int nvals, i,j; 
+    /* Check if is a list */
+    if (PyList_Check(obj1)) {
+      nvals = PyList_Size(obj1);
+      arg2 = (SVMSparseExample *)malloc(sizeof(SVMSparseExample));
+      arg2->nn = nvals;
+      arg2->value = (double *)malloc((nvals)*sizeof(double));
+      arg2->index = (int *)malloc((nvals)*sizeof(int));
+      // fetch the attribute values
+      for (j = 0; j < nvals; ++j) {
+        PyObject *p = PyList_GetItem(obj1,j);
+        if(PyTuple_Check(p)) {
+          PyObject *idx = PyTuple_GetItem(p,0); 
+          PyObject *val = PyTuple_GetItem(p,1); 
+          if (PyInt_Check(idx) || PyLong_Check(idx)) {
+            arg2->index[j] = PyInt_AsLong(idx);
+          } else {
+            PyErr_SetString(PyExc_TypeError,"index not 1 or 0");
+            SVMsecleanup(arg2);
+            return NULL;
+          }
+          if (PyInt_Check(val) || PyLong_Check(val)) {
+            arg2->value[j] = (double)PyInt_AsLong(val);
+          } else if(PyFloat_Check(val)) {
+            arg2->value[j] = PyFloat_AsDouble(val);
+          }  else {
+            PyErr_SetString(PyExc_TypeError,"value not an integer or a float");
+            SVMsecleanup(arg2);
+            return NULL;
+          }
+        } else {
+          PyErr_SetString(PyExc_TypeError,"attribute values within an example must be tuples (index,value)");
+          SVMsecleanup(arg2);
+          return NULL;
+        }
+      } 
+    } else {
+      PyErr_SetString(PyExc_TypeError,"example must be a list of tuples");
+      SVMsecleanup(arg2);
+      return NULL;
+    }
   }
-  arg2 = reinterpret_cast< SVMSparseExample * >(argp2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_SVMOut, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "SVMClassifyMS" "', argument " "3"" of type '" "SVMOut *""'"); 
-  }
-  arg3 = reinterpret_cast< SVMOut * >(argp3);
   SVMClassifyMS(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
+  {
+    int i;
+    PyObject *o, *q;
+    
+    o = PyList_New(arg3->nn);
+    
+    for(i = 0; i < arg3->nn; ++i) {
+      q = PyFloat_FromDouble(arg3->v[i]);
+      PyList_SetItem(o, i, q);
+    }
+    free(arg3->v);
+    free(arg3);
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
+  {
+    if (arg2 != NULL) {
+      free((double*) arg2->value);
+      free((int *) arg2->index);
+      free((TSVMSparseExample*) arg2);
+    }
+  }
   return resultobj;
 fail:
+  {
+    if (arg2 != NULL) {
+      free((double*) arg2->value);
+      free((int *) arg2->index);
+      free((TSVMSparseExample*) arg2);
+    }
+  }
   return NULL;
 }
 
 
 SWIGINTERN PyObject *_wrap_MCluster(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  CInput *arg1 = (CInput *) 0 ;
+  TCInput *arg1 = (TCInput *) 0 ;
   long arg2 ;
   int arg3 ;
-  CMInfo *arg4 = (CMInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
+  TCMInfo *arg4 = (TCMInfo *) 0 ;
   long val2 ;
   int ecode2 = 0 ;
   int val3 ;
   int ecode3 = 0 ;
-  void *argp4 = 0 ;
-  int res4 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
-  PyObject * obj3 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOOO:MCluster",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_CInput, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MCluster" "', argument " "1"" of type '" "CInput *""'"); 
+  {
+    arg1 = NULL;
   }
-  arg1 = reinterpret_cast< CInput * >(argp1);
+  {
+    arg4 = (TCMInfo *)malloc(sizeof(TCMInfo));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"OOO:MCluster",&obj0,&obj1,&obj2)) SWIG_fail;
+  {
+    /* Check if is a list */
+    if (PyList_Check(obj0)) {
+      int i, j, size, msize;
+      
+      size = PyList_Size(obj0);
+      msize = 0;
+      
+      arg1 = (TCInput *) malloc(sizeof(TCInput));
+      arg1->data = NULL;
+      for (i = 0; i < size; i++) {
+        PyObject *o = PyList_GetItem(obj0,i);
+        if (PyList_Check(o)) {
+          int zsize = PyList_Size(o);
+          if (arg1->data == NULL) {
+            msize = zsize;
+            arg1->nn = size;
+            arg1->jpp = msize;
+            arg1->data = (double *)malloc(sizeof(double)*zsize*size);
+          }
+          if (zsize == msize) {
+            for (j = 0; j < zsize; ++j) {
+              PyObject *p = PyList_GetItem(o,j);
+              if (PyFloat_Check(p)) {
+                arg1->data[i+j*size] = PyFloat_AsDouble(p);
+              } else if (PyInt_Check(p)) {
+                arg1->data[i+j*size] = (double)PyInt_AsLong(p);
+              } else {
+                PyErr_SetString(PyExc_TypeError,"sublists must contain doubles");
+                if (arg1->data != NULL)
+                free(arg1->data);
+                free(arg1);
+                return NULL;
+              }
+            }
+          } else {
+            PyErr_SetString(PyExc_TypeError,"sublists must be of equal size");
+            if (arg1->data != NULL)
+            free(arg1->data);
+            free(arg1);
+            return NULL;
+          }
+        } else {
+          PyErr_SetString(PyExc_TypeError,"list must contain lists");
+          if (arg1->data != NULL)
+          free(arg1->data);
+          free(arg1);
+          return NULL;
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"not a list");
+      return NULL;
+    }
+  }
   ecode2 = SWIG_AsVal_long(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MCluster" "', argument " "2"" of type '" "long""'");
@@ -3519,44 +4670,151 @@ SWIGINTERN PyObject *_wrap_MCluster(PyObject *SWIGUNUSEDPARM(self), PyObject *ar
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "MCluster" "', argument " "3"" of type '" "int""'");
   } 
   arg3 = static_cast< int >(val3);
-  res4 = SWIG_ConvertPtr(obj3, &argp4,SWIGTYPE_p_CMInfo, 0 |  0 );
-  if (!SWIG_IsOK(res4)) {
-    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "MCluster" "', argument " "4"" of type '" "CMInfo *""'"); 
-  }
-  arg4 = reinterpret_cast< CMInfo * >(argp4);
   MCluster(arg1,arg2,arg3,arg4);
   resultobj = SWIG_Py_Void();
+  {
+    int i;
+    PyObject *o, *k, *cdisp, *disp, *n, *mapping, *medoids, *ll;
+    
+    o = PyTuple_New(6);
+    
+    n = PyInt_FromLong(arg4->n);
+    k = PyInt_FromLong(arg4->k);
+    disp = PyFloat_FromDouble(arg4->disp);
+    
+    mapping = PyList_New(arg4->n);
+    for (i = 0; i < arg4->n; ++i) {
+      ll = PyInt_FromLong(arg4->mapping[i]);
+      PyList_SetItem(mapping, i, ll);
+    }
+    medoids = PyList_New(arg4->k);
+    for (i = 0; i < arg4->k; ++i) {
+      ll = PyInt_FromLong(arg4->medoids[i]);
+      PyList_SetItem(medoids, i, ll);
+    }
+    cdisp = PyList_New(arg4->k);
+    for (i = 0; i < arg4->k; ++i) {
+      ll = PyFloat_FromDouble(arg4->cdisp[i]);
+      PyList_SetItem(cdisp, i, ll);
+    }
+    PyTuple_SetItem(o, 0, n);
+    PyTuple_SetItem(o, 1, k);
+    PyTuple_SetItem(o, 2, mapping);
+    PyTuple_SetItem(o, 3, medoids);
+    PyTuple_SetItem(o, 4, cdisp);
+    PyTuple_SetItem(o, 5, disp);
+    free(arg4->medoids);
+    free(arg4->cdisp);
+    free(arg4->mapping);
+    free(arg4);
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
+  {
+    if (arg1 != NULL) {
+      free((double*) arg1->data);
+      free((TCInput*) arg1);
+    }
+  }
   return resultobj;
 fail:
+  {
+    if (arg1 != NULL) {
+      free((double*) arg1->data);
+      free((TCInput*) arg1);
+    }
+  }
   return NULL;
 }
 
 
 SWIGINTERN PyObject *_wrap_HCluster(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  CInput *arg1 = (CInput *) 0 ;
+  TCInput *arg1 = (TCInput *) 0 ;
   int arg2 ;
   int arg3 ;
-  CHInfo *arg4 = (CHInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
+  TCHInfo *arg4 = (TCHInfo *) 0 ;
   int val2 ;
   int ecode2 = 0 ;
   int val3 ;
   int ecode3 = 0 ;
-  void *argp4 = 0 ;
-  int res4 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
-  PyObject * obj3 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOOO:HCluster",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_CInput, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "HCluster" "', argument " "1"" of type '" "CInput *""'"); 
+  {
+    arg1 = NULL;
   }
-  arg1 = reinterpret_cast< CInput * >(argp1);
+  {
+    arg4 = (TCHInfo *)malloc(sizeof(TCHInfo));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"OOO:HCluster",&obj0,&obj1,&obj2)) SWIG_fail;
+  {
+    /* Check if is a list */
+    if (PyList_Check(obj0)) {
+      int i, j, size, msize;
+      
+      size = PyList_Size(obj0);
+      msize = 0;
+      
+      arg1 = (TCInput *) malloc(sizeof(TCInput));
+      arg1->data = NULL;
+      for (i = 0; i < size; i++) {
+        PyObject *o = PyList_GetItem(obj0,i);
+        if (PyList_Check(o)) {
+          int zsize = PyList_Size(o);
+          if (arg1->data == NULL) {
+            msize = zsize;
+            arg1->nn = size;
+            arg1->jpp = msize;
+            arg1->data = (double *)malloc(sizeof(double)*zsize*size);
+          }
+          if (zsize == msize) {
+            for (j = 0; j < zsize; ++j) {
+              PyObject *p = PyList_GetItem(o,j);
+              if (PyFloat_Check(p)) {
+                arg1->data[i+j*size] = PyFloat_AsDouble(p);
+              } else if (PyInt_Check(p)) {
+                arg1->data[i+j*size] = (double)PyInt_AsLong(p);
+              } else {
+                PyErr_SetString(PyExc_TypeError,"sublists must contain doubles");
+                if (arg1->data != NULL)
+                free(arg1->data);
+                free(arg1);
+                return NULL;
+              }
+            }
+          } else {
+            PyErr_SetString(PyExc_TypeError,"sublists must be of equal size");
+            if (arg1->data != NULL)
+            free(arg1->data);
+            free(arg1);
+            return NULL;
+          }
+        } else {
+          PyErr_SetString(PyExc_TypeError,"list must contain lists");
+          if (arg1->data != NULL)
+          free(arg1->data);
+          free(arg1);
+          return NULL;
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"not a list");
+      return NULL;
+    }
+  }
   ecode2 = SWIG_AsVal_int(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "HCluster" "', argument " "2"" of type '" "int""'");
@@ -3567,122 +4825,433 @@ SWIGINTERN PyObject *_wrap_HCluster(PyObject *SWIGUNUSEDPARM(self), PyObject *ar
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "HCluster" "', argument " "3"" of type '" "int""'");
   } 
   arg3 = static_cast< int >(val3);
-  res4 = SWIG_ConvertPtr(obj3, &argp4,SWIGTYPE_p_CHInfo, 0 |  0 );
-  if (!SWIG_IsOK(res4)) {
-    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "HCluster" "', argument " "4"" of type '" "CHInfo *""'"); 
-  }
-  arg4 = reinterpret_cast< CHInfo * >(argp4);
   HCluster(arg1,arg2,arg3,arg4);
   resultobj = SWIG_Py_Void();
+  {
+    int i;
+    PyObject *o, *ac, *n, *height, *order, *merging, *ll;
+    
+    o = PyTuple_New(5);
+    n = PyInt_FromLong(arg4->n);
+    ac = PyFloat_FromDouble(arg4->ac);
+    merging = PyList_New((arg4->n-1)*2);
+    for (i = 0; i < (arg4->n-1)*2; ++i) {
+      ll = PyInt_FromLong(arg4->merging[i]);
+      PyList_SetItem(merging, i, ll);
+    }
+    order = PyList_New(arg4->n);
+    for (i = 0; i < arg4->n; ++i) {
+      ll = PyInt_FromLong(arg4->order[i]);
+      PyList_SetItem(order, i, ll);
+    }
+    height = PyList_New(arg4->n-1);
+    for (i = 0; i < arg4->n-1; ++i) {
+      ll = PyFloat_FromDouble(arg4->height[i+1]);
+      PyList_SetItem(height, i, ll);
+    }
+    PyTuple_SetItem(o, 0, n);
+    PyTuple_SetItem(o, 1, merging);
+    PyTuple_SetItem(o, 2, order);
+    PyTuple_SetItem(o, 3, height);
+    PyTuple_SetItem(o, 4, ac);
+    
+    free(arg4->merging);
+    free(arg4->order);
+    free(arg4->height);
+    free(arg4);
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
+  {
+    if (arg1 != NULL) {
+      free((double*) arg1->data);
+      free((TCInput*) arg1);
+    }
+  }
   return resultobj;
 fail:
+  {
+    if (arg1 != NULL) {
+      free((double*) arg1->data);
+      free((TCInput*) arg1);
+    }
+  }
   return NULL;
 }
 
 
 SWIGINTERN PyObject *_wrap_DMCluster(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  DInput *arg1 = (DInput *) 0 ;
+  TDInput *arg1 = (TDInput *) 0 ;
   long arg2 ;
-  CMInfo *arg3 = (CMInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
+  TCMInfo *arg3 = (TCMInfo *) 0 ;
   long val2 ;
   int ecode2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:DMCluster",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_DInput, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DMCluster" "', argument " "1"" of type '" "DInput *""'"); 
+  {
+    arg1 = NULL;
   }
-  arg1 = reinterpret_cast< DInput * >(argp1);
+  {
+    arg3 = (TCMInfo *)malloc(sizeof(TCMInfo));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"OO:DMCluster",&obj0,&obj1)) SWIG_fail;
+  {
+    /* Check if is a list */
+    if (PyList_Check(obj0)) {
+      int i, j, size, offset;
+      
+      size = PyList_Size(obj0);     /* the number of elements - 1 */
+      
+      arg1 = (TDInput *) malloc(sizeof(TDInput));
+      arg1->nn = size+1;
+      arg1->data = (double *)malloc((1 + (size * (size + 1))/2)*sizeof(double));
+      
+      arg1->data[0] = 0.0; // offset for pam and agnes
+      //offset = (size * (size + 1))/2;
+      offset = 1;
+      for (i = 0; i < size; i++) {
+        PyObject *o = PyList_GetItem(obj0,i);
+        if (PyList_Check(o)) {
+          int zsize = PyList_Size(o); /* the line of a matrix */
+          if (zsize == i+1) {
+            for (j = 0; j < zsize; ++j) {
+              PyObject *p = PyList_GetItem(o,j);
+              if (PyFloat_Check(p)) {
+                arg1->data[offset++] = PyFloat_AsDouble(p);
+              } else if (PyInt_Check(p)) {
+                arg1->data[offset++] = (double)PyInt_AsLong(p);
+              } else {
+                PyErr_SetString(PyExc_TypeError,"sublists must contain doubles");
+                if (arg1->data != NULL)
+                free(arg1->data);
+                free(arg1);
+                return NULL;
+              }
+            }
+          } else {
+            PyErr_SetString(PyExc_TypeError,"list must contain the bottom-triangular dissimilarity matrix");
+            if (arg1->data != NULL)
+            free(arg1->data);
+            free(arg1);
+            return NULL;
+          }
+        } else {
+          PyErr_SetString(PyExc_TypeError,"list must contain lists");
+          if (arg1->data != NULL)
+          free(arg1->data);
+          free(arg1);
+          return NULL;
+        }
+      }
+      //assert(offset == 0);
+    } else {
+      PyErr_SetString(PyExc_TypeError,"not a list");
+      return NULL;
+    }
+  }
   ecode2 = SWIG_AsVal_long(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DMCluster" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_CMInfo, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "DMCluster" "', argument " "3"" of type '" "CMInfo *""'"); 
-  }
-  arg3 = reinterpret_cast< CMInfo * >(argp3);
   DMCluster(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
+  {
+    int i;
+    PyObject *o, *k, *cdisp, *disp, *n, *mapping, *medoids, *ll;
+    
+    o = PyTuple_New(6);
+    
+    n = PyInt_FromLong(arg3->n);
+    k = PyInt_FromLong(arg3->k);
+    disp = PyFloat_FromDouble(arg3->disp);
+    
+    mapping = PyList_New(arg3->n);
+    for (i = 0; i < arg3->n; ++i) {
+      ll = PyInt_FromLong(arg3->mapping[i]);
+      PyList_SetItem(mapping, i, ll);
+    }
+    medoids = PyList_New(arg3->k);
+    for (i = 0; i < arg3->k; ++i) {
+      ll = PyInt_FromLong(arg3->medoids[i]);
+      PyList_SetItem(medoids, i, ll);
+    }
+    cdisp = PyList_New(arg3->k);
+    for (i = 0; i < arg3->k; ++i) {
+      ll = PyFloat_FromDouble(arg3->cdisp[i]);
+      PyList_SetItem(cdisp, i, ll);
+    }
+    PyTuple_SetItem(o, 0, n);
+    PyTuple_SetItem(o, 1, k);
+    PyTuple_SetItem(o, 2, mapping);
+    PyTuple_SetItem(o, 3, medoids);
+    PyTuple_SetItem(o, 4, cdisp);
+    PyTuple_SetItem(o, 5, disp);
+    free(arg3->medoids);
+    free(arg3->cdisp);
+    free(arg3->mapping);
+    free(arg3);
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
+  {
+    if (arg1 != NULL) {
+      free((double*) arg1->data);
+      free((TDInput*) arg1);
+    }
+  }
   return resultobj;
 fail:
+  {
+    if (arg1 != NULL) {
+      free((double*) arg1->data);
+      free((TDInput*) arg1);
+    }
+  }
   return NULL;
 }
 
 
 SWIGINTERN PyObject *_wrap_DHCluster(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  DInput *arg1 = (DInput *) 0 ;
+  TDInput *arg1 = (TDInput *) 0 ;
   int arg2 ;
-  CHInfo *arg3 = (CHInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
+  TCHInfo *arg3 = (TCHInfo *) 0 ;
   int val2 ;
   int ecode2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:DHCluster",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_DInput, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DHCluster" "', argument " "1"" of type '" "DInput *""'"); 
+  {
+    arg1 = NULL;
   }
-  arg1 = reinterpret_cast< DInput * >(argp1);
+  {
+    arg3 = (TCHInfo *)malloc(sizeof(TCHInfo));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"OO:DHCluster",&obj0,&obj1)) SWIG_fail;
+  {
+    /* Check if is a list */
+    if (PyList_Check(obj0)) {
+      int i, j, size, offset;
+      
+      size = PyList_Size(obj0);     /* the number of elements - 1 */
+      
+      arg1 = (TDInput *) malloc(sizeof(TDInput));
+      arg1->nn = size+1;
+      arg1->data = (double *)malloc((1 + (size * (size + 1))/2)*sizeof(double));
+      
+      arg1->data[0] = 0.0; // offset for pam and agnes
+      //offset = (size * (size + 1))/2;
+      offset = 1;
+      for (i = 0; i < size; i++) {
+        PyObject *o = PyList_GetItem(obj0,i);
+        if (PyList_Check(o)) {
+          int zsize = PyList_Size(o); /* the line of a matrix */
+          if (zsize == i+1) {
+            for (j = 0; j < zsize; ++j) {
+              PyObject *p = PyList_GetItem(o,j);
+              if (PyFloat_Check(p)) {
+                arg1->data[offset++] = PyFloat_AsDouble(p);
+              } else if (PyInt_Check(p)) {
+                arg1->data[offset++] = (double)PyInt_AsLong(p);
+              } else {
+                PyErr_SetString(PyExc_TypeError,"sublists must contain doubles");
+                if (arg1->data != NULL)
+                free(arg1->data);
+                free(arg1);
+                return NULL;
+              }
+            }
+          } else {
+            PyErr_SetString(PyExc_TypeError,"list must contain the bottom-triangular dissimilarity matrix");
+            if (arg1->data != NULL)
+            free(arg1->data);
+            free(arg1);
+            return NULL;
+          }
+        } else {
+          PyErr_SetString(PyExc_TypeError,"list must contain lists");
+          if (arg1->data != NULL)
+          free(arg1->data);
+          free(arg1);
+          return NULL;
+        }
+      }
+      //assert(offset == 0);
+    } else {
+      PyErr_SetString(PyExc_TypeError,"not a list");
+      return NULL;
+    }
+  }
   ecode2 = SWIG_AsVal_int(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DHCluster" "', argument " "2"" of type '" "int""'");
   } 
   arg2 = static_cast< int >(val2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_CHInfo, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "DHCluster" "', argument " "3"" of type '" "CHInfo *""'"); 
-  }
-  arg3 = reinterpret_cast< CHInfo * >(argp3);
   DHCluster(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
+  {
+    int i;
+    PyObject *o, *ac, *n, *height, *order, *merging, *ll;
+    
+    o = PyTuple_New(5);
+    n = PyInt_FromLong(arg3->n);
+    ac = PyFloat_FromDouble(arg3->ac);
+    merging = PyList_New((arg3->n-1)*2);
+    for (i = 0; i < (arg3->n-1)*2; ++i) {
+      ll = PyInt_FromLong(arg3->merging[i]);
+      PyList_SetItem(merging, i, ll);
+    }
+    order = PyList_New(arg3->n);
+    for (i = 0; i < arg3->n; ++i) {
+      ll = PyInt_FromLong(arg3->order[i]);
+      PyList_SetItem(order, i, ll);
+    }
+    height = PyList_New(arg3->n-1);
+    for (i = 0; i < arg3->n-1; ++i) {
+      ll = PyFloat_FromDouble(arg3->height[i+1]);
+      PyList_SetItem(height, i, ll);
+    }
+    PyTuple_SetItem(o, 0, n);
+    PyTuple_SetItem(o, 1, merging);
+    PyTuple_SetItem(o, 2, order);
+    PyTuple_SetItem(o, 3, height);
+    PyTuple_SetItem(o, 4, ac);
+    
+    free(arg3->merging);
+    free(arg3->order);
+    free(arg3->height);
+    free(arg3);
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
+  {
+    if (arg1 != NULL) {
+      free((double*) arg1->data);
+      free((TDInput*) arg1);
+    }
+  }
   return resultobj;
 fail:
+  {
+    if (arg1 != NULL) {
+      free((double*) arg1->data);
+      free((TDInput*) arg1);
+    }
+  }
   return NULL;
 }
 
 
 SWIGINTERN PyObject *_wrap_FCluster(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  CInput *arg1 = (CInput *) 0 ;
+  TCInput *arg1 = (TCInput *) 0 ;
   long arg2 ;
   int arg3 ;
-  CFInfo *arg4 = (CFInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
+  TCFInfo *arg4 = (TCFInfo *) 0 ;
   long val2 ;
   int ecode2 = 0 ;
   int val3 ;
   int ecode3 = 0 ;
-  void *argp4 = 0 ;
-  int res4 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
-  PyObject * obj3 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOOO:FCluster",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_CInput, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "FCluster" "', argument " "1"" of type '" "CInput *""'"); 
+  {
+    arg1 = NULL;
   }
-  arg1 = reinterpret_cast< CInput * >(argp1);
+  {
+    arg4 = (TCFInfo *)malloc(sizeof(TCFInfo));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"OOO:FCluster",&obj0,&obj1,&obj2)) SWIG_fail;
+  {
+    /* Check if is a list */
+    if (PyList_Check(obj0)) {
+      int i, j, size, msize;
+      
+      size = PyList_Size(obj0);
+      msize = 0;
+      
+      arg1 = (TCInput *) malloc(sizeof(TCInput));
+      arg1->data = NULL;
+      for (i = 0; i < size; i++) {
+        PyObject *o = PyList_GetItem(obj0,i);
+        if (PyList_Check(o)) {
+          int zsize = PyList_Size(o);
+          if (arg1->data == NULL) {
+            msize = zsize;
+            arg1->nn = size;
+            arg1->jpp = msize;
+            arg1->data = (double *)malloc(sizeof(double)*zsize*size);
+          }
+          if (zsize == msize) {
+            for (j = 0; j < zsize; ++j) {
+              PyObject *p = PyList_GetItem(o,j);
+              if (PyFloat_Check(p)) {
+                arg1->data[i+j*size] = PyFloat_AsDouble(p);
+              } else if (PyInt_Check(p)) {
+                arg1->data[i+j*size] = (double)PyInt_AsLong(p);
+              } else {
+                PyErr_SetString(PyExc_TypeError,"sublists must contain doubles");
+                if (arg1->data != NULL)
+                free(arg1->data);
+                free(arg1);
+                return NULL;
+              }
+            }
+          } else {
+            PyErr_SetString(PyExc_TypeError,"sublists must be of equal size");
+            if (arg1->data != NULL)
+            free(arg1->data);
+            free(arg1);
+            return NULL;
+          }
+        } else {
+          PyErr_SetString(PyExc_TypeError,"list must contain lists");
+          if (arg1->data != NULL)
+          free(arg1->data);
+          free(arg1);
+          return NULL;
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"not a list");
+      return NULL;
+    }
+  }
   ecode2 = SWIG_AsVal_long(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "FCluster" "', argument " "2"" of type '" "long""'");
@@ -3693,143 +5262,751 @@ SWIGINTERN PyObject *_wrap_FCluster(PyObject *SWIGUNUSEDPARM(self), PyObject *ar
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "FCluster" "', argument " "3"" of type '" "int""'");
   } 
   arg3 = static_cast< int >(val3);
-  res4 = SWIG_ConvertPtr(obj3, &argp4,SWIGTYPE_p_CFInfo, 0 |  0 );
-  if (!SWIG_IsOK(res4)) {
-    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "FCluster" "', argument " "4"" of type '" "CFInfo *""'"); 
-  }
-  arg4 = reinterpret_cast< CFInfo * >(argp4);
   FCluster(arg1,arg2,arg3,arg4);
   resultobj = SWIG_Py_Void();
+  {
+    int i,j,c;
+    PyObject *o, *k, *cdisp, *disp, *n, *iterations, *value, *mapping, *membership, *ll, *kk;
+    
+    o = PyTuple_New(8);
+    
+    n = PyInt_FromLong(arg4->n);
+    k = PyInt_FromLong(arg4->k);
+    iterations = PyInt_FromLong(arg4->iterations);
+    disp = PyFloat_FromDouble(arg4->disp);
+    value = PyFloat_FromDouble(arg4->value);
+    
+    mapping = PyList_New(arg4->n);
+    for (i = 0; i < arg4->n; ++i) {
+      ll = PyInt_FromLong(arg4->mapping[i]);
+      PyList_SetItem(mapping, i, ll);
+    }
+    cdisp = PyList_New(arg4->k);
+    for (i = 0; i < arg4->k; ++i) {
+      ll = PyFloat_FromDouble(arg4->cdisp[i]);
+      PyList_SetItem(cdisp, i, ll);
+    }
+    membership = PyList_New(arg4->k);
+    c = 0;
+    for (i = 0; i < arg4->k; ++i) {
+      kk = PyList_New(arg4->n);
+      for (j = 0; j < arg4->n; ++j) {
+        ll = PyFloat_FromDouble(arg4->membership[c++]);
+        PyList_SetItem(kk, j, ll);
+      }
+      PyList_SetItem(membership, i, kk);
+    }
+    PyTuple_SetItem(o, 0, n);
+    PyTuple_SetItem(o, 1, k);
+    PyTuple_SetItem(o, 2, value);
+    PyTuple_SetItem(o, 3, iterations);
+    PyTuple_SetItem(o, 4, membership);
+    PyTuple_SetItem(o, 5, mapping);
+    PyTuple_SetItem(o, 6, cdisp);
+    PyTuple_SetItem(o, 7, disp);
+    free(arg4->membership);
+    free(arg4->cdisp);
+    free(arg4->mapping);
+    free(arg4);
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
+  {
+    if (arg1 != NULL) {
+      free((double*) arg1->data);
+      free((TCInput*) arg1);
+    }
+  }
   return resultobj;
 fail:
+  {
+    if (arg1 != NULL) {
+      free((double*) arg1->data);
+      free((TCInput*) arg1);
+    }
+  }
   return NULL;
 }
 
 
 SWIGINTERN PyObject *_wrap_DFCluster(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  DInput *arg1 = (DInput *) 0 ;
+  TDInput *arg1 = (TDInput *) 0 ;
   long arg2 ;
-  CFInfo *arg3 = (CFInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
+  TCFInfo *arg3 = (TCFInfo *) 0 ;
   long val2 ;
   int ecode2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:DFCluster",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_DInput, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "DFCluster" "', argument " "1"" of type '" "DInput *""'"); 
+  {
+    arg1 = NULL;
   }
-  arg1 = reinterpret_cast< DInput * >(argp1);
+  {
+    arg3 = (TCFInfo *)malloc(sizeof(TCFInfo));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"OO:DFCluster",&obj0,&obj1)) SWIG_fail;
+  {
+    /* Check if is a list */
+    if (PyList_Check(obj0)) {
+      int i, j, size, offset;
+      
+      size = PyList_Size(obj0);     /* the number of elements - 1 */
+      
+      arg1 = (TDInput *) malloc(sizeof(TDInput));
+      arg1->nn = size+1;
+      arg1->data = (double *)malloc((1 + (size * (size + 1))/2)*sizeof(double));
+      
+      arg1->data[0] = 0.0; // offset for pam and agnes
+      //offset = (size * (size + 1))/2;
+      offset = 1;
+      for (i = 0; i < size; i++) {
+        PyObject *o = PyList_GetItem(obj0,i);
+        if (PyList_Check(o)) {
+          int zsize = PyList_Size(o); /* the line of a matrix */
+          if (zsize == i+1) {
+            for (j = 0; j < zsize; ++j) {
+              PyObject *p = PyList_GetItem(o,j);
+              if (PyFloat_Check(p)) {
+                arg1->data[offset++] = PyFloat_AsDouble(p);
+              } else if (PyInt_Check(p)) {
+                arg1->data[offset++] = (double)PyInt_AsLong(p);
+              } else {
+                PyErr_SetString(PyExc_TypeError,"sublists must contain doubles");
+                if (arg1->data != NULL)
+                free(arg1->data);
+                free(arg1);
+                return NULL;
+              }
+            }
+          } else {
+            PyErr_SetString(PyExc_TypeError,"list must contain the bottom-triangular dissimilarity matrix");
+            if (arg1->data != NULL)
+            free(arg1->data);
+            free(arg1);
+            return NULL;
+          }
+        } else {
+          PyErr_SetString(PyExc_TypeError,"list must contain lists");
+          if (arg1->data != NULL)
+          free(arg1->data);
+          free(arg1);
+          return NULL;
+        }
+      }
+      //assert(offset == 0);
+    } else {
+      PyErr_SetString(PyExc_TypeError,"not a list");
+      return NULL;
+    }
+  }
   ecode2 = SWIG_AsVal_long(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "DFCluster" "', argument " "2"" of type '" "long""'");
   } 
   arg2 = static_cast< long >(val2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_CFInfo, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "DFCluster" "', argument " "3"" of type '" "CFInfo *""'"); 
-  }
-  arg3 = reinterpret_cast< CFInfo * >(argp3);
   DFCluster(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
+  {
+    int i,j,c;
+    PyObject *o, *k, *cdisp, *disp, *n, *iterations, *value, *mapping, *membership, *ll, *kk;
+    
+    o = PyTuple_New(8);
+    
+    n = PyInt_FromLong(arg3->n);
+    k = PyInt_FromLong(arg3->k);
+    iterations = PyInt_FromLong(arg3->iterations);
+    disp = PyFloat_FromDouble(arg3->disp);
+    value = PyFloat_FromDouble(arg3->value);
+    
+    mapping = PyList_New(arg3->n);
+    for (i = 0; i < arg3->n; ++i) {
+      ll = PyInt_FromLong(arg3->mapping[i]);
+      PyList_SetItem(mapping, i, ll);
+    }
+    cdisp = PyList_New(arg3->k);
+    for (i = 0; i < arg3->k; ++i) {
+      ll = PyFloat_FromDouble(arg3->cdisp[i]);
+      PyList_SetItem(cdisp, i, ll);
+    }
+    membership = PyList_New(arg3->k);
+    c = 0;
+    for (i = 0; i < arg3->k; ++i) {
+      kk = PyList_New(arg3->n);
+      for (j = 0; j < arg3->n; ++j) {
+        ll = PyFloat_FromDouble(arg3->membership[c++]);
+        PyList_SetItem(kk, j, ll);
+      }
+      PyList_SetItem(membership, i, kk);
+    }
+    PyTuple_SetItem(o, 0, n);
+    PyTuple_SetItem(o, 1, k);
+    PyTuple_SetItem(o, 2, value);
+    PyTuple_SetItem(o, 3, iterations);
+    PyTuple_SetItem(o, 4, membership);
+    PyTuple_SetItem(o, 5, mapping);
+    PyTuple_SetItem(o, 6, cdisp);
+    PyTuple_SetItem(o, 7, disp);
+    free(arg3->membership);
+    free(arg3->cdisp);
+    free(arg3->mapping);
+    free(arg3);
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
+  {
+    if (arg1 != NULL) {
+      free((double*) arg1->data);
+      free((TDInput*) arg1);
+    }
+  }
   return resultobj;
 fail:
+  {
+    if (arg1 != NULL) {
+      free((double*) arg1->data);
+      free((TDInput*) arg1);
+    }
+  }
   return NULL;
 }
 
 
 SWIGINTERN PyObject *_wrap_LogReg(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  LRInput *arg1 = (LRInput *) 0 ;
+  TLRInput *arg1 = (TLRInput *) 0 ;
   double arg2 ;
-  LRInfo *arg3 = (LRInfo *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
+  TLRInfo *arg3 = (TLRInfo *) 0 ;
   double val2 ;
   int ecode2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:LogReg",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_LRInput, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LogReg" "', argument " "1"" of type '" "LRInput *""'"); 
+  {
+    arg1 = NULL;
   }
-  arg1 = reinterpret_cast< LRInput * >(argp1);
+  {
+    arg3 = (TLRInfo *)malloc(sizeof(TLRInfo));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"OO:LogReg",&obj0,&obj1)) SWIG_fail;
+  {
+    /* Check if is a list */
+    // printf("A-");
+    if (PyList_Check(obj0)) {
+      int i, j, size, msize;
+      
+      size = PyList_Size(obj0);
+      msize = 0;
+      //printf("lr:-1\n");
+      arg1 = (TLRInput *) malloc(sizeof(TLRInput));
+      arg1->data = NULL;
+      arg1->success = NULL;
+      for (i = 0; i < size; i++) {
+        PyObject *o = PyList_GetItem(obj0,i);
+        if (PyList_Check(o)) {
+          int zsize = PyList_Size(o);
+          if (arg1->data == NULL) {
+            msize = zsize;
+            arg1->nn = size;
+            arg1->k = msize-1; // size correction, last is class
+            arg1->data = (double **)malloc(sizeof(double *)*(size+1));
+            for (j = 0; j <= size; ++j) {
+              arg1->data[j] = (double *)malloc(sizeof(double)*(arg1->k+1));
+            }
+            arg1->success = (double *)malloc(sizeof(double)*(arg1->nn+1));
+            arg1->trials = (double *)malloc(sizeof(double)*(arg1->nn+1));
+          }
+          if (zsize == msize) {
+            // fetch the class (must be either binary or a tuple)
+            PyObject *p = PyList_GetItem(o,zsize-1);
+            if (p == NULL) {
+              PyErr_SetString(PyExc_TypeError,"cannot fetch example");
+              LRcleanup(arg1);
+              return NULL;
+            }
+            
+            // the way of storing the class value is either simple scalar 
+            // probability, or tuple (probability, weight)
+            
+            // set the default value for # trials
+            arg1->trials[i+1] = 1.0;
+            if(PyTuple_Check(p)) {
+              PyObject *ps = PyTuple_GetItem(p,1); // get # trials
+              if (PyInt_Check(ps) || PyLong_Check(ps)) {
+                arg1->trials[i+1] = (double)PyInt_AsLong(ps);
+              } else if(PyFloat_Check(ps)) {
+                arg1->trials[i+1] = PyFloat_AsDouble(ps);
+              } else {
+                PyErr_SetString(PyExc_TypeError,"number of trials is not float or int");
+                LRcleanup(arg1);
+                return NULL;
+              }
+              p = PyTuple_GetItem(p,0); // foist a value for successes
+            } 
+            
+            if (PyInt_Check(p) || PyLong_Check(p)) {
+              arg1->success[i+1] = arg1->trials[i+1]*(double)PyInt_AsLong(p);
+            } else if(PyFloat_Check(p)) {
+              arg1->success[i+1] = arg1->trials[i+1]*PyFloat_AsDouble(p);
+            } else {
+              PyErr_SetString(PyExc_TypeError,"experiment success is not float or int");
+              LRcleanup(arg1);
+              return NULL;
+            }
+            
+            // fetch the attribute values
+            for (j = 0; j < zsize-1; ++j) {
+              PyObject *p = PyList_GetItem(o,j);
+              if (PyFloat_Check(p)) {
+                // correct +1 because that array starts at 1
+                arg1->data[i+1][j+1] = PyFloat_AsDouble(p);
+              } else if (PyInt_Check(p)) {
+                arg1->data[i+1][j+1] = (double)PyInt_AsLong(p);
+              } else {
+                PyErr_SetString(PyExc_TypeError,"examples must contain doubles or ints");
+                LRcleanup(arg1);
+                return NULL;
+              }
+            }
+          } else {
+            PyErr_SetString(PyExc_TypeError,"examples must be of equal size");
+            LRcleanup(arg1);
+            return NULL;
+          }
+        } else {
+          PyErr_SetString(PyExc_TypeError,"example table must contain examples as lists");
+          LRcleanup(arg1);
+          return NULL;
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"not a list");
+      return NULL;
+    }
+    //  printf("-A");
+    //printf("lr:-2\n");
+  }
   ecode2 = SWIG_AsVal_double(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "LogReg" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_LRInfo, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "LogReg" "', argument " "3"" of type '" "LRInfo *""'"); 
-  }
-  arg3 = reinterpret_cast< LRInfo * >(argp3);
   LogReg(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
+  {
+    int i,j;
+    PyObject *o, *chisq, *devnce, *ndf, *beta, *se_beta, *fit, *covbeta, *deps; 
+    PyObject *error, *stdres, *ll, *kk;
+    //		printf("X+");
+    //		printf("lr:+1\n");
+    o = PyTuple_New(10);
+    chisq = PyFloat_FromDouble(arg3->chisq);
+    devnce= PyFloat_FromDouble(arg3->devnce);
+    ndf = PyInt_FromLong(arg3->ndf);
+    error = PyInt_FromLong(arg3->error);
+    beta = PyList_New(arg3->k+1);
+    for (i = 0; i <= arg3->k; ++i) {
+      ll = PyFloat_FromDouble(arg3->beta[i]);
+      PyList_SetItem(beta, i, ll);
+    }
+    se_beta = PyList_New(arg3->k+1);
+    for (i = 0; i <= arg3->k; ++i) {
+      ll = PyFloat_FromDouble(arg3->se_beta[i]);
+      PyList_SetItem(se_beta, i, ll);
+    }
+    fit = PyList_New(arg3->nn);
+    for (i = 1; i <= arg3->nn; ++i) {
+      ll = PyFloat_FromDouble(arg3->fit[i]);
+      PyList_SetItem(fit, i-1, ll);
+    }
+    stdres = PyList_New(arg3->nn);
+    for (i = 1; i <= arg3->nn; ++i) {
+      ll = PyFloat_FromDouble(arg3->stdres[i]);
+      PyList_SetItem(stdres, i-1, ll);
+    }
+    covbeta = PyList_New(arg3->k+1);
+    for (i = 0; i <= arg3->k; ++i) {
+      kk =  PyList_New(arg3->k+1);
+      for(j = 0; j <= arg3->k; ++j) {
+        ll = PyFloat_FromDouble(arg3->cov_beta[i][j]);
+        PyList_SetItem(kk, j, ll);
+      }
+      PyList_SetItem(covbeta, i, kk);
+    }
+    deps = PyList_New(arg3->k);
+    for (i = 1; i <= arg3->k; ++i) {
+      ll = PyInt_FromLong(arg3->dependent[i]);
+      PyList_SetItem(deps, i-1, ll);
+    }
+    
+    PyTuple_SetItem(o, 0, chisq);
+    PyTuple_SetItem(o, 1, devnce);
+    PyTuple_SetItem(o, 2, ndf);
+    PyTuple_SetItem(o, 3, beta);
+    PyTuple_SetItem(o, 4, se_beta);
+    PyTuple_SetItem(o, 5, fit);
+    PyTuple_SetItem(o, 6, covbeta);
+    PyTuple_SetItem(o, 7, stdres);
+    PyTuple_SetItem(o, 8, error);
+    PyTuple_SetItem(o, 9, deps);
+    
+    LRInfoCleanup(arg3);
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+    //	   printf("lr:+2\n");
+    //		printf("-X");
+  }
+  {
+    if(arg1 != NULL) {
+      int i;
+      for (i = 0; i <= arg1->nn; ++i)
+      free((double*)arg1->data[i]);
+      free((double**) arg1->data);
+      free((double*) arg1->success);
+      free((double*) arg1->trials);
+      free((TLRInput*) arg1);
+    }
+  }
   return resultobj;
 fail:
+  {
+    if(arg1 != NULL) {
+      int i;
+      for (i = 0; i <= arg1->nn; ++i)
+      free((double*)arg1->data[i]);
+      free((double**) arg1->data);
+      free((double*) arg1->success);
+      free((double*) arg1->trials);
+      free((TLRInput*) arg1);
+    }
+  }
   return NULL;
 }
 
 
 SWIGINTERN PyObject *_wrap_Computer(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  XX *arg1 = (XX *) 0 ;
-  XX *arg2 = (XX *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
+  TXX *arg1 = (TXX *) 0 ;
+  TXX *arg2 = (TXX *) 0 ;
   PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:Computer",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_XX, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Computer" "', argument " "1"" of type '" "XX *""'"); 
+  {
+    arg1 = NULL;
   }
-  arg1 = reinterpret_cast< XX * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_XX, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Computer" "', argument " "2"" of type '" "XX *""'"); 
+  {
+    arg2 = NULL;
   }
-  arg2 = reinterpret_cast< XX * >(argp2);
+  {
+    arg2 = (TXX *)malloc(sizeof(TXX));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"O:Computer",&obj0)) SWIG_fail;
+  {
+    /* Check if is a list */
+    if (PyList_Check(obj0)) {
+      int i, j, size, msize;
+      
+      size = PyList_Size(obj0);
+      msize = 0;
+      
+      arg1 = (TXX*) malloc(sizeof(TXX));
+      arg1->data = NULL;
+      for (i = 0; i < size; i++) {
+        PyObject *o = PyList_GetItem(obj0,i);
+        if (PyList_Check(o)) {
+          int zsize = PyList_Size(o);
+          if (arg1->data == NULL) {
+            msize = zsize;
+            arg1->nn = size;
+            arg1->k = msize;
+            arg1->data = (double **)malloc(sizeof(double *)*size);
+            for(j = 0; j < size; ++j) {
+              arg1->data[j] = (double *)malloc(sizeof(double)*msize);
+            }
+            
+          }
+          if (zsize == msize) {
+            for (j = 0; j < zsize; ++j) {
+              PyObject *p = PyList_GetItem(o,j);
+              if (PyFloat_Check(p)) {
+                arg1->data[i][j] = PyFloat_AsDouble(p);
+              } else if (PyInt_Check(p)) {
+                arg1->data[i][j] = (double)PyInt_AsLong(p);
+              } else {
+                PyErr_SetString(PyExc_TypeError,"sublists must contain doubles");
+                if (arg1->data != NULL) {
+                  for(j = 0; j < size; ++j) {
+                    free(arg1->data[j]);
+                  }
+                  free(arg1->data);
+                }
+                free(arg1);
+                return NULL;
+              }
+            }
+          } else {
+            PyErr_SetString(PyExc_TypeError,"sublists must be of equal size");
+            if (arg1->data != NULL) {
+              for(j = 0; j < size; ++j) {
+                free(arg1->data[j]);
+              }
+              free(arg1->data);
+            }
+            free(arg1);
+            return NULL;
+          }
+        } else {
+          PyErr_SetString(PyExc_TypeError,"list must contain lists");
+          if (arg1->data != NULL) {
+            for(j = 0; j < size; ++j) {
+              free(arg1->data[j]);
+            }
+            free(arg1->data);
+          }
+          free(arg1);
+          return NULL;
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"not a list");
+      return NULL;
+    }
+  }
   Computer(arg1,arg2);
   resultobj = SWIG_Py_Void();
+  {
+    int i,j;
+    PyObject *o, *p, *q;
+    
+    o = PyList_New(arg2->nn);
+    
+    for(i = 0; i < arg2->nn; ++i) {
+      p = PyList_New(arg2->k);
+      for(j = 0; j < arg2->k; ++j) {
+        q = PyFloat_FromDouble(arg2->data[i][j]);
+        PyList_SetItem(p, j, q);
+      }
+      PyList_SetItem(o, i, p);
+    }
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
+  {
+    int i;
+    if(arg1->data != NULL) {
+      for (i = 0; i < arg1->nn; ++i) {
+        free(arg1->data[i]);
+      }
+      free(arg1->data);
+    }
+    free(arg1);
+  }
+  {
+    int i;
+    if(arg2->data != NULL) {
+      for (i = 0; i < arg2->nn; ++i) {
+        free(arg2->data[i]);
+      }
+      free(arg2->data);
+    }
+    free(arg2);
+  }
   return resultobj;
 fail:
+  {
+    int i;
+    if(arg1->data != NULL) {
+      for (i = 0; i < arg1->nn; ++i) {
+        free(arg1->data[i]);
+      }
+      free(arg1->data);
+    }
+    free(arg1);
+  }
+  {
+    int i;
+    if(arg2->data != NULL) {
+      for (i = 0; i < arg2->nn; ++i) {
+        free(arg2->data[i]);
+      }
+      free(arg2->data);
+    }
+    free(arg2);
+  }
   return NULL;
 }
 
 
 SWIGINTERN PyObject *_wrap_NBprepare(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  NBInput *arg1 = (NBInput *) 0 ;
-  NBInfo *result = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
+  TNBInput *arg1 = (TNBInput *) 0 ;
+  TNBInfo *result = 0 ;
   PyObject * obj0 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:NBprepare",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_NBInput, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBprepare" "', argument " "1"" of type '" "NBInput *""'"); 
+  {
+    int i, j, size, msize;
+    PyObject *arr,*cvl,*cards,*alpha;
+    /* Check if is a list */
+    
+    arr = PyTuple_GetItem(obj0,0);
+    if (PyList_Check(arr)) {
+      size = PyList_Size(arr);
+      msize = 0;
+      //printf("lr:-1\n");
+      arg1 = (TNBInput *) malloc(sizeof(TNBInput));
+      arg1->data = NULL;
+      arg1->l = NULL;
+      arg1->card = NULL;
+      arg1->cvi = NULL;
+      for (i = 0; i < size; i++) {
+        PyObject *o = PyList_GetItem(arr,i);
+        if (PyList_Check(o)) {
+          int zsize = PyList_Size(o);
+          if (arg1->data == NULL) {
+            msize = zsize;
+            arg1->nn = size;
+            arg1->k = msize;
+            arg1->na = arg1->k-1; // number of attributes
+            arg1->data = (int **)malloc(sizeof(int *)*(size));
+            for (j = 0; j < size; ++j) {
+              arg1->data[j] = (int *)malloc(sizeof(int)*(arg1->k));
+            }
+            arg1->l = (int *)malloc(sizeof(int)*(arg1->nn));
+            arg1->cvi = (int *)malloc(sizeof(int)*(arg1->nn));
+            arg1->card = (int *)malloc(sizeof(int)*(arg1->k));
+          }
+          if (zsize == msize) {
+            // fetch the attribute values
+            for (j = 0; j < arg1->k; ++j) {
+              PyObject *p = PyList_GetItem(o,j);
+              if (PyFloat_Check(p)) {
+                // correct +1 because that array starts at 1
+                arg1->data[i][j] = PyFloat_AsDouble(p);
+              } else if (PyInt_Check(p)) {
+                arg1->data[i][j] = (double)PyInt_AsLong(p);
+              } else {
+                PyErr_SetString(PyExc_TypeError,"examples must contain doubles or ints");
+                NBcleanup(arg1);
+                return NULL;
+              }
+            }
+          } else {
+            PyErr_SetString(PyExc_TypeError,"examples must be of equal size");
+            NBcleanup(arg1);
+            return NULL;
+          }
+        } else {
+          PyErr_SetString(PyExc_TypeError,"example table must contain examples as lists");
+          NBcleanup(arg1);
+          return NULL;
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"tuple element #0 not a list");
+      return NULL;
+    }
+    
+    
+    // fetch the cardinalities
+    cards = PyTuple_GetItem(obj0,1);
+    if (!PyList_Check(cards) && PyList_Size(cards) != arg1->k) {
+      PyErr_SetString(PyExc_TypeError,"tuple element #1 not an attribute cardinality list");
+      return NULL;
+    }
+    
+    for (j = 0; j < arg1->k; ++j) {
+      PyObject *p = PyList_GetItem(cards,j);
+      if (PyFloat_Check(p)) {
+        // correct +1 because that array starts at 1
+        arg1->card[j] = PyFloat_AsDouble(p);
+      } else if (PyInt_Check(p)) {
+        arg1->card[j] = PyInt_AsLong(p);
+      } else {
+        PyErr_SetString(PyExc_TypeError,"card list must contain doubles or ints");
+        NBcleanup(arg1);
+        return NULL;
+      }
+    }
+    
+    // fetch the cvl 
+    cvl = PyTuple_GetItem(obj0,2);
+    if (!PyList_Check(cvl) && PyList_Size(cvl) != arg1->nn) {
+      PyErr_SetString(PyExc_TypeError,"tuple element #2 not a CVI list");
+      return NULL;
+    }
+    
+    arg1->maxcvi = 0;
+    for (j = 0; j < arg1->nn; ++j) {
+      PyObject *p = PyList_GetItem(cvl,j);
+      if (PyFloat_Check(p)) {
+        // correct +1 because that array starts at 1
+        arg1->cvi[j] = PyFloat_AsDouble(p);
+      } else if (PyInt_Check(p)) {
+        arg1->cvi[j] = PyInt_AsLong(p);
+      } else {
+        PyErr_SetString(PyExc_TypeError,"cvl must contain doubles or ints");
+        NBcleanup(arg1);
+        return NULL;
+      }
+      if(arg1->maxcvi < arg1->cvi[j])
+      arg1->maxcvi = arg1->cvi[j];
+    }
+    
+    alpha = PyTuple_GetItem(obj0,3);
+    if (PyFloat_Check(alpha)) {
+      arg1->a = PyFloat_AsDouble(alpha);
+    } else if (PyInt_Check(alpha)) {
+      arg1->a = PyInt_AsLong(alpha);
+    } else {
+      arg1->a = 1.0; // default smoothing
+    }
   }
-  arg1 = reinterpret_cast< NBInput * >(argp1);
-  result = (NBInfo *)NBprepare(arg1);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_NBInfo, 0 |  0 );
+  result = (TNBInfo *)NBprepare(arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_TNBInfo, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -3838,17 +6015,17 @@ fail:
 
 SWIGINTERN PyObject *_wrap_NBkill(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  NBInfo *arg1 = (NBInfo *) 0 ;
+  TNBInfo *arg1 = (TNBInfo *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:NBkill",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_NBInfo, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TNBInfo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBkill" "', argument " "1"" of type '" "NBInfo *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBkill" "', argument " "1"" of type '" "TNBInfo *""'"); 
   }
-  arg1 = reinterpret_cast< NBInfo * >(argp1);
+  arg1 = reinterpret_cast< TNBInfo * >(argp1);
   NBkill(arg1);
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -3859,17 +6036,128 @@ fail:
 
 SWIGINTERN PyObject *_wrap_NBcleanup(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  NBInput *arg1 = (NBInput *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
+  TNBInput *arg1 = (TNBInput *) 0 ;
   PyObject * obj0 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:NBcleanup",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_NBInput, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBcleanup" "', argument " "1"" of type '" "NBInput *""'"); 
+  {
+    int i, j, size, msize;
+    PyObject *arr,*cvl,*cards,*alpha;
+    /* Check if is a list */
+    
+    arr = PyTuple_GetItem(obj0,0);
+    if (PyList_Check(arr)) {
+      size = PyList_Size(arr);
+      msize = 0;
+      //printf("lr:-1\n");
+      arg1 = (TNBInput *) malloc(sizeof(TNBInput));
+      arg1->data = NULL;
+      arg1->l = NULL;
+      arg1->card = NULL;
+      arg1->cvi = NULL;
+      for (i = 0; i < size; i++) {
+        PyObject *o = PyList_GetItem(arr,i);
+        if (PyList_Check(o)) {
+          int zsize = PyList_Size(o);
+          if (arg1->data == NULL) {
+            msize = zsize;
+            arg1->nn = size;
+            arg1->k = msize;
+            arg1->na = arg1->k-1; // number of attributes
+            arg1->data = (int **)malloc(sizeof(int *)*(size));
+            for (j = 0; j < size; ++j) {
+              arg1->data[j] = (int *)malloc(sizeof(int)*(arg1->k));
+            }
+            arg1->l = (int *)malloc(sizeof(int)*(arg1->nn));
+            arg1->cvi = (int *)malloc(sizeof(int)*(arg1->nn));
+            arg1->card = (int *)malloc(sizeof(int)*(arg1->k));
+          }
+          if (zsize == msize) {
+            // fetch the attribute values
+            for (j = 0; j < arg1->k; ++j) {
+              PyObject *p = PyList_GetItem(o,j);
+              if (PyFloat_Check(p)) {
+                // correct +1 because that array starts at 1
+                arg1->data[i][j] = PyFloat_AsDouble(p);
+              } else if (PyInt_Check(p)) {
+                arg1->data[i][j] = (double)PyInt_AsLong(p);
+              } else {
+                PyErr_SetString(PyExc_TypeError,"examples must contain doubles or ints");
+                NBcleanup(arg1);
+                return NULL;
+              }
+            }
+          } else {
+            PyErr_SetString(PyExc_TypeError,"examples must be of equal size");
+            NBcleanup(arg1);
+            return NULL;
+          }
+        } else {
+          PyErr_SetString(PyExc_TypeError,"example table must contain examples as lists");
+          NBcleanup(arg1);
+          return NULL;
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"tuple element #0 not a list");
+      return NULL;
+    }
+    
+    
+    // fetch the cardinalities
+    cards = PyTuple_GetItem(obj0,1);
+    if (!PyList_Check(cards) && PyList_Size(cards) != arg1->k) {
+      PyErr_SetString(PyExc_TypeError,"tuple element #1 not an attribute cardinality list");
+      return NULL;
+    }
+    
+    for (j = 0; j < arg1->k; ++j) {
+      PyObject *p = PyList_GetItem(cards,j);
+      if (PyFloat_Check(p)) {
+        // correct +1 because that array starts at 1
+        arg1->card[j] = PyFloat_AsDouble(p);
+      } else if (PyInt_Check(p)) {
+        arg1->card[j] = PyInt_AsLong(p);
+      } else {
+        PyErr_SetString(PyExc_TypeError,"card list must contain doubles or ints");
+        NBcleanup(arg1);
+        return NULL;
+      }
+    }
+    
+    // fetch the cvl 
+    cvl = PyTuple_GetItem(obj0,2);
+    if (!PyList_Check(cvl) && PyList_Size(cvl) != arg1->nn) {
+      PyErr_SetString(PyExc_TypeError,"tuple element #2 not a CVI list");
+      return NULL;
+    }
+    
+    arg1->maxcvi = 0;
+    for (j = 0; j < arg1->nn; ++j) {
+      PyObject *p = PyList_GetItem(cvl,j);
+      if (PyFloat_Check(p)) {
+        // correct +1 because that array starts at 1
+        arg1->cvi[j] = PyFloat_AsDouble(p);
+      } else if (PyInt_Check(p)) {
+        arg1->cvi[j] = PyInt_AsLong(p);
+      } else {
+        PyErr_SetString(PyExc_TypeError,"cvl must contain doubles or ints");
+        NBcleanup(arg1);
+        return NULL;
+      }
+      if(arg1->maxcvi < arg1->cvi[j])
+      arg1->maxcvi = arg1->cvi[j];
+    }
+    
+    alpha = PyTuple_GetItem(obj0,3);
+    if (PyFloat_Check(alpha)) {
+      arg1->a = PyFloat_AsDouble(alpha);
+    } else if (PyInt_Check(alpha)) {
+      arg1->a = PyInt_AsLong(alpha);
+    } else {
+      arg1->a = 1.0; // default smoothing
+    }
   }
-  arg1 = reinterpret_cast< NBInput * >(argp1);
   NBcleanup(arg1);
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -3880,147 +6168,445 @@ fail:
 
 SWIGINTERN PyObject *_wrap_NBquality(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  NBInfo *arg1 = (NBInfo *) 0 ;
-  NBModel *arg2 = (NBModel *) 0 ;
-  NBResult *arg3 = (NBResult *) 0 ;
+  TNBInfo *arg1 = (TNBInfo *) 0 ;
+  TNBModel *arg2 = (TNBModel *) 0 ;
+  TNBResult *arg3 = (TNBResult *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:NBquality",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_NBInfo, 0 |  0 );
+  {
+    arg2 = NULL;
+  }
+  {
+    arg3 = (TNBResult *)malloc(sizeof(TNBResult));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"OO:NBquality",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TNBInfo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBquality" "', argument " "1"" of type '" "NBInfo *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBquality" "', argument " "1"" of type '" "TNBInfo *""'"); 
   }
-  arg1 = reinterpret_cast< NBInfo * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_NBModel, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "NBquality" "', argument " "2"" of type '" "NBModel *""'"); 
+  arg1 = reinterpret_cast< TNBInfo * >(argp1);
+  {
+    PyObject *p, *sing, *grup;
+    
+    arg2 = (TNBModel *) malloc(sizeof(TNBInput));
+    arg2->nosingles = 0;
+    arg2->singles = NULL;
+    arg2->nogroups = 0;
+    arg2->groups = NULL;
+    
+    sing = PyTuple_GetItem(obj1,0);
+    if (PyList_Check(sing)) {
+      int i;
+      
+      arg2->nosingles = PyList_Size(sing);
+      if(arg2->nosingles > 0) {
+        arg2->singles = (int *)malloc(sizeof(int)*arg2->nosingles);
+        for (i = 0; i < arg2->nosingles; i++) {
+          arg2->singles[i] = PyInt_AsLong(PyList_GetItem(sing,i));
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"tuple element #0 not a list of singles");
+      return NULL;
+    }
+    
+    grup = PyTuple_GetItem(obj1,1);
+    if (PyList_Check(grup)) {
+      int i, j, msize;
+      
+      arg2->nogroups = PyList_Size(grup);
+      if(arg2->nogroups > 0) {
+        arg2->groups = (struct NBGroup *)malloc(sizeof(struct NBGroup)*arg2->nogroups);
+        for (i = 0; i < arg2->nogroups; i++) {
+          PyObject *o = PyList_GetItem(grup,i);
+          msize = PyList_Size(o);
+          arg2->groups[i].n = msize;
+          arg2->groups[i].l = (int *)malloc(sizeof(int)*msize);
+          for (j = 0; j < msize; ++j)
+          arg2->groups[i].l[j] = PyInt_AsLong(PyList_GetItem(o,j));
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"tuple element #1 not a list of groups");
+      return NULL;
+    }
   }
-  arg2 = reinterpret_cast< NBModel * >(argp2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_NBResult, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "NBquality" "', argument " "3"" of type '" "NBResult *""'"); 
-  }
-  arg3 = reinterpret_cast< NBResult * >(argp3);
   NBquality(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
+  {
+    int i,j,c;
+    PyObject *o, *err, *q;
+    
+    o = PyTuple_New(6);
+    
+    q = PyFloat_FromDouble(arg3->kl_q);
+    err = PyFloat_FromDouble(arg3->kl_err);
+    
+    PyTuple_SetItem(o, 0, q);
+    PyTuple_SetItem(o, 1, err);
+    
+    q = PyFloat_FromDouble(arg3->b_q);
+    err = PyFloat_FromDouble(arg3->b_err);
+    
+    PyTuple_SetItem(o, 2, q);
+    PyTuple_SetItem(o, 3, err);
+    
+    q = PyFloat_FromDouble(arg3->er_q);
+    err = PyFloat_FromDouble(arg3->er_err);
+    
+    PyTuple_SetItem(o, 4, q);
+    PyTuple_SetItem(o, 5, err);
+    free(arg3);
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
+  {
+    int i;
+    if(arg2->singles != NULL)
+    free(arg2->singles);
+    if(arg2->groups != NULL) {
+      for (i = 0; i < arg2->nogroups; ++i) {
+        free(arg2->groups[i].l);
+      }
+      free(arg2->groups);
+    }
+    free(arg2);
+  }
   return resultobj;
 fail:
+  {
+    int i;
+    if(arg2->singles != NULL)
+    free(arg2->singles);
+    if(arg2->groups != NULL) {
+      for (i = 0; i < arg2->nogroups; ++i) {
+        free(arg2->groups[i].l);
+      }
+      free(arg2->groups);
+    }
+    free(arg2);
+  }
   return NULL;
 }
 
 
 SWIGINTERN PyObject *_wrap_TANquality(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  NBInfo *arg1 = (NBInfo *) 0 ;
-  NBModel *arg2 = (NBModel *) 0 ;
-  NBResult *arg3 = (NBResult *) 0 ;
+  TNBInfo *arg1 = (TNBInfo *) 0 ;
+  TNBModel *arg2 = (TNBModel *) 0 ;
+  TNBResult *arg3 = (TNBResult *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:TANquality",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_NBInfo, 0 |  0 );
+  {
+    arg2 = NULL;
+  }
+  {
+    arg3 = (TNBResult *)malloc(sizeof(TNBResult));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"OO:TANquality",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TNBInfo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TANquality" "', argument " "1"" of type '" "NBInfo *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "TANquality" "', argument " "1"" of type '" "TNBInfo *""'"); 
   }
-  arg1 = reinterpret_cast< NBInfo * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_NBModel, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "TANquality" "', argument " "2"" of type '" "NBModel *""'"); 
+  arg1 = reinterpret_cast< TNBInfo * >(argp1);
+  {
+    PyObject *p, *sing, *grup;
+    
+    arg2 = (TNBModel *) malloc(sizeof(TNBInput));
+    arg2->nosingles = 0;
+    arg2->singles = NULL;
+    arg2->nogroups = 0;
+    arg2->groups = NULL;
+    
+    sing = PyTuple_GetItem(obj1,0);
+    if (PyList_Check(sing)) {
+      int i;
+      
+      arg2->nosingles = PyList_Size(sing);
+      if(arg2->nosingles > 0) {
+        arg2->singles = (int *)malloc(sizeof(int)*arg2->nosingles);
+        for (i = 0; i < arg2->nosingles; i++) {
+          arg2->singles[i] = PyInt_AsLong(PyList_GetItem(sing,i));
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"tuple element #0 not a list of singles");
+      return NULL;
+    }
+    
+    grup = PyTuple_GetItem(obj1,1);
+    if (PyList_Check(grup)) {
+      int i, j, msize;
+      
+      arg2->nogroups = PyList_Size(grup);
+      if(arg2->nogroups > 0) {
+        arg2->groups = (struct NBGroup *)malloc(sizeof(struct NBGroup)*arg2->nogroups);
+        for (i = 0; i < arg2->nogroups; i++) {
+          PyObject *o = PyList_GetItem(grup,i);
+          msize = PyList_Size(o);
+          arg2->groups[i].n = msize;
+          arg2->groups[i].l = (int *)malloc(sizeof(int)*msize);
+          for (j = 0; j < msize; ++j)
+          arg2->groups[i].l[j] = PyInt_AsLong(PyList_GetItem(o,j));
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"tuple element #1 not a list of groups");
+      return NULL;
+    }
   }
-  arg2 = reinterpret_cast< NBModel * >(argp2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_NBResult, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "TANquality" "', argument " "3"" of type '" "NBResult *""'"); 
-  }
-  arg3 = reinterpret_cast< NBResult * >(argp3);
   TANquality(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
+  {
+    int i,j,c;
+    PyObject *o, *err, *q;
+    
+    o = PyTuple_New(6);
+    
+    q = PyFloat_FromDouble(arg3->kl_q);
+    err = PyFloat_FromDouble(arg3->kl_err);
+    
+    PyTuple_SetItem(o, 0, q);
+    PyTuple_SetItem(o, 1, err);
+    
+    q = PyFloat_FromDouble(arg3->b_q);
+    err = PyFloat_FromDouble(arg3->b_err);
+    
+    PyTuple_SetItem(o, 2, q);
+    PyTuple_SetItem(o, 3, err);
+    
+    q = PyFloat_FromDouble(arg3->er_q);
+    err = PyFloat_FromDouble(arg3->er_err);
+    
+    PyTuple_SetItem(o, 4, q);
+    PyTuple_SetItem(o, 5, err);
+    free(arg3);
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
+  {
+    int i;
+    if(arg2->singles != NULL)
+    free(arg2->singles);
+    if(arg2->groups != NULL) {
+      for (i = 0; i < arg2->nogroups; ++i) {
+        free(arg2->groups[i].l);
+      }
+      free(arg2->groups);
+    }
+    free(arg2);
+  }
   return resultobj;
 fail:
+  {
+    int i;
+    if(arg2->singles != NULL)
+    free(arg2->singles);
+    if(arg2->groups != NULL) {
+      for (i = 0; i < arg2->nogroups; ++i) {
+        free(arg2->groups[i].l);
+      }
+      free(arg2->groups);
+    }
+    free(arg2);
+  }
   return NULL;
 }
 
 
 SWIGINTERN PyObject *_wrap_NBdivergence(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  NBInfo *arg1 = (NBInfo *) 0 ;
-  NBModel *arg2 = (NBModel *) 0 ;
-  NBResult *arg3 = (NBResult *) 0 ;
+  TNBInfo *arg1 = (TNBInfo *) 0 ;
+  TNBModel *arg2 = (TNBModel *) 0 ;
+  TNBResult *arg3 = (TNBResult *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:NBdivergence",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_NBInfo, 0 |  0 );
+  {
+    arg2 = NULL;
+  }
+  {
+    arg3 = (TNBResult *)malloc(sizeof(TNBResult));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"OO:NBdivergence",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TNBInfo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBdivergence" "', argument " "1"" of type '" "NBInfo *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBdivergence" "', argument " "1"" of type '" "TNBInfo *""'"); 
   }
-  arg1 = reinterpret_cast< NBInfo * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_NBModel, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "NBdivergence" "', argument " "2"" of type '" "NBModel *""'"); 
+  arg1 = reinterpret_cast< TNBInfo * >(argp1);
+  {
+    PyObject *p, *sing, *grup;
+    
+    arg2 = (TNBModel *) malloc(sizeof(TNBInput));
+    arg2->nosingles = 0;
+    arg2->singles = NULL;
+    arg2->nogroups = 0;
+    arg2->groups = NULL;
+    
+    sing = PyTuple_GetItem(obj1,0);
+    if (PyList_Check(sing)) {
+      int i;
+      
+      arg2->nosingles = PyList_Size(sing);
+      if(arg2->nosingles > 0) {
+        arg2->singles = (int *)malloc(sizeof(int)*arg2->nosingles);
+        for (i = 0; i < arg2->nosingles; i++) {
+          arg2->singles[i] = PyInt_AsLong(PyList_GetItem(sing,i));
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"tuple element #0 not a list of singles");
+      return NULL;
+    }
+    
+    grup = PyTuple_GetItem(obj1,1);
+    if (PyList_Check(grup)) {
+      int i, j, msize;
+      
+      arg2->nogroups = PyList_Size(grup);
+      if(arg2->nogroups > 0) {
+        arg2->groups = (struct NBGroup *)malloc(sizeof(struct NBGroup)*arg2->nogroups);
+        for (i = 0; i < arg2->nogroups; i++) {
+          PyObject *o = PyList_GetItem(grup,i);
+          msize = PyList_Size(o);
+          arg2->groups[i].n = msize;
+          arg2->groups[i].l = (int *)malloc(sizeof(int)*msize);
+          for (j = 0; j < msize; ++j)
+          arg2->groups[i].l[j] = PyInt_AsLong(PyList_GetItem(o,j));
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"tuple element #1 not a list of groups");
+      return NULL;
+    }
   }
-  arg2 = reinterpret_cast< NBModel * >(argp2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_NBResult, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "NBdivergence" "', argument " "3"" of type '" "NBResult *""'"); 
-  }
-  arg3 = reinterpret_cast< NBResult * >(argp3);
   NBdivergence(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
+  {
+    int i,j,c;
+    PyObject *o, *err, *q;
+    
+    o = PyTuple_New(6);
+    
+    q = PyFloat_FromDouble(arg3->kl_q);
+    err = PyFloat_FromDouble(arg3->kl_err);
+    
+    PyTuple_SetItem(o, 0, q);
+    PyTuple_SetItem(o, 1, err);
+    
+    q = PyFloat_FromDouble(arg3->b_q);
+    err = PyFloat_FromDouble(arg3->b_err);
+    
+    PyTuple_SetItem(o, 2, q);
+    PyTuple_SetItem(o, 3, err);
+    
+    q = PyFloat_FromDouble(arg3->er_q);
+    err = PyFloat_FromDouble(arg3->er_err);
+    
+    PyTuple_SetItem(o, 4, q);
+    PyTuple_SetItem(o, 5, err);
+    free(arg3);
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
+  {
+    int i;
+    if(arg2->singles != NULL)
+    free(arg2->singles);
+    if(arg2->groups != NULL) {
+      for (i = 0; i < arg2->nogroups; ++i) {
+        free(arg2->groups[i].l);
+      }
+      free(arg2->groups);
+    }
+    free(arg2);
+  }
   return resultobj;
 fail:
+  {
+    int i;
+    if(arg2->singles != NULL)
+    free(arg2->singles);
+    if(arg2->groups != NULL) {
+      for (i = 0; i < arg2->nogroups; ++i) {
+        free(arg2->groups[i].l);
+      }
+      free(arg2->groups);
+    }
+    free(arg2);
+  }
   return NULL;
 }
 
 
 SWIGINTERN PyObject *_wrap_NBqualityW(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  NBInfo *arg1 = (NBInfo *) 0 ;
+  TNBInfo *arg1 = (TNBInfo *) 0 ;
   double *arg2 = (double *) 0 ;
-  NBModel *arg3 = (NBModel *) 0 ;
-  NBResult *arg4 = (NBResult *) 0 ;
+  TNBModel *arg3 = (TNBModel *) 0 ;
+  TNBResult *arg4 = (TNBResult *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  void *argp4 = 0 ;
-  int res4 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
-  PyObject * obj3 = 0 ;
   
   {
     arg2 = NULL;
   }
-  if (!PyArg_ParseTuple(args,(char *)"OOOO:NBqualityW",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_NBInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBqualityW" "', argument " "1"" of type '" "NBInfo *""'"); 
+  {
+    arg3 = NULL;
   }
-  arg1 = reinterpret_cast< NBInfo * >(argp1);
+  {
+    arg4 = (TNBResult *)malloc(sizeof(TNBResult));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"OOO:NBqualityW",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TNBInfo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBqualityW" "', argument " "1"" of type '" "TNBInfo *""'"); 
+  }
+  arg1 = reinterpret_cast< TNBInfo * >(argp1);
   {
     /* Check if is a list */
     if (PyList_Check(obj1)) {
@@ -4045,21 +6631,107 @@ SWIGINTERN PyObject *_wrap_NBqualityW(PyObject *SWIGUNUSEDPARM(self), PyObject *
       return NULL;
     }
   }
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_NBModel, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "NBqualityW" "', argument " "3"" of type '" "NBModel *""'"); 
+  {
+    PyObject *p, *sing, *grup;
+    
+    arg3 = (TNBModel *) malloc(sizeof(TNBInput));
+    arg3->nosingles = 0;
+    arg3->singles = NULL;
+    arg3->nogroups = 0;
+    arg3->groups = NULL;
+    
+    sing = PyTuple_GetItem(obj2,0);
+    if (PyList_Check(sing)) {
+      int i;
+      
+      arg3->nosingles = PyList_Size(sing);
+      if(arg3->nosingles > 0) {
+        arg3->singles = (int *)malloc(sizeof(int)*arg3->nosingles);
+        for (i = 0; i < arg3->nosingles; i++) {
+          arg3->singles[i] = PyInt_AsLong(PyList_GetItem(sing,i));
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"tuple element #0 not a list of singles");
+      return NULL;
+    }
+    
+    grup = PyTuple_GetItem(obj2,1);
+    if (PyList_Check(grup)) {
+      int i, j, msize;
+      
+      arg3->nogroups = PyList_Size(grup);
+      if(arg3->nogroups > 0) {
+        arg3->groups = (struct NBGroup *)malloc(sizeof(struct NBGroup)*arg3->nogroups);
+        for (i = 0; i < arg3->nogroups; i++) {
+          PyObject *o = PyList_GetItem(grup,i);
+          msize = PyList_Size(o);
+          arg3->groups[i].n = msize;
+          arg3->groups[i].l = (int *)malloc(sizeof(int)*msize);
+          for (j = 0; j < msize; ++j)
+          arg3->groups[i].l[j] = PyInt_AsLong(PyList_GetItem(o,j));
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"tuple element #1 not a list of groups");
+      return NULL;
+    }
   }
-  arg3 = reinterpret_cast< NBModel * >(argp3);
-  res4 = SWIG_ConvertPtr(obj3, &argp4,SWIGTYPE_p_NBResult, 0 |  0 );
-  if (!SWIG_IsOK(res4)) {
-    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "NBqualityW" "', argument " "4"" of type '" "NBResult *""'"); 
-  }
-  arg4 = reinterpret_cast< NBResult * >(argp4);
   NBqualityW(arg1,arg2,arg3,arg4);
   resultobj = SWIG_Py_Void();
   {
+    int i,j,c;
+    PyObject *o, *err, *q;
+    
+    o = PyTuple_New(6);
+    
+    q = PyFloat_FromDouble(arg4->kl_q);
+    err = PyFloat_FromDouble(arg4->kl_err);
+    
+    PyTuple_SetItem(o, 0, q);
+    PyTuple_SetItem(o, 1, err);
+    
+    q = PyFloat_FromDouble(arg4->b_q);
+    err = PyFloat_FromDouble(arg4->b_err);
+    
+    PyTuple_SetItem(o, 2, q);
+    PyTuple_SetItem(o, 3, err);
+    
+    q = PyFloat_FromDouble(arg4->er_q);
+    err = PyFloat_FromDouble(arg4->er_err);
+    
+    PyTuple_SetItem(o, 4, q);
+    PyTuple_SetItem(o, 5, err);
+    free(arg4);
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
+  {
     if (arg2 != NULL)
     free((double *) arg2);
+  }
+  {
+    int i;
+    if(arg3->singles != NULL)
+    free(arg3->singles);
+    if(arg3->groups != NULL) {
+      for (i = 0; i < arg3->nogroups; ++i) {
+        free(arg3->groups[i].l);
+      }
+      free(arg3->groups);
+    }
+    free(arg3);
   }
   return resultobj;
 fail:
@@ -4067,23 +6739,35 @@ fail:
     if (arg2 != NULL)
     free((double *) arg2);
   }
+  {
+    int i;
+    if(arg3->singles != NULL)
+    free(arg3->singles);
+    if(arg3->groups != NULL) {
+      for (i = 0; i < arg3->nogroups; ++i) {
+        free(arg3->groups[i].l);
+      }
+      free(arg3->groups);
+    }
+    free(arg3);
+  }
   return NULL;
 }
 
 
 SWIGINTERN PyObject *_wrap_NBsaveScores(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  NBInfo *arg1 = (NBInfo *) 0 ;
+  TNBInfo *arg1 = (TNBInfo *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:NBsaveScores",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_NBInfo, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TNBInfo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBsaveScores" "', argument " "1"" of type '" "NBInfo *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBsaveScores" "', argument " "1"" of type '" "TNBInfo *""'"); 
   }
-  arg1 = reinterpret_cast< NBInfo * >(argp1);
+  arg1 = reinterpret_cast< TNBInfo * >(argp1);
   NBsaveScores(arg1);
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -4094,17 +6778,17 @@ fail:
 
 SWIGINTERN PyObject *_wrap_NBrememberScores(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  NBInfo *arg1 = (NBInfo *) 0 ;
+  TNBInfo *arg1 = (TNBInfo *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:NBrememberScores",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_NBInfo, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TNBInfo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBrememberScores" "', argument " "1"" of type '" "NBInfo *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBrememberScores" "', argument " "1"" of type '" "TNBInfo *""'"); 
   }
-  arg1 = reinterpret_cast< NBInfo * >(argp1);
+  arg1 = reinterpret_cast< TNBInfo * >(argp1);
   NBrememberScores(arg1);
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -4115,28 +6799,61 @@ fail:
 
 SWIGINTERN PyObject *_wrap_NBcompareScores(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  NBInfo *arg1 = (NBInfo *) 0 ;
-  NBResult *arg2 = (NBResult *) 0 ;
+  TNBInfo *arg1 = (TNBInfo *) 0 ;
+  TNBResult *arg2 = (TNBResult *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
   PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:NBcompareScores",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_NBInfo, 0 |  0 );
+  {
+    arg2 = (TNBResult *)malloc(sizeof(TNBResult));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"O:NBcompareScores",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TNBInfo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBcompareScores" "', argument " "1"" of type '" "NBInfo *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBcompareScores" "', argument " "1"" of type '" "TNBInfo *""'"); 
   }
-  arg1 = reinterpret_cast< NBInfo * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_NBResult, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "NBcompareScores" "', argument " "2"" of type '" "NBResult *""'"); 
-  }
-  arg2 = reinterpret_cast< NBResult * >(argp2);
+  arg1 = reinterpret_cast< TNBInfo * >(argp1);
   NBcompareScores(arg1,arg2);
   resultobj = SWIG_Py_Void();
+  {
+    int i,j,c;
+    PyObject *o, *err, *q;
+    
+    o = PyTuple_New(6);
+    
+    q = PyFloat_FromDouble(arg2->kl_q);
+    err = PyFloat_FromDouble(arg2->kl_err);
+    
+    PyTuple_SetItem(o, 0, q);
+    PyTuple_SetItem(o, 1, err);
+    
+    q = PyFloat_FromDouble(arg2->b_q);
+    err = PyFloat_FromDouble(arg2->b_err);
+    
+    PyTuple_SetItem(o, 2, q);
+    PyTuple_SetItem(o, 3, err);
+    
+    q = PyFloat_FromDouble(arg2->er_q);
+    err = PyFloat_FromDouble(arg2->er_err);
+    
+    PyTuple_SetItem(o, 4, q);
+    PyTuple_SetItem(o, 5, err);
+    free(arg2);
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
   return resultobj;
 fail:
   return NULL;
@@ -4145,37 +6862,58 @@ fail:
 
 SWIGINTERN PyObject *_wrap_NBexportScores(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  NBInfo *arg1 = (NBInfo *) 0 ;
+  TNBInfo *arg1 = (TNBInfo *) 0 ;
   int arg2 ;
-  NBList *arg3 = (NBList *) 0 ;
+  TNBList *arg3 = (TNBList *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   int val2 ;
   int ecode2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:NBexportScores",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_NBInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBexportScores" "', argument " "1"" of type '" "NBInfo *""'"); 
+  {
+    arg3 = (TNBList *)malloc(sizeof(TNBList));
   }
-  arg1 = reinterpret_cast< NBInfo * >(argp1);
+  if (!PyArg_ParseTuple(args,(char *)"OO:NBexportScores",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TNBInfo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBexportScores" "', argument " "1"" of type '" "TNBInfo *""'"); 
+  }
+  arg1 = reinterpret_cast< TNBInfo * >(argp1);
   ecode2 = SWIG_AsVal_int(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "NBexportScores" "', argument " "2"" of type '" "int""'");
   } 
   arg2 = static_cast< int >(val2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_NBList, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "NBexportScores" "', argument " "3"" of type '" "NBList *""'"); 
-  }
-  arg3 = reinterpret_cast< NBList * >(argp3);
   NBexportScores(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
+  {
+    int i;
+    PyObject *o, *q;
+    
+    o = PyList_New(arg3->n);
+    
+    for(i = 0; i < arg3->n; ++i) {
+      q = PyFloat_FromDouble(arg3->l[i]);
+      PyList_SetItem(o, i, q);
+    }
+    free(arg3->l);
+    free(arg3);
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
   return resultobj;
 fail:
   return NULL;
@@ -4184,37 +6922,58 @@ fail:
 
 SWIGINTERN PyObject *_wrap_NBexportProbabilities(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  NBInfo *arg1 = (NBInfo *) 0 ;
+  TNBInfo *arg1 = (TNBInfo *) 0 ;
   int arg2 ;
-  NBList *arg3 = (NBList *) 0 ;
+  TNBList *arg3 = (TNBList *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   int val2 ;
   int ecode2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:NBexportProbabilities",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_NBInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBexportProbabilities" "', argument " "1"" of type '" "NBInfo *""'"); 
+  {
+    arg3 = (TNBList *)malloc(sizeof(TNBList));
   }
-  arg1 = reinterpret_cast< NBInfo * >(argp1);
+  if (!PyArg_ParseTuple(args,(char *)"OO:NBexportProbabilities",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TNBInfo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBexportProbabilities" "', argument " "1"" of type '" "TNBInfo *""'"); 
+  }
+  arg1 = reinterpret_cast< TNBInfo * >(argp1);
   ecode2 = SWIG_AsVal_int(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "NBexportProbabilities" "', argument " "2"" of type '" "int""'");
   } 
   arg2 = static_cast< int >(val2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_NBList, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "NBexportProbabilities" "', argument " "3"" of type '" "NBList *""'"); 
-  }
-  arg3 = reinterpret_cast< NBList * >(argp3);
   NBexportProbabilities(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
+  {
+    int i;
+    PyObject *o, *q;
+    
+    o = PyList_New(arg3->n);
+    
+    for(i = 0; i < arg3->n; ++i) {
+      q = PyFloat_FromDouble(arg3->l[i]);
+      PyList_SetItem(o, i, q);
+    }
+    free(arg3->l);
+    free(arg3);
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
   return resultobj;
 fail:
   return NULL;
@@ -4319,13 +7078,11 @@ fail:
 
 SWIGINTERN PyObject *_wrap_NBstoreModel(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  NBInfo *arg1 = (NBInfo *) 0 ;
+  TNBInfo *arg1 = (TNBInfo *) 0 ;
   double *arg2 = (double *) 0 ;
-  NBModel *arg3 = (NBModel *) 0 ;
+  TNBModel *arg3 = (TNBModel *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
@@ -4333,12 +7090,15 @@ SWIGINTERN PyObject *_wrap_NBstoreModel(PyObject *SWIGUNUSEDPARM(self), PyObject
   {
     arg2 = NULL;
   }
-  if (!PyArg_ParseTuple(args,(char *)"OOO:NBstoreModel",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_NBInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBstoreModel" "', argument " "1"" of type '" "NBInfo *""'"); 
+  {
+    arg3 = NULL;
   }
-  arg1 = reinterpret_cast< NBInfo * >(argp1);
+  if (!PyArg_ParseTuple(args,(char *)"OOO:NBstoreModel",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TNBInfo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBstoreModel" "', argument " "1"" of type '" "TNBInfo *""'"); 
+  }
+  arg1 = reinterpret_cast< TNBInfo * >(argp1);
   {
     /* Check if is a list */
     if (PyList_Check(obj1)) {
@@ -4363,16 +7123,69 @@ SWIGINTERN PyObject *_wrap_NBstoreModel(PyObject *SWIGUNUSEDPARM(self), PyObject
       return NULL;
     }
   }
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_NBModel, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "NBstoreModel" "', argument " "3"" of type '" "NBModel *""'"); 
+  {
+    PyObject *p, *sing, *grup;
+    
+    arg3 = (TNBModel *) malloc(sizeof(TNBInput));
+    arg3->nosingles = 0;
+    arg3->singles = NULL;
+    arg3->nogroups = 0;
+    arg3->groups = NULL;
+    
+    sing = PyTuple_GetItem(obj2,0);
+    if (PyList_Check(sing)) {
+      int i;
+      
+      arg3->nosingles = PyList_Size(sing);
+      if(arg3->nosingles > 0) {
+        arg3->singles = (int *)malloc(sizeof(int)*arg3->nosingles);
+        for (i = 0; i < arg3->nosingles; i++) {
+          arg3->singles[i] = PyInt_AsLong(PyList_GetItem(sing,i));
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"tuple element #0 not a list of singles");
+      return NULL;
+    }
+    
+    grup = PyTuple_GetItem(obj2,1);
+    if (PyList_Check(grup)) {
+      int i, j, msize;
+      
+      arg3->nogroups = PyList_Size(grup);
+      if(arg3->nogroups > 0) {
+        arg3->groups = (struct NBGroup *)malloc(sizeof(struct NBGroup)*arg3->nogroups);
+        for (i = 0; i < arg3->nogroups; i++) {
+          PyObject *o = PyList_GetItem(grup,i);
+          msize = PyList_Size(o);
+          arg3->groups[i].n = msize;
+          arg3->groups[i].l = (int *)malloc(sizeof(int)*msize);
+          for (j = 0; j < msize; ++j)
+          arg3->groups[i].l[j] = PyInt_AsLong(PyList_GetItem(o,j));
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"tuple element #1 not a list of groups");
+      return NULL;
+    }
   }
-  arg3 = reinterpret_cast< NBModel * >(argp3);
   NBstoreModel(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
   {
     if (arg2 != NULL)
     free((double *) arg2);
+  }
+  {
+    int i;
+    if(arg3->singles != NULL)
+    free(arg3->singles);
+    if(arg3->groups != NULL) {
+      for (i = 0; i < arg3->nogroups; ++i) {
+        free(arg3->groups[i].l);
+      }
+      free(arg3->groups);
+    }
+    free(arg3);
   }
   return resultobj;
 fail:
@@ -4380,32 +7193,44 @@ fail:
     if (arg2 != NULL)
     free((double *) arg2);
   }
+  {
+    int i;
+    if(arg3->singles != NULL)
+    free(arg3->singles);
+    if(arg3->groups != NULL) {
+      for (i = 0; i < arg3->nogroups; ++i) {
+        free(arg3->groups[i].l);
+      }
+      free(arg3->groups);
+    }
+    free(arg3);
+  }
   return NULL;
 }
 
 
 SWIGINTERN PyObject *_wrap_NBclassify(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  NBInfo *arg1 = (NBInfo *) 0 ;
+  TNBInfo *arg1 = (TNBInfo *) 0 ;
   int *arg2 = (int *) 0 ;
-  NBList *arg3 = (NBList *) 0 ;
+  TNBList *arg3 = (TNBList *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   
   {
     arg2 = NULL;
   }
-  if (!PyArg_ParseTuple(args,(char *)"OOO:NBclassify",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_NBInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBclassify" "', argument " "1"" of type '" "NBInfo *""'"); 
+  {
+    arg3 = (TNBList *)malloc(sizeof(TNBList));
   }
-  arg1 = reinterpret_cast< NBInfo * >(argp1);
+  if (!PyArg_ParseTuple(args,(char *)"OO:NBclassify",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TNBInfo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBclassify" "', argument " "1"" of type '" "TNBInfo *""'"); 
+  }
+  arg1 = reinterpret_cast< TNBInfo * >(argp1);
   {
     /* Check if is a list */
     if (PyList_Check(obj1)) {
@@ -4428,13 +7253,34 @@ SWIGINTERN PyObject *_wrap_NBclassify(PyObject *SWIGUNUSEDPARM(self), PyObject *
       return NULL;
     }
   }
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_NBList, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "NBclassify" "', argument " "3"" of type '" "NBList *""'"); 
-  }
-  arg3 = reinterpret_cast< NBList * >(argp3);
   NBclassify(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
+  {
+    int i;
+    PyObject *o, *q;
+    
+    o = PyList_New(arg3->n);
+    
+    for(i = 0; i < arg3->n; ++i) {
+      q = PyFloat_FromDouble(arg3->l[i]);
+      PyList_SetItem(o, i, q);
+    }
+    free(arg3->l);
+    free(arg3);
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
   {
     if (arg2 != NULL)
     free((int *) arg2);
@@ -4451,26 +7297,26 @@ fail:
 
 SWIGINTERN PyObject *_wrap_NBclassifyW(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  NBInfo *arg1 = (NBInfo *) 0 ;
+  TNBInfo *arg1 = (TNBInfo *) 0 ;
   int *arg2 = (int *) 0 ;
-  NBList *arg3 = (NBList *) 0 ;
+  TNBList *arg3 = (TNBList *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   
   {
     arg2 = NULL;
   }
-  if (!PyArg_ParseTuple(args,(char *)"OOO:NBclassifyW",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_NBInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBclassifyW" "', argument " "1"" of type '" "NBInfo *""'"); 
+  {
+    arg3 = (TNBList *)malloc(sizeof(TNBList));
   }
-  arg1 = reinterpret_cast< NBInfo * >(argp1);
+  if (!PyArg_ParseTuple(args,(char *)"OO:NBclassifyW",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TNBInfo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBclassifyW" "', argument " "1"" of type '" "TNBInfo *""'"); 
+  }
+  arg1 = reinterpret_cast< TNBInfo * >(argp1);
   {
     /* Check if is a list */
     if (PyList_Check(obj1)) {
@@ -4493,13 +7339,34 @@ SWIGINTERN PyObject *_wrap_NBclassifyW(PyObject *SWIGUNUSEDPARM(self), PyObject 
       return NULL;
     }
   }
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_NBList, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "NBclassifyW" "', argument " "3"" of type '" "NBList *""'"); 
-  }
-  arg3 = reinterpret_cast< NBList * >(argp3);
   NBclassifyW(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
+  {
+    int i;
+    PyObject *o, *q;
+    
+    o = PyList_New(arg3->n);
+    
+    for(i = 0; i < arg3->n; ++i) {
+      q = PyFloat_FromDouble(arg3->l[i]);
+      PyList_SetItem(o, i, q);
+    }
+    free(arg3->l);
+    free(arg3);
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
   {
     if (arg2 != NULL)
     free((int *) arg2);
@@ -4516,7 +7383,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_NBupdate(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  NBInfo *arg1 = (NBInfo *) 0 ;
+  TNBInfo *arg1 = (TNBInfo *) 0 ;
   int arg2 ;
   int arg3 ;
   int *arg4 = (int *) 0 ;
@@ -4535,11 +7402,11 @@ SWIGINTERN PyObject *_wrap_NBupdate(PyObject *SWIGUNUSEDPARM(self), PyObject *ar
     arg4 = NULL;
   }
   if (!PyArg_ParseTuple(args,(char *)"OOOO:NBupdate",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_NBInfo, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TNBInfo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBupdate" "', argument " "1"" of type '" "NBInfo *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "NBupdate" "', argument " "1"" of type '" "TNBInfo *""'"); 
   }
-  arg1 = reinterpret_cast< NBInfo * >(argp1);
+  arg1 = reinterpret_cast< TNBInfo * >(argp1);
   ecode2 = SWIG_AsVal_int(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "NBupdate" "', argument " "2"" of type '" "int""'");
@@ -4590,116 +7457,272 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Ksetmodel(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  KInfo *arg1 = (KInfo *) 0 ;
-  KModel *arg2 = (KModel *) 0 ;
+  TKInfo *arg1 = (TKInfo *) 0 ;
+  TKModel *arg2 = (TKModel *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   
+  {
+    arg2 = NULL;
+  }
   if (!PyArg_ParseTuple(args,(char *)"OO:Ksetmodel",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_KInfo, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TKInfo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Ksetmodel" "', argument " "1"" of type '" "KInfo *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Ksetmodel" "', argument " "1"" of type '" "TKInfo *""'"); 
   }
-  arg1 = reinterpret_cast< KInfo * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_KModel, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Ksetmodel" "', argument " "2"" of type '" "KModel *""'"); 
+  arg1 = reinterpret_cast< TKInfo * >(argp1);
+  {
+    PyObject *p;
+    
+    arg2 = (TKModel *) malloc(sizeof(TKModel));
+    arg2->nogroups = 0;
+    arg2->groups = NULL;
+    
+    if (PyList_Check(obj1)) {
+      int i, j, msize;
+      
+      arg2->nogroups = PyList_Size(obj1);
+      if(arg2->nogroups > 0) {
+        arg2->groups = (TKGroup *)malloc(sizeof(TKGroup)*arg2->nogroups);
+        for (i = 0; i < arg2->nogroups; i++) {
+          PyObject *o = PyList_GetItem(obj1,i);
+          PyObject *list = PyTuple_GetItem(o,1);
+          msize = PyList_Size(list);
+          arg2->groups[i].n = msize;
+          arg2->groups[i].l = (int *)malloc(sizeof(int)*msize);
+          for (j = 0; j < msize; ++j)
+          arg2->groups[i].l[j] = PyInt_AsLong(PyList_GetItem(list,j));
+          arg2->groups[i].times = PyInt_AsLong(PyTuple_GetItem(o,0));
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"tuple element #1 not a list of groups");
+      return NULL;
+    }
   }
-  arg2 = reinterpret_cast< KModel * >(argp2);
   Ksetmodel(arg1,arg2);
   resultobj = SWIG_Py_Void();
+  {
+    int i;
+    if(arg2->groups != NULL) {
+      for (i = 0; i < arg2->nogroups; ++i) {
+        free(arg2->groups[i].l);
+      }
+      free(arg2->groups);
+    }
+    free(arg2);
+  }
   return resultobj;
 fail:
+  {
+    int i;
+    if(arg2->groups != NULL) {
+      for (i = 0; i < arg2->nogroups; ++i) {
+        free(arg2->groups[i].l);
+      }
+      free(arg2->groups);
+    }
+    free(arg2);
+  }
   return NULL;
 }
 
 
 SWIGINTERN PyObject *_wrap_Kaddmodel(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  KInfo *arg1 = (KInfo *) 0 ;
-  KModel *arg2 = (KModel *) 0 ;
+  TKInfo *arg1 = (TKInfo *) 0 ;
+  TKModel *arg2 = (TKModel *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   
+  {
+    arg2 = NULL;
+  }
   if (!PyArg_ParseTuple(args,(char *)"OO:Kaddmodel",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_KInfo, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TKInfo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Kaddmodel" "', argument " "1"" of type '" "KInfo *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Kaddmodel" "', argument " "1"" of type '" "TKInfo *""'"); 
   }
-  arg1 = reinterpret_cast< KInfo * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_KModel, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Kaddmodel" "', argument " "2"" of type '" "KModel *""'"); 
+  arg1 = reinterpret_cast< TKInfo * >(argp1);
+  {
+    PyObject *p;
+    
+    arg2 = (TKModel *) malloc(sizeof(TKModel));
+    arg2->nogroups = 0;
+    arg2->groups = NULL;
+    
+    if (PyList_Check(obj1)) {
+      int i, j, msize;
+      
+      arg2->nogroups = PyList_Size(obj1);
+      if(arg2->nogroups > 0) {
+        arg2->groups = (TKGroup *)malloc(sizeof(TKGroup)*arg2->nogroups);
+        for (i = 0; i < arg2->nogroups; i++) {
+          PyObject *o = PyList_GetItem(obj1,i);
+          PyObject *list = PyTuple_GetItem(o,1);
+          msize = PyList_Size(list);
+          arg2->groups[i].n = msize;
+          arg2->groups[i].l = (int *)malloc(sizeof(int)*msize);
+          for (j = 0; j < msize; ++j)
+          arg2->groups[i].l[j] = PyInt_AsLong(PyList_GetItem(list,j));
+          arg2->groups[i].times = PyInt_AsLong(PyTuple_GetItem(o,0));
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"tuple element #1 not a list of groups");
+      return NULL;
+    }
   }
-  arg2 = reinterpret_cast< KModel * >(argp2);
   Kaddmodel(arg1,arg2);
   resultobj = SWIG_Py_Void();
+  {
+    int i;
+    if(arg2->groups != NULL) {
+      for (i = 0; i < arg2->nogroups; ++i) {
+        free(arg2->groups[i].l);
+      }
+      free(arg2->groups);
+    }
+    free(arg2);
+  }
   return resultobj;
 fail:
+  {
+    int i;
+    if(arg2->groups != NULL) {
+      for (i = 0; i < arg2->nogroups; ++i) {
+        free(arg2->groups[i].l);
+      }
+      free(arg2->groups);
+    }
+    free(arg2);
+  }
   return NULL;
 }
 
 
 SWIGINTERN PyObject *_wrap_Ktestaddition(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  KInfo *arg1 = (KInfo *) 0 ;
-  KModel *arg2 = (KModel *) 0 ;
-  KList *arg3 = (KList *) 0 ;
+  TKInfo *arg1 = (TKInfo *) 0 ;
+  TKModel *arg2 = (TKModel *) 0 ;
+  TKList *arg3 = (TKList *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOO:Ktestaddition",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_KInfo, 0 |  0 );
+  {
+    arg2 = NULL;
+  }
+  {
+    arg3 = (TKList *)malloc(sizeof(TKList));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"OO:Ktestaddition",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TKInfo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Ktestaddition" "', argument " "1"" of type '" "KInfo *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Ktestaddition" "', argument " "1"" of type '" "TKInfo *""'"); 
   }
-  arg1 = reinterpret_cast< KInfo * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_KModel, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Ktestaddition" "', argument " "2"" of type '" "KModel *""'"); 
+  arg1 = reinterpret_cast< TKInfo * >(argp1);
+  {
+    PyObject *p;
+    
+    arg2 = (TKModel *) malloc(sizeof(TKModel));
+    arg2->nogroups = 0;
+    arg2->groups = NULL;
+    
+    if (PyList_Check(obj1)) {
+      int i, j, msize;
+      
+      arg2->nogroups = PyList_Size(obj1);
+      if(arg2->nogroups > 0) {
+        arg2->groups = (TKGroup *)malloc(sizeof(TKGroup)*arg2->nogroups);
+        for (i = 0; i < arg2->nogroups; i++) {
+          PyObject *o = PyList_GetItem(obj1,i);
+          PyObject *list = PyTuple_GetItem(o,1);
+          msize = PyList_Size(list);
+          arg2->groups[i].n = msize;
+          arg2->groups[i].l = (int *)malloc(sizeof(int)*msize);
+          for (j = 0; j < msize; ++j)
+          arg2->groups[i].l[j] = PyInt_AsLong(PyList_GetItem(list,j));
+          arg2->groups[i].times = PyInt_AsLong(PyTuple_GetItem(o,0));
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"tuple element #1 not a list of groups");
+      return NULL;
+    }
   }
-  arg2 = reinterpret_cast< KModel * >(argp2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_KList, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Ktestaddition" "', argument " "3"" of type '" "KList *""'"); 
-  }
-  arg3 = reinterpret_cast< KList * >(argp3);
   Ktestaddition(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
+  {
+    int i;
+    PyObject *o, *q;
+    
+    o = PyList_New(arg3->n);
+    
+    for(i = 0; i < arg3->n; ++i) {
+      q = PyFloat_FromDouble(arg3->l[i]);
+      PyList_SetItem(o, i, q);
+    }
+    free(arg3->l);
+    free(arg3);
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
+  {
+    int i;
+    if(arg2->groups != NULL) {
+      for (i = 0; i < arg2->nogroups; ++i) {
+        free(arg2->groups[i].l);
+      }
+      free(arg2->groups);
+    }
+    free(arg2);
+  }
   return resultobj;
 fail:
+  {
+    int i;
+    if(arg2->groups != NULL) {
+      for (i = 0; i < arg2->nogroups; ++i) {
+        free(arg2->groups[i].l);
+      }
+      free(arg2->groups);
+    }
+    free(arg2);
+  }
   return NULL;
 }
 
 
 SWIGINTERN PyObject *_wrap_Kdie(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  KInfo *arg1 = (KInfo *) 0 ;
+  TKInfo *arg1 = (TKInfo *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:Kdie",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_KInfo, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TKInfo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Kdie" "', argument " "1"" of type '" "KInfo *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Kdie" "', argument " "1"" of type '" "TKInfo *""'"); 
   }
-  arg1 = reinterpret_cast< KInfo * >(argp1);
+  arg1 = reinterpret_cast< TKInfo * >(argp1);
   Kdie(arg1);
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -4710,26 +7733,26 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Kuse(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  KInfo *arg1 = (KInfo *) 0 ;
+  TKInfo *arg1 = (TKInfo *) 0 ;
   int *arg2 = (int *) 0 ;
-  KList *arg3 = (KList *) 0 ;
+  TKList *arg3 = (TKList *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
   
   {
     arg2 = NULL;
   }
-  if (!PyArg_ParseTuple(args,(char *)"OOO:Kuse",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_KInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Kuse" "', argument " "1"" of type '" "KInfo *""'"); 
+  {
+    arg3 = (TKList *)malloc(sizeof(TKList));
   }
-  arg1 = reinterpret_cast< KInfo * >(argp1);
+  if (!PyArg_ParseTuple(args,(char *)"OO:Kuse",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TKInfo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Kuse" "', argument " "1"" of type '" "TKInfo *""'"); 
+  }
+  arg1 = reinterpret_cast< TKInfo * >(argp1);
   {
     /* Check if is a list */
     if (PyList_Check(obj1)) {
@@ -4752,13 +7775,34 @@ SWIGINTERN PyObject *_wrap_Kuse(PyObject *SWIGUNUSEDPARM(self), PyObject *args) 
       return NULL;
     }
   }
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_KList, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Kuse" "', argument " "3"" of type '" "KList *""'"); 
-  }
-  arg3 = reinterpret_cast< KList * >(argp3);
   Kuse(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
+  {
+    int i;
+    PyObject *o, *q;
+    
+    o = PyList_New(arg3->n);
+    
+    for(i = 0; i < arg3->n; ++i) {
+      q = PyFloat_FromDouble(arg3->l[i]);
+      PyList_SetItem(o, i, q);
+    }
+    free(arg3->l);
+    free(arg3);
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
   {
     if (arg2 != NULL)
     free((int *) arg2);
@@ -4775,7 +7819,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Kvalidate(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  KInfo *arg1 = (KInfo *) 0 ;
+  TKInfo *arg1 = (TKInfo *) 0 ;
   int *arg2 = (int *) 0 ;
   double result;
   void *argp1 = 0 ;
@@ -4787,11 +7831,11 @@ SWIGINTERN PyObject *_wrap_Kvalidate(PyObject *SWIGUNUSEDPARM(self), PyObject *a
     arg2 = NULL;
   }
   if (!PyArg_ParseTuple(args,(char *)"OO:Kvalidate",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_KInfo, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TKInfo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Kvalidate" "', argument " "1"" of type '" "KInfo *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Kvalidate" "', argument " "1"" of type '" "TKInfo *""'"); 
   }
-  arg1 = reinterpret_cast< KInfo * >(argp1);
+  arg1 = reinterpret_cast< TKInfo * >(argp1);
   {
     /* Check if is a list */
     if (PyList_Check(obj1)) {
@@ -4832,29 +7876,100 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Kremember(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  KInput *arg1 = (KInput *) 0 ;
+  TKInput *arg1 = (TKInput *) 0 ;
   double arg2 ;
-  KInfo *result = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
+  TKInfo *result = 0 ;
   double val2 ;
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:Kremember",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_KInput, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Kremember" "', argument " "1"" of type '" "KInput *""'"); 
+  {
+    int i, j, size, msize;
+    PyObject *arr,*cards;
+    /* Check if is a list */
+    
+    arr = PyTuple_GetItem(obj0,0);
+    if (PyList_Check(arr)) {
+      size = PyList_Size(arr);
+      msize = 0;
+      //printf("lr:-1\n");
+      arg1 = (TKInput *) malloc(sizeof(TKInput));
+      arg1->data = NULL;
+      arg1->card = NULL;
+      for (i = 0; i < size; i++) {
+        PyObject *o = PyList_GetItem(arr,i);
+        if (PyList_Check(o)) {
+          int zsize = PyList_Size(o);
+          if (arg1->data == NULL) {
+            msize = zsize;
+            arg1->nn = size;
+            arg1->k = msize;
+            arg1->na = arg1->k-1; // number of attributes
+            arg1->data = (int **)malloc(sizeof(int *)*(size));
+            for (j = 0; j < size; ++j) {
+              arg1->data[j] = (int *)malloc(sizeof(int)*(arg1->k));
+            }
+            arg1->card = (int *)malloc(sizeof(int)*(arg1->k));
+          }
+          if (zsize == msize) {
+            // fetch the attribute values
+            for (j = 0; j < arg1->k; ++j) {
+              PyObject *p = PyList_GetItem(o,j);
+              if (PyFloat_Check(p)) {
+                // correct +1 because that array starts at 1
+                arg1->data[i][j] = PyFloat_AsDouble(p);
+              } else if (PyInt_Check(p)) {
+                arg1->data[i][j] = (double)PyInt_AsLong(p);
+              } else {
+                PyErr_SetString(PyExc_TypeError,"examples must contain doubles or ints");
+                Kcleanup(arg1);
+                return NULL;
+              }
+            }
+          } else {
+            PyErr_SetString(PyExc_TypeError,"examples must be of equal size");
+            Kcleanup(arg1);
+            return NULL;
+          }
+        } else {
+          PyErr_SetString(PyExc_TypeError,"example table must contain examples as lists");
+          Kcleanup(arg1);
+          return NULL;
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"tuple element #0 not a list");
+      return NULL;
+    }
+    
+    
+    // fetch the cardinalities
+    cards = PyTuple_GetItem(obj0,1);
+    if (!PyList_Check(cards) && PyList_Size(cards) != arg1->k) {
+      PyErr_SetString(PyExc_TypeError,"tuple element #1 not an attribute cardinality list");
+      return NULL;
+    }
+    
+    for (j = 0; j < arg1->k; ++j) {
+      PyObject *p = PyList_GetItem(cards,j);
+      if (PyInt_Check(p)) {
+        arg1->card[j] = PyInt_AsLong(p);
+      } else {
+        PyErr_SetString(PyExc_TypeError,"card list must contain ints");
+        Kcleanup(arg1);
+        return NULL;
+      }
+    }
   }
-  arg1 = reinterpret_cast< KInput * >(argp1);
   ecode2 = SWIG_AsVal_double(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Kremember" "', argument " "2"" of type '" "double""'");
   } 
   arg2 = static_cast< double >(val2);
-  result = (KInfo *)Kremember(arg1,arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_KInfo, 0 |  0 );
+  result = (TKInfo *)Kremember(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_TKInfo, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -4863,29 +7978,29 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Klearn(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  KInfo *arg1 = (KInfo *) 0 ;
+  TKInfo *arg1 = (TKInfo *) 0 ;
   int arg2 ;
   int arg3 ;
-  KMatrix *arg4 = (KMatrix *) 0 ;
+  TKMatrix *arg4 = (TKMatrix *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   int val2 ;
   int ecode2 = 0 ;
   int val3 ;
   int ecode3 = 0 ;
-  void *argp4 = 0 ;
-  int res4 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
-  PyObject * obj3 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOOO:Klearn",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_KInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Klearn" "', argument " "1"" of type '" "KInfo *""'"); 
+  {
+    arg4 = (TKMatrix *)malloc(sizeof(TKMatrix));
   }
-  arg1 = reinterpret_cast< KInfo * >(argp1);
+  if (!PyArg_ParseTuple(args,(char *)"OOO:Klearn",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TKInfo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Klearn" "', argument " "1"" of type '" "TKInfo *""'"); 
+  }
+  arg1 = reinterpret_cast< TKInfo * >(argp1);
   ecode2 = SWIG_AsVal_int(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
     SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Klearn" "', argument " "2"" of type '" "int""'");
@@ -4896,13 +8011,38 @@ SWIGINTERN PyObject *_wrap_Klearn(PyObject *SWIGUNUSEDPARM(self), PyObject *args
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Klearn" "', argument " "3"" of type '" "int""'");
   } 
   arg3 = static_cast< int >(val3);
-  res4 = SWIG_ConvertPtr(obj3, &argp4,SWIGTYPE_p_KMatrix, 0 |  0 );
-  if (!SWIG_IsOK(res4)) {
-    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "Klearn" "', argument " "4"" of type '" "KMatrix *""'"); 
-  }
-  arg4 = reinterpret_cast< KMatrix * >(argp4);
   Klearn(arg1,arg2,arg3,arg4);
   resultobj = SWIG_Py_Void();
+  {
+    int i,j;
+    PyObject *o, *p, *q;
+    
+    o = PyList_New(arg4->rows);
+    
+    for(i = 0; i < arg4->rows; ++i) {
+      p = PyList_New(arg4->columns);
+      for(j = 0; j < arg4->columns; ++j) {
+        q = PyFloat_FromDouble(arg4->l[i*arg4->columns + j]);
+        PyList_SetItem(p, j, q);
+      }
+      PyList_SetItem(o, i, p);
+    }
+    free(arg4->l);
+    free(arg4);
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
   return resultobj;
 fail:
   return NULL;
@@ -4911,28 +8051,49 @@ fail:
 
 SWIGINTERN PyObject *_wrap_KgetDOF(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  KInfo *arg1 = (KInfo *) 0 ;
-  KList *arg2 = (KList *) 0 ;
+  TKInfo *arg1 = (TKInfo *) 0 ;
+  TKList *arg2 = (TKList *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
   PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:KgetDOF",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_KInfo, 0 |  0 );
+  {
+    arg2 = (TKList *)malloc(sizeof(TKList));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"O:KgetDOF",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TKInfo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "KgetDOF" "', argument " "1"" of type '" "KInfo *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "KgetDOF" "', argument " "1"" of type '" "TKInfo *""'"); 
   }
-  arg1 = reinterpret_cast< KInfo * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_KList, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "KgetDOF" "', argument " "2"" of type '" "KList *""'"); 
-  }
-  arg2 = reinterpret_cast< KList * >(argp2);
+  arg1 = reinterpret_cast< TKInfo * >(argp1);
   KgetDOF(arg1,arg2);
   resultobj = SWIG_Py_Void();
+  {
+    int i;
+    PyObject *o, *q;
+    
+    o = PyList_New(arg2->n);
+    
+    for(i = 0; i < arg2->n; ++i) {
+      q = PyFloat_FromDouble(arg2->l[i]);
+      PyList_SetItem(o, i, q);
+    }
+    free(arg2->l);
+    free(arg2);
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
   return resultobj;
 fail:
   return NULL;
@@ -4941,28 +8102,49 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Kcheckreversal(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  KInfo *arg1 = (KInfo *) 0 ;
-  KList *arg2 = (KList *) 0 ;
+  TKInfo *arg1 = (TKInfo *) 0 ;
+  TKList *arg2 = (TKList *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
   PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:Kcheckreversal",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_KInfo, 0 |  0 );
+  {
+    arg2 = (TKList *)malloc(sizeof(TKList));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"O:Kcheckreversal",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TKInfo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Kcheckreversal" "', argument " "1"" of type '" "KInfo *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Kcheckreversal" "', argument " "1"" of type '" "TKInfo *""'"); 
   }
-  arg1 = reinterpret_cast< KInfo * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_KList, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Kcheckreversal" "', argument " "2"" of type '" "KList *""'"); 
-  }
-  arg2 = reinterpret_cast< KList * >(argp2);
+  arg1 = reinterpret_cast< TKInfo * >(argp1);
   Kcheckreversal(arg1,arg2);
   resultobj = SWIG_Py_Void();
+  {
+    int i;
+    PyObject *o, *q;
+    
+    o = PyList_New(arg2->n);
+    
+    for(i = 0; i < arg2->n; ++i) {
+      q = PyFloat_FromDouble(arg2->l[i]);
+      PyList_SetItem(o, i, q);
+    }
+    free(arg2->l);
+    free(arg2);
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
   return resultobj;
 fail:
   return NULL;
@@ -4971,52 +8153,11 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Ksetensemble(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  KInfo *arg1 = (KInfo *) 0 ;
-  KModels *arg2 = (KModels *) 0 ;
-  KArray *arg3 = (KArray *) 0 ;
+  TKInfo *arg1 = (TKInfo *) 0 ;
+  TKModels *arg2 = (TKModels *) 0 ;
+  TKArray *arg3 = (TKArray *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  PyObject * obj2 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OOO:Ksetensemble",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_KInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Ksetensemble" "', argument " "1"" of type '" "KInfo *""'"); 
-  }
-  arg1 = reinterpret_cast< KInfo * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_KModels, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Ksetensemble" "', argument " "2"" of type '" "KModels *""'"); 
-  }
-  arg2 = reinterpret_cast< KModels * >(argp2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_KArray, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Ksetensemble" "', argument " "3"" of type '" "KArray *""'"); 
-  }
-  arg3 = reinterpret_cast< KArray * >(argp3);
-  Ksetensemble(arg1,arg2,arg3);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Kuseensemble(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  KInfo *arg1 = (KInfo *) 0 ;
-  int *arg2 = (int *) 0 ;
-  KList *arg3 = (KList *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp3 = 0 ;
-  int res3 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
@@ -5024,12 +8165,154 @@ SWIGINTERN PyObject *_wrap_Kuseensemble(PyObject *SWIGUNUSEDPARM(self), PyObject
   {
     arg2 = NULL;
   }
-  if (!PyArg_ParseTuple(args,(char *)"OOO:Kuseensemble",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_KInfo, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Kuseensemble" "', argument " "1"" of type '" "KInfo *""'"); 
+  {
+    arg3 = NULL;
   }
-  arg1 = reinterpret_cast< KInfo * >(argp1);
+  if (!PyArg_ParseTuple(args,(char *)"OOO:Ksetensemble",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TKInfo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Ksetensemble" "', argument " "1"" of type '" "TKInfo *""'"); 
+  }
+  arg1 = reinterpret_cast< TKInfo * >(argp1);
+  {
+    PyObject *p;
+    
+    arg2 = (TKModels *) malloc(sizeof(TKModels));
+    arg2->nomodels = 0;
+    arg2->models = NULL;
+    
+    if (PyList_Check(obj1)) {
+      int i, j, k,msize;
+      KModel *mod;
+      
+      arg2->nomodels = PyList_Size(obj1);
+      if(arg2->nomodels > 0) {
+        arg2->models = (TKModel *)malloc(sizeof(TKModel)*arg2->nomodels);
+        for (k = 0; k < arg2->nomodels; k++) {
+          p = PyList_GetItem(obj1,k);
+          mod = arg2->models + k;
+          mod->groups = NULL;
+          mod->nogroups = PyList_Size(p);
+          if(mod->nogroups > 0) {
+            mod->groups = (TKGroup *)malloc(sizeof(TKGroup)*mod->nogroups);
+            for (i = 0; i < mod->nogroups; i++) {
+              PyObject *o = PyList_GetItem(p,i);
+              PyObject *list = PyTuple_GetItem(o,1);
+              msize = PyList_Size(list);
+              mod->groups[i].n = msize;
+              mod->groups[i].l = (int *)malloc(sizeof(int)*msize);
+              for (j = 0; j < msize; ++j)
+              mod->groups[i].l[j] = PyInt_AsLong(PyList_GetItem(list,j));
+              mod->groups[i].times = PyInt_AsLong(PyTuple_GetItem(o,0));
+            }
+          }
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"tuple element #1 not a list of groups");
+      return NULL;
+    }
+  }
+  {
+    PyObject *p;
+    
+    arg3 = (TKArray *) malloc(sizeof(TKArray));
+    arg3->n = 0;
+    arg3->l = NULL;
+    
+    if (PyList_Check(obj2)) {
+      int i, j, msize;
+      
+      arg3->n = PyList_Size(obj2);
+      if(arg3->n > 0) {
+        arg3->l = (double *)malloc(sizeof(double)*arg3->n);
+        for (i = 0; i < arg3->n; i++) {
+          arg3->l[i] = PyFloat_AsDouble(PyList_GetItem(obj2,i));
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"this is not a list of doubles");
+      return NULL;
+    }
+  }
+  Ksetensemble(arg1,arg2,arg3);
+  resultobj = SWIG_Py_Void();
+  {
+    int i,j,k;
+    KModel *mod;
+    if(arg2->models != NULL) {
+      for (k = 0; k < arg2->nomodels; ++k) {
+        mod = arg2->models+k;
+        if(mod->groups != NULL) {
+          for (i = 0; i < mod->nogroups; ++i) {
+            free(mod->groups[i].l);
+          }
+          free(mod->groups);
+        }
+      }
+      free(arg2->models);
+    }
+    free(arg2);
+  }
+  {
+    int i;
+    if(arg3->l != NULL) {
+      free(arg3->l);
+    }
+    free(arg3);
+  }
+  return resultobj;
+fail:
+  {
+    int i,j,k;
+    KModel *mod;
+    if(arg2->models != NULL) {
+      for (k = 0; k < arg2->nomodels; ++k) {
+        mod = arg2->models+k;
+        if(mod->groups != NULL) {
+          for (i = 0; i < mod->nogroups; ++i) {
+            free(mod->groups[i].l);
+          }
+          free(mod->groups);
+        }
+      }
+      free(arg2->models);
+    }
+    free(arg2);
+  }
+  {
+    int i;
+    if(arg3->l != NULL) {
+      free(arg3->l);
+    }
+    free(arg3);
+  }
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Kuseensemble(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  TKInfo *arg1 = (TKInfo *) 0 ;
+  int *arg2 = (int *) 0 ;
+  TKList *arg3 = (TKList *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  {
+    arg2 = NULL;
+  }
+  {
+    arg3 = (TKList *)malloc(sizeof(TKList));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"OO:Kuseensemble",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TKInfo, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Kuseensemble" "', argument " "1"" of type '" "TKInfo *""'"); 
+  }
+  arg1 = reinterpret_cast< TKInfo * >(argp1);
   {
     /* Check if is a list */
     if (PyList_Check(obj1)) {
@@ -5052,13 +8335,34 @@ SWIGINTERN PyObject *_wrap_Kuseensemble(PyObject *SWIGUNUSEDPARM(self), PyObject
       return NULL;
     }
   }
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_KList, 0 |  0 );
-  if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Kuseensemble" "', argument " "3"" of type '" "KList *""'"); 
-  }
-  arg3 = reinterpret_cast< KList * >(argp3);
   Kuseensemble(arg1,arg2,arg3);
   resultobj = SWIG_Py_Void();
+  {
+    int i;
+    PyObject *o, *q;
+    
+    o = PyList_New(arg3->n);
+    
+    for(i = 0; i < arg3->n; ++i) {
+      q = PyFloat_FromDouble(arg3->l[i]);
+      PyList_SetItem(o, i, q);
+    }
+    free(arg3->l);
+    free(arg3);
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
   {
     if (arg2 != NULL)
     free((int *) arg2);
@@ -5075,48 +8379,142 @@ fail:
 
 SWIGINTERN PyObject *_wrap_Ktestmodels(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  KInfo *arg1 = (KInfo *) 0 ;
-  KModels *arg2 = (KModels *) 0 ;
+  TKInfo *arg1 = (TKInfo *) 0 ;
+  TKModels *arg2 = (TKModels *) 0 ;
   int arg3 ;
-  KMatrix *arg4 = (KMatrix *) 0 ;
+  TKMatrix *arg4 = (TKMatrix *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
   int val3 ;
   int ecode3 = 0 ;
-  void *argp4 = 0 ;
-  int res4 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
-  PyObject * obj3 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OOOO:Ktestmodels",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_KInfo, 0 |  0 );
+  {
+    arg2 = NULL;
+  }
+  {
+    arg4 = (TKMatrix *)malloc(sizeof(TKMatrix));
+  }
+  if (!PyArg_ParseTuple(args,(char *)"OOO:Ktestmodels",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_TKInfo, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Ktestmodels" "', argument " "1"" of type '" "KInfo *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Ktestmodels" "', argument " "1"" of type '" "TKInfo *""'"); 
   }
-  arg1 = reinterpret_cast< KInfo * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_KModels, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Ktestmodels" "', argument " "2"" of type '" "KModels *""'"); 
+  arg1 = reinterpret_cast< TKInfo * >(argp1);
+  {
+    PyObject *p;
+    
+    arg2 = (TKModels *) malloc(sizeof(TKModels));
+    arg2->nomodels = 0;
+    arg2->models = NULL;
+    
+    if (PyList_Check(obj1)) {
+      int i, j, k,msize;
+      KModel *mod;
+      
+      arg2->nomodels = PyList_Size(obj1);
+      if(arg2->nomodels > 0) {
+        arg2->models = (TKModel *)malloc(sizeof(TKModel)*arg2->nomodels);
+        for (k = 0; k < arg2->nomodels; k++) {
+          p = PyList_GetItem(obj1,k);
+          mod = arg2->models + k;
+          mod->groups = NULL;
+          mod->nogroups = PyList_Size(p);
+          if(mod->nogroups > 0) {
+            mod->groups = (TKGroup *)malloc(sizeof(TKGroup)*mod->nogroups);
+            for (i = 0; i < mod->nogroups; i++) {
+              PyObject *o = PyList_GetItem(p,i);
+              PyObject *list = PyTuple_GetItem(o,1);
+              msize = PyList_Size(list);
+              mod->groups[i].n = msize;
+              mod->groups[i].l = (int *)malloc(sizeof(int)*msize);
+              for (j = 0; j < msize; ++j)
+              mod->groups[i].l[j] = PyInt_AsLong(PyList_GetItem(list,j));
+              mod->groups[i].times = PyInt_AsLong(PyTuple_GetItem(o,0));
+            }
+          }
+        }
+      }
+    } else {
+      PyErr_SetString(PyExc_TypeError,"tuple element #1 not a list of groups");
+      return NULL;
+    }
   }
-  arg2 = reinterpret_cast< KModels * >(argp2);
   ecode3 = SWIG_AsVal_int(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
     SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Ktestmodels" "', argument " "3"" of type '" "int""'");
   } 
   arg3 = static_cast< int >(val3);
-  res4 = SWIG_ConvertPtr(obj3, &argp4,SWIGTYPE_p_KMatrix, 0 |  0 );
-  if (!SWIG_IsOK(res4)) {
-    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "Ktestmodels" "', argument " "4"" of type '" "KMatrix *""'"); 
-  }
-  arg4 = reinterpret_cast< KMatrix * >(argp4);
   Ktestmodels(arg1,arg2,arg3,arg4);
   resultobj = SWIG_Py_Void();
+  {
+    int i,j;
+    PyObject *o, *p, *q;
+    
+    o = PyList_New(arg4->rows);
+    
+    for(i = 0; i < arg4->rows; ++i) {
+      p = PyList_New(arg4->columns);
+      for(j = 0; j < arg4->columns; ++j) {
+        q = PyFloat_FromDouble(arg4->l[i*arg4->columns + j]);
+        PyList_SetItem(p, j, q);
+      }
+      PyList_SetItem(o, i, p);
+    }
+    free(arg4->l);
+    free(arg4);
+    
+    if ((!resultobj) || (resultobj == Py_None)) {
+      resultobj = o;
+    } else {
+      if (!PyList_Check(resultobj)) {
+        PyObject *o2 = resultobj;
+        resultobj = PyList_New(0);
+        PyList_Append(resultobj,o2);
+        Py_XDECREF(o2);
+      }
+      PyList_Append(resultobj,o);
+      Py_XDECREF(o);
+    }
+  }
+  {
+    int i,j,k;
+    KModel *mod;
+    if(arg2->models != NULL) {
+      for (k = 0; k < arg2->nomodels; ++k) {
+        mod = arg2->models+k;
+        if(mod->groups != NULL) {
+          for (i = 0; i < mod->nogroups; ++i) {
+            free(mod->groups[i].l);
+          }
+          free(mod->groups);
+        }
+      }
+      free(arg2->models);
+    }
+    free(arg2);
+  }
   return resultobj;
 fail:
+  {
+    int i,j,k;
+    KModel *mod;
+    if(arg2->models != NULL) {
+      for (k = 0; k < arg2->nomodels; ++k) {
+        mod = arg2->models+k;
+        if(mod->groups != NULL) {
+          for (i = 0; i < mod->nogroups; ++i) {
+            free(mod->groups[i].l);
+          }
+          free(mod->groups);
+        }
+      }
+      free(arg2->models);
+    }
+    free(arg2);
+  }
   return NULL;
 }
 
@@ -5176,136 +8574,132 @@ static PyMethodDef SwigMethods[] = {
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
-static swig_type_info _swigt__p_CFInfo = {"_p_CFInfo", "CFInfo *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_CHInfo = {"_p_CHInfo", "CHInfo *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_CInput = {"_p_CInput", "CInput *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_CMInfo = {"_p_CMInfo", "CMInfo *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_DInput = {"_p_DInput", "DInput *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_KArray = {"_p_KArray", "KArray *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_KInfo = {"_p_KInfo", "KInfo *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_KInput = {"_p_KInput", "KInput *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_KList = {"_p_KList", "KList *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_KMatrix = {"_p_KMatrix", "KMatrix *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_KModel = {"_p_KModel", "KModel *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_KModels = {"_p_KModels", "KModels *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_LRInfo = {"_p_LRInfo", "LRInfo *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_LRInput = {"_p_LRInput", "LRInput *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_NBInfo = {"_p_NBInfo", "NBInfo *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_NBInput = {"_p_NBInput", "NBInput *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_NBList = {"_p_NBList", "NBList *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_NBModel = {"_p_NBModel", "NBModel *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_NBResult = {"_p_NBResult", "NBResult *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_SVMExample = {"_p_SVMExample", "SVMExample *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_SVMInput = {"_p_SVMInput", "SVMInput *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_SVMOut = {"_p_SVMOut", "SVMOut *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_SVMSparseExample = {"_p_SVMSparseExample", "SVMSparseExample *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_SVMSparseInput = {"_p_SVMSparseInput", "SVMSparseInput *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_XX = {"_p_XX", "XX *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TCFInfo = {"_p_TCFInfo", "TCFInfo *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TCHInfo = {"_p_TCHInfo", "TCHInfo *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TCInput = {"_p_TCInput", "TCInput *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TCMInfo = {"_p_TCMInfo", "TCMInfo *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TDInput = {"_p_TDInput", "TDInput *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TKArray = {"_p_TKArray", "TKArray *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TKInfo = {"_p_TKInfo", "TKInfo *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TKInput = {"_p_TKInput", "TKInput *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TKList = {"_p_TKList", "TKList *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TKMatrix = {"_p_TKMatrix", "TKMatrix *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TKModel = {"_p_TKModel", "TKModel *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TKModels = {"_p_TKModels", "TKModels *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TLRInfo = {"_p_TLRInfo", "TLRInfo *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TLRInput = {"_p_TLRInput", "TLRInput *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TNBInfo = {"_p_TNBInfo", "TNBInfo *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TNBInput = {"_p_TNBInput", "TNBInput *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TNBList = {"_p_TNBList", "TNBList *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TNBModel = {"_p_TNBModel", "TNBModel *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TNBResult = {"_p_TNBResult", "TNBResult *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TSVMExample = {"_p_TSVMExample", "TSVMExample *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TSVMInput = {"_p_TSVMInput", "TSVMInput *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TSVMOut = {"_p_TSVMOut", "TSVMOut *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TSVMSparseExample = {"_p_TSVMSparseExample", "TSVMSparseExample *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TSVMSparseInput = {"_p_TSVMSparseInput", "TSVMSparseInput *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_TXX = {"_p_TXX", "TXX *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Tsvm_model = {"_p_Tsvm_model", "Tsvm_model *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_double = {"_p_double", "double *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_int = {"_p_int", "int *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_psvm_model = {"_p_psvm_model", "psvm_model *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_svm_model = {"_p_svm_model", "svm_model *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_wsvm_model = {"_p_wsvm_model", "wsvm_model *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
-  &_swigt__p_CFInfo,
-  &_swigt__p_CHInfo,
-  &_swigt__p_CInput,
-  &_swigt__p_CMInfo,
-  &_swigt__p_DInput,
-  &_swigt__p_KArray,
-  &_swigt__p_KInfo,
-  &_swigt__p_KInput,
-  &_swigt__p_KList,
-  &_swigt__p_KMatrix,
-  &_swigt__p_KModel,
-  &_swigt__p_KModels,
-  &_swigt__p_LRInfo,
-  &_swigt__p_LRInput,
-  &_swigt__p_NBInfo,
-  &_swigt__p_NBInput,
-  &_swigt__p_NBList,
-  &_swigt__p_NBModel,
-  &_swigt__p_NBResult,
-  &_swigt__p_SVMExample,
-  &_swigt__p_SVMInput,
-  &_swigt__p_SVMOut,
-  &_swigt__p_SVMSparseExample,
-  &_swigt__p_SVMSparseInput,
-  &_swigt__p_XX,
+  &_swigt__p_TCFInfo,
+  &_swigt__p_TCHInfo,
+  &_swigt__p_TCInput,
+  &_swigt__p_TCMInfo,
+  &_swigt__p_TDInput,
+  &_swigt__p_TKArray,
+  &_swigt__p_TKInfo,
+  &_swigt__p_TKInput,
+  &_swigt__p_TKList,
+  &_swigt__p_TKMatrix,
+  &_swigt__p_TKModel,
+  &_swigt__p_TKModels,
+  &_swigt__p_TLRInfo,
+  &_swigt__p_TLRInput,
+  &_swigt__p_TNBInfo,
+  &_swigt__p_TNBInput,
+  &_swigt__p_TNBList,
+  &_swigt__p_TNBModel,
+  &_swigt__p_TNBResult,
+  &_swigt__p_TSVMExample,
+  &_swigt__p_TSVMInput,
+  &_swigt__p_TSVMOut,
+  &_swigt__p_TSVMSparseExample,
+  &_swigt__p_TSVMSparseInput,
+  &_swigt__p_TXX,
+  &_swigt__p_Tsvm_model,
   &_swigt__p_char,
   &_swigt__p_double,
   &_swigt__p_int,
   &_swigt__p_psvm_model,
-  &_swigt__p_svm_model,
-  &_swigt__p_wsvm_model,
 };
 
-static swig_cast_info _swigc__p_CFInfo[] = {  {&_swigt__p_CFInfo, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_CHInfo[] = {  {&_swigt__p_CHInfo, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_CInput[] = {  {&_swigt__p_CInput, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_CMInfo[] = {  {&_swigt__p_CMInfo, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_DInput[] = {  {&_swigt__p_DInput, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_KArray[] = {  {&_swigt__p_KArray, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_KInfo[] = {  {&_swigt__p_KInfo, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_KInput[] = {  {&_swigt__p_KInput, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_KList[] = {  {&_swigt__p_KList, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_KMatrix[] = {  {&_swigt__p_KMatrix, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_KModel[] = {  {&_swigt__p_KModel, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_KModels[] = {  {&_swigt__p_KModels, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_LRInfo[] = {  {&_swigt__p_LRInfo, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_LRInput[] = {  {&_swigt__p_LRInput, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_NBInfo[] = {  {&_swigt__p_NBInfo, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_NBInput[] = {  {&_swigt__p_NBInput, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_NBList[] = {  {&_swigt__p_NBList, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_NBModel[] = {  {&_swigt__p_NBModel, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_NBResult[] = {  {&_swigt__p_NBResult, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_SVMExample[] = {  {&_swigt__p_SVMExample, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_SVMInput[] = {  {&_swigt__p_SVMInput, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_SVMOut[] = {  {&_swigt__p_SVMOut, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_SVMSparseExample[] = {  {&_swigt__p_SVMSparseExample, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_SVMSparseInput[] = {  {&_swigt__p_SVMSparseInput, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_XX[] = {  {&_swigt__p_XX, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TCFInfo[] = {  {&_swigt__p_TCFInfo, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TCHInfo[] = {  {&_swigt__p_TCHInfo, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TCInput[] = {  {&_swigt__p_TCInput, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TCMInfo[] = {  {&_swigt__p_TCMInfo, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TDInput[] = {  {&_swigt__p_TDInput, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TKArray[] = {  {&_swigt__p_TKArray, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TKInfo[] = {  {&_swigt__p_TKInfo, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TKInput[] = {  {&_swigt__p_TKInput, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TKList[] = {  {&_swigt__p_TKList, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TKMatrix[] = {  {&_swigt__p_TKMatrix, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TKModel[] = {  {&_swigt__p_TKModel, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TKModels[] = {  {&_swigt__p_TKModels, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TLRInfo[] = {  {&_swigt__p_TLRInfo, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TLRInput[] = {  {&_swigt__p_TLRInput, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TNBInfo[] = {  {&_swigt__p_TNBInfo, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TNBInput[] = {  {&_swigt__p_TNBInput, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TNBList[] = {  {&_swigt__p_TNBList, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TNBModel[] = {  {&_swigt__p_TNBModel, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TNBResult[] = {  {&_swigt__p_TNBResult, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TSVMExample[] = {  {&_swigt__p_TSVMExample, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TSVMInput[] = {  {&_swigt__p_TSVMInput, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TSVMOut[] = {  {&_swigt__p_TSVMOut, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TSVMSparseExample[] = {  {&_swigt__p_TSVMSparseExample, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TSVMSparseInput[] = {  {&_swigt__p_TSVMSparseInput, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_TXX[] = {  {&_swigt__p_TXX, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Tsvm_model[] = {  {&_swigt__p_Tsvm_model, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_double[] = {  {&_swigt__p_double, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_int[] = {  {&_swigt__p_int, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_psvm_model[] = {  {&_swigt__p_psvm_model, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_svm_model[] = {  {&_swigt__p_svm_model, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_wsvm_model[] = {  {&_swigt__p_wsvm_model, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
-  _swigc__p_CFInfo,
-  _swigc__p_CHInfo,
-  _swigc__p_CInput,
-  _swigc__p_CMInfo,
-  _swigc__p_DInput,
-  _swigc__p_KArray,
-  _swigc__p_KInfo,
-  _swigc__p_KInput,
-  _swigc__p_KList,
-  _swigc__p_KMatrix,
-  _swigc__p_KModel,
-  _swigc__p_KModels,
-  _swigc__p_LRInfo,
-  _swigc__p_LRInput,
-  _swigc__p_NBInfo,
-  _swigc__p_NBInput,
-  _swigc__p_NBList,
-  _swigc__p_NBModel,
-  _swigc__p_NBResult,
-  _swigc__p_SVMExample,
-  _swigc__p_SVMInput,
-  _swigc__p_SVMOut,
-  _swigc__p_SVMSparseExample,
-  _swigc__p_SVMSparseInput,
-  _swigc__p_XX,
+  _swigc__p_TCFInfo,
+  _swigc__p_TCHInfo,
+  _swigc__p_TCInput,
+  _swigc__p_TCMInfo,
+  _swigc__p_TDInput,
+  _swigc__p_TKArray,
+  _swigc__p_TKInfo,
+  _swigc__p_TKInput,
+  _swigc__p_TKList,
+  _swigc__p_TKMatrix,
+  _swigc__p_TKModel,
+  _swigc__p_TKModels,
+  _swigc__p_TLRInfo,
+  _swigc__p_TLRInput,
+  _swigc__p_TNBInfo,
+  _swigc__p_TNBInput,
+  _swigc__p_TNBList,
+  _swigc__p_TNBModel,
+  _swigc__p_TNBResult,
+  _swigc__p_TSVMExample,
+  _swigc__p_TSVMInput,
+  _swigc__p_TSVMOut,
+  _swigc__p_TSVMSparseExample,
+  _swigc__p_TSVMSparseInput,
+  _swigc__p_TXX,
+  _swigc__p_Tsvm_model,
   _swigc__p_char,
   _swigc__p_double,
   _swigc__p_int,
   _swigc__p_psvm_model,
-  _swigc__p_svm_model,
-  _swigc__p_wsvm_model,
 };
 
 
