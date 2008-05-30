@@ -1,0 +1,596 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="./orngLR-SVM-MultiClass_files/filelist.xml">
+<title>orngLR</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Aleks Jakulin</o:Author>
+  <o:Template>Normal</o:Template>
+  <o:LastAuthor>Aleks Jakulin</o:LastAuthor>
+  <o:Revision>2</o:Revision>
+  <o:TotalTime>172</o:TotalTime>
+  <o:Created>2001-11-08T12:53:00Z</o:Created>
+  <o:LastSaved>2001-11-08T12:53:00Z</o:LastSaved>
+  <o:Pages>5</o:Pages>
+  <o:Words>1452</o:Words>
+  <o:Characters>8280</o:Characters>
+  <o:Company>Laboratorij za umetno inteligenco</o:Company>
+  <o:Lines>69</o:Lines>
+  <o:Paragraphs>16</o:Paragraphs>
+  <o:CharactersWithSpaces>10168</o:CharactersWithSpaces>
+  <o:Version>9.2720</o:Version>
+ </o:DocumentProperties>
+ <o:OfficeDocumentSettings>
+  <o:AllowPNG/>
+  <o:TargetScreenSize>1024x768</o:TargetScreenSize>
+ </o:OfficeDocumentSettings>
+</xml><![endif]-->
+<style>
+<!--
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h1
+	{mso-style-next:Normal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-font-kerning:0pt;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;
+	text-underline:single;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+</head>
+
+<body lang=EN-US link=blue vlink=purple style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<p class=MsoNormal><b>orngLR<o:p></o:p></b></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>orngLR is an implementation of logistic regression. LR is a
+statistical technique in applicability and model complexity most similar to
+Naïve Bayes, yet often better. Its limitation is that it only operates with
+binary attributes and binary class. </p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>The fundamental classes are two: BasicLogisticLearner and
+BasicLogisticClassifier. They are called basic because they cannot deal with
+domains that have more than 2 classes. They are used in the same was as other
+orange learners, with the exception that there are no shortcuts: you first have
+to initialize the object, and call it later, passing the training examples
+along. A learner returns you a classifier, which knows how to classify the test
+examples.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>For example:</p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; from orngLR import *<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; from orange import *<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; t =
+ExampleTable('c:/apps/python/orange/doc/monk1.tab')<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; c = BasicLogisticLearner()(t)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; t[60].getclass(),c(t[60])<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>(0, 0)</span><span style='font-size:10.0pt;
+mso-bidi-font-size:12.0pt'><o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>We trained it on a dataset, then created a learner,
+immediately then trained it with data in t, and stored the resulting classifier
+in c. Then we tested it with one of the training examples, and it got the
+result right.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>You can also ask the classifier about the probability
+distribution of classes, by giving an additional parameter orange.GetBoth, like
+this:</p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; t.domain.classVar.values<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&lt;1, 0&gt;<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; c(t[60], orange.GetBoth)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>(0, [0.31475420046432656, 0.68524579953567344])</span><span
+style='font-size:10.0pt;mso-bidi-font-size:12.0pt'><o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>The classifier thinks that the first class value (1), has
+31% chance of appearing, whereas the second (0), has a 69% chance. </p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>Note that with some simple domains, logistic regression
+comes down to linear discriminants. In such cases, the probability distribution
+estimates become overconfident: the chosen class is assigned 100% probability. <i><o:p></o:p></i></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><b>orngSVM<o:p></o:p></b></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>Support Vector Machines are a recent and popular approach.
+They are a mixture between non-linear discriminants and nearest neighbors. We
+can do both regression and classification with them. The base classes are
+BasicSVMLearner and BasicSVMClassifier. They are called basic because their
+probability estimates are overconfident, and because they only work well with
+binary classes. </p>
+
+<p class=MsoNormal>Consider this:</p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+t = ExampleTable('c:/apps/python/orange/doc/monk1.tab')<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+c = BasicSVMLearner()(t)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+t[555].getclass(),c(t[555],orange.GetBoth)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>(1, (0, [0.0,
+1.0]))</span><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt'><o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>This was very confident and very wrong. This is why we
+sometimes want to use orngLR.MarginMetaLearner. When constructing a
+MarginMetaLearner, you have to pass only the basic learner as a parameter. It
+then performs 10xCV on the test data, trying to learn and fix the “internal”
+confidence of the SVM classifier (also the linear discriminant, which sometimes
+comes out of logistic regression):</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+cm = MarginMetaLearner(BasicSVMLearner())(t)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+t[555].getclass(), cm(t[555], orange.GetBoth)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>(1, (1,
+[0.58498031019830099, 0.41501968980169901]))</span> </p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>This was much better: correct, and not as confident.
+Internally, MarginMetaLearner is using logistic regression to estimate the
+probability distribution using the distance to the separating hyperplane. Note
+that MarginMetaLearner only supports binary classification problems.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>You can use BasicSVMLearner to perform regression, too:</p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; r =
+ExampleTable('c:/apps/python/orange/doc/hhs.tab')<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; rc = BasicSVMLearner()(r)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; r[85].getclass(),rc(r[85])<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>(92.950, 72.869)<o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>BasicSVMLearner has many parameters, which you can adjust
+like this:</p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; rc = BasicSVMLearner()<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; rc.type = 2<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; cc = rc(table) <o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>We will quickly skim through:</p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+c = BasicSVMLearner()<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+c.type = 0<span style="mso-spacerun: yes">  </span><span style='mso-tab-count:
+1'>   </span><span style='mso-tab-count:1'>      </span># classifier <span
+style='mso-tab-count:1'>      </span>(SVC)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+c.type = 1<span style="mso-spacerun: yes">  </span><span style='mso-tab-count:
+1'>   </span><span style='mso-tab-count:1'>      </span># nu-classifier<span
+style='mso-tab-count:1'>      </span>(NU_SVC)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+c.type = 2<span style="mso-spacerun: yes">  </span><span style='mso-tab-count:
+1'>   </span><span style='mso-tab-count:1'>      </span># one-class<span
+style='mso-tab-count:1'> </span><span style='mso-tab-count:1'>      </span>(OC)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+c.type = 3<span style="mso-spacerun: yes">  </span><span style='mso-tab-count:
+1'>   </span><span style='mso-tab-count:1'>      </span># regression <span
+style='mso-tab-count:1'>      </span>(e_SVR)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+c.type = 4<span style="mso-spacerun: yes">  </span><span style='mso-tab-count:
+1'>   </span><span style='mso-tab-count:1'>      </span># nu-regression <span
+style='mso-tab-count:1'>      </span>(NU_SVR)<o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>NU_SVC and NU_SVR are learners with an additional parameter,
+c.nu. OC is a probability density estimator: we show the learner all the examples,
+and then ask it to give a measure of how likely it is that the new example is
+similar to the learned examples.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>Kernels describe how we compute distance between two
+examples. The simplest kind of kernel is linear, and it simply computes the dot
+product between two examples (<b>x</b>.<b>y</b>). The choice of kernel is
+dependent on the kind of data we are working with.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+c.kernel = 0 <span style='mso-tab-count:1'>  </span><span style='mso-tab-count:
+1'>      </span># linear kernel: <b>x.y</b><o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+c.kernel = 1 <span style='mso-tab-count:1'>  </span><span style='mso-tab-count:
+1'>      </span># polynomial kernel: (g*<b>x.y</b>+c)^d<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+c.kernel = 2 <span style='mso-tab-count:1'>  </span><span style='mso-tab-count:
+1'>      </span># RBF (default): e^(-g(<b>x-y</b>).(<b>x-y</b>))<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>&gt;&gt;&gt;
+c.kernel = 3 <span style='mso-tab-count:1'>  </span><span style='mso-tab-count:
+1'>      </span># sigmoid: tanh(g*<b>x.y</b>+c)<o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>You noticed some parameters, g, d, and c. They are c.gamma
+(1/len(exampletable)), c.degree (3) and c.coef0 (0.0), the default values are
+in brackets.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>The most important parameters are c.C (1.0), used by all SVM
+types, except NU_SVC, and c.nu, used by NU_SVC, NU_SVR, and OC (0.5). They all
+affect the desired complexity of the model. </p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>c.C is cost of misclassification in SVC, SVR and NU_SVR. The
+greater, the more complex the model will be allowed to be. Usually we use
+cross-validation tuning to determine the optimal value. The cost of
+misclassification is normally expressed in orders of magnitude (0.01, 0.1, 1.0,
+10, 100). </p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>c.nu (0.5) is a measure of how many support vectors there
+can be. It has to be greater than 0.0 and less or equal to 1.0. It is an upper
+bound of fraction of training errors, and a lower bound of the fraction of
+support vectors. The greater it is, the more complex the model can be.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>c.p is a measure of tolerance when doing regression. The
+bigger, the more tolerant we are of mistakes with respect to precision. In
+NU_SVR, c.nu replaces c.p.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>You can investigate the complexity of the model, by
+considering the model field of the classifier, which stores all the information
+about the SVM model in a human-readable form:</p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; tc = BasicSVMLearner()<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; tc.type = 1<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; c = tc(t)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; c.model['total_sv']<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>378<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; tc.nu = 0.9<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; c = tc(t)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; c.model['total_sv']<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>512<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; tc.nu = 0.2<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; c = tc(t)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; c.model['total_sv']<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>298</span><span style='font-size:10.0pt;mso-bidi-font-size:
+12.0pt'><o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>We notice that the number of support vectors is rising with
+the value of c.nu. So c.nu can also be a subject to tuning with
+cross-validation.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>This implementation of SVM does not support example
+weighting, but you can assign different weights to classes, with the SVC type
+of learner. For this use the c.classweights array, and note that the complexity
+and error measures are affected by the sum of class weights, which should stay
+constant with respect to the default value of [1,1,1,…]. For example, if you
+want to assign twice the weight to the first class, do like this:</p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; c.classweights = [1.333, 0.666]<o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>With unbalanced data sets, when one class is less frequent
+than another, you might improve the classification results if you assign the
+weights inversely proportional to the class frequency. But beware, this kind of
+weighting will not work if you use MultiClassLearner. </p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>Because SVM is based on numeric optimization, you can
+configure numeric precision with c.eps (0.001). SVM is using data cache,
+c.cache_size (40). If you want to allocate more than the default 40 megabytes,
+change this value. </p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><b>orngMultiClass<o:p></o:p></b></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>As described earlier, MarginMetaLearner and
+BasicLogisticLearner only support binary class problems, whereas
+BasicSVMLearner’s support for multi-class classification is very limited. To properly
+work with multi-class problems you should use orngMultiClass.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>The core class in orngMultiClass is
+MultiClassLearner(learner, matrix, probability_estimator). The first parameter
+is an arbitrary kind of learner that supports class probability estimation
+(like MarginMetaLearner or BasicLogisticLearner, but not BasicSVMLearner which
+should be wrapped inside MarginMetaLearner). </p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>The matrix describes how a multi-class problem is cut apart
+into multiple binary problems. There are several pre-fabricated matrix classes,
+such as MCMOneAll, MCMOneOne, and MCMOrdinal. For a three-class problem they
+look like this:</p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; from orngMultiClass import *<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; MCMOneAll()(3)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>[[1, -1, -1], [-1, 1, -1], [-1, -1, 1]]<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; MCMOneOne()(3)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>[[1, -1, 0], [1, 0, -1], [0, 1, -1]]<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; MCMOrdinal()(3)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>[[-1, 1, 1], [-1, -1, 1]]<o:p></o:p></span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>The matrix is composed of a number of vectors. Each vector
+corresponds to a separate binary classifier. Inside a vector, -1 means that
+this class value will be negative, +1 positive, whereas 0 will mean that all
+the training examples of this class will be ignored.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>Once we train the learner and obtain a classifier, the
+classifier is composed of a number of an ensemble of sub-classifiers. Each of
+the sub-classifiers outputs a probability distribution, and we have to merge
+all these estimates in a single consistent probability distribution for all the
+classes. For this, we use probability estimators. There are two: MCPEZadrozny
+works by numerically solving a system of equations merging the probability
+distributions; MCPEFriedman simply weights each class by the number of times it
+has won. MCPEZadrozny is more reliable, whereas MCPEFriedman also works with
+classifiers that do not provide reliable class probability estimates (for
+example with BasicSVMLearner). </p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>Consider and understand the following fully-fledged example:</p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; from orngLR import *<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; from orngSVM import *<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; from orange import *<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; t = ExampleTable('kolki.tab')<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; tc = BasicSVMLearner()<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; tc.type = 1<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; tc.nu = 0.2<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; ml = MarginMetaLearner(tc,folds=5) <span
+style='mso-tab-count:1'>      </span># we use 5 folds<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; finalm = MultiClassLearner(ml,
+matrix=MCMOneAll, pestimator= MCPEZadrozny)(t)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>&gt;&gt;&gt; t[4].getclass(), finalm(t[4], GetBoth)<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New"'>(slab, (slab, [0.32, 0.32, 0.37]))</span></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<h1>Bibliography</h1>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>For SVM we used this paper and library:</p>
+
+<p class=MsoNormal>#<span style="mso-spacerun: yes">           </span>Chih-Chung
+Chang and Chih-Jen Lin</p>
+
+<p class=MsoNormal>#<span style="mso-spacerun: yes">           </span>LIBSVM :
+a library for support vector machines.</p>
+
+<p class=MsoNormal>#<span style="mso-spacerun: yes">           </span><a
+href="http://www.csie.ntu.edu.tw/~cjlin/papers/libsvm.ps.gz">http://www.csie.ntu.edu.tw/~cjlin/papers/libsvm.ps.gz</a></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>For LR we used this one:</p>
+
+<p class=MsoNormal>#<span style="mso-spacerun: yes">           </span>Miller,
+A.J. (1992):</p>
+
+<p class=MsoNormal>#<span style="mso-spacerun: yes">           </span>Algorithm
+AS 274: Least squares routines to supplement</p>
+
+<p class=MsoNormal>#<span style="mso-spacerun: yes">               
+</span>those of Gentleman.<span style="mso-spacerun: yes">  </span>Appl.
+Statist., vol.41(2), 458-478.</p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal>For MultiClass estimation, we used:</p>
+
+<p class=MsoNormal>#<span style="mso-spacerun: yes">           </span>Zadrozny,
+B.:</p>
+
+<p class=MsoNormal>#<span style="mso-spacerun: yes">           </span>Reducing
+multiclass to binary by coupling probability estimates</p>
+
+</div>
+
+</body>
+
+</html>
