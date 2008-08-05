@@ -1,6 +1,6 @@
 #include "kikuchi.h"
 #include "models.h"
-#include "../statistics/pr_statistics.h"
+#include "pr_statistics.h"
 #include "cMersenneTwister.h"
 #include <vector>
 #include <map>

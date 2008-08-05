@@ -1,61 +1,39 @@
-#INSTALL NOTES: Before running this makefile, change the INCLUDE_DIR and 
-#PYTHONLIB variables to for your local environment
+PYTHONINCLUDE = $(shell python -c "import sys; print sys.prefix+'/include/python'+sys.version[:3]")
+OS = $(shell uname)
 
-INCLUDE_DIR = /home/jakulin/include/python2.3
-PYTHONLIB = /home/jakulin/lib/python2.3/config/libpython2.3.a
+COMPILER = g++
+CCOMPILER = gcc
+LINKER = g++
 
-CFLAGS = -fPIC -O3
+LIBRARY_FILE = _orngCRS.so
+DEPS = clustind_wrap.o twins.o pam.o fanny.o logreg.o lsq.o interface.o svm.o nb.o kikuchi.o pr_statistics.o models.o
 
+ifeq ($(OS), Darwin)
+  COMPILEOPTIONS = -arch i386 -arch ppc -fPIC -fpermissive -fno-common -w -D_POSIX_C_SOURCE -O3 -I$(PYTHONINCLUDE)
+  LINKOPTIONS = -arch i386 -arch ppc -dynamiclib -headerpad_max_install_names -undefined dynamic_lookup -lstdc++
+else
+  COMPILEOPTIONS = -fPIC -fpermissive -w -O3 -I$(PYTHONINCLUDE)
+  LINKOPTIONS = -shared -lstdc++
+endif
 
-default:
-	make all
+all: $(LIBRARY_FILE)
 
-clean:
-	rm -f *.o *.so
+$(LIBRARY_FILE): $(DEPS)
+	$(LINKER) $(LINKOPTIONS) $(DEPS) -o $(LIBRARY_FILE)
 
-all: _orngCRS
+clustind_wrap.o: Clustind_wrap.cxx
+	$(COMPILER) -c $(COMPILEOPTIONS) Clustind_wrap.cxx -o clustind_wrap.o
 
-Clustind_wrap.cxx: 
+Clustind_wrap.cxx: clustind.i
 	swig -python clustind.i
 
-clustind_wrap.o: 
-	g++ -c $(CFLAGS) -I$(INCLUDE_DIR) Clustind_wrap.cxx -o clustind_wrap.o
+%.o: %.cpp
+	$(COMPILER) $(COMPILEOPTIONS) -c $< -o $@
 
-twins.o: twins.c
-	gcc -c $(CFLAGS) twins.c -o twins.o
+%.o: %.c
+	$(CCOMPILER) $(COMPILEOPTIONS) -c $< -o $@
 
-pam.o: pam.c
-	gcc -c $(CFLAGS) pam.c -o pam.o 
+clean:
+	rm -f *.o $(LIBRARY_FILE)
 
-fanny.o: fanny.c
-	gcc -c $(CFLAGS) fanny.c -o fanny.o 
-
-logreg.o: logreg.cpp
-	g++ -c $(CFLAGS) logreg.cpp -o logreg.o
-
-lsq.o: lsq.cpp
-	g++ -c $(CFLAGS) lsq.cpp -o lsq.o
-
-svm.o: svm.cpp
-	g++ -c $(CFLAGS) svm.cpp -o svm.o
-
-models.o: models.cpp
-	g++ -c $(CFLAGS) models.cpp -o models.o
-
-kikuchi.o: kikuchi.cpp
-	g++ -c $(CFLAGS) kikuchi.cpp -o kikuchi.o
-
-nb.o: nb.cpp
-	g++ -c $(CFLAGS) nb.cpp -o nb.o
-
-pr_statistics.o: pr_statistics.cpp
-	g++ -c $(CFLAGS) pr_statistics.cpp -o pr_statistics.o
-
-
-interface.o: interface.cpp
-	g++ -c $(CFLAGS) interface.cpp -o interface.o -I$(INCLUDE_DIR)
-
-_orngCRS: clustind_wrap.o twins.o pam.o fanny.o logreg.o lsq.o interface.o svm.o nb.o kikuchi.o pr_statistics.o models.o
-	g++ -shared clustind_wrap.o twins.o pam.o fanny.o logreg.o lsq.o interface.o svm.o nb.o kikuchi.o pr_statistics.o models.o $(PYTHONLIB) -lm -o _orngCRS.so
-	cp -f _orngCRS.so ../bin
-
+.PHONY: all clean
