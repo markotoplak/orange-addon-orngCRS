@@ -12,11 +12,11 @@ LIBRARY_FILE = _orngCRS.so
 DEPS = clustind_wrap.o twins.o pam.o fanny.o logreg.o lsq.o interface.o svm.o nb.o kikuchi.o pr_statistics.o models.o
 
 ifeq ($(OS), Darwin)
-  COMPILEOPTIONS = -arch i386 -arch ppc -fPIC -fpermissive -fno-common -w -O3 -I$(PYTHONINCLUDE)
-  LINKOPTIONS = -arch i386 -arch ppc -dynamiclib -headerpad_max_install_names -undefined dynamic_lookup -lstdc++
+  COMPILEOPTIONS = -fPIC -fpermissive -fno-common -w -O3 -I$(PYTHONINCLUDE)
+  LINKOPTIONS = -dynamiclib -headerpad_max_install_names -undefined dynamic_lookup -lstdc++ $(LDFLAGS)
 else
   COMPILEOPTIONS = -fPIC -fpermissive -w -O3 -I$(PYTHONINCLUDE)
-  LINKOPTIONS = -shared -lstdc++
+  LINKOPTIONS = -shared -lstdc++ $(LDFLAGS)
 endif
 
 all: $(LIBRARY_FILE)
@@ -28,16 +28,16 @@ ifeq ($(OS), Darwin)
 endif
 
 clustind_wrap.o: Clustind_wrap.cxx
-	$(COMPILER) -c $(COMPILEOPTIONS) Clustind_wrap.cxx -o clustind_wrap.o
+	$(COMPILER) $(COMPILEOPTIONS) $(CXXFLAGS) -c Clustind_wrap.cxx -o clustind_wrap.o
 
 Clustind_wrap.cxx: clustind.i
 	swig -python clustind.i
 
 %.o: %.cpp
-	$(COMPILER) $(COMPILEOPTIONS) -c $< -o $@
+	$(COMPILER) $(COMPILEOPTIONS) $(CXXFLAGS) -c $< -o $@
 
 %.o: %.c
-	$(CCOMPILER) $(COMPILEOPTIONS) -c $< -o $@
+	$(CCOMPILER) $(COMPILEOPTIONS) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f *.o $(LIBRARY_FILE)
