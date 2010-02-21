@@ -1,6 +1,7 @@
 #include "kikuchi.h"
 #include "models.h"
 #include <math.h>
+#include <stdio.h>
 
 // how to interpret zero-count cells: as structural zeros or as sampling zeros?
 // #define _STRUCTURAL_
