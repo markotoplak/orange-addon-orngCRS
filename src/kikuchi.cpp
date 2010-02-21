@@ -2,6 +2,7 @@
 #include "models.h"
 #include "pr_statistics.h"
 #include "cMersenneTwister.h"
+#include <stdio.h>
 #include <vector>
 #include <map>
 #include <algorithm>
